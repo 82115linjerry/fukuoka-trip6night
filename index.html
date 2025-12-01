@@ -25,13 +25,7 @@
         body { -webkit-tap-highlight-color: transparent; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        /* Safe area for iPhone notch/home bar */
         .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
-        /* Animation for AI typing */
-        @keyframes blink { 50% { opacity: 0; } }
-        .typing-dot { animation: blink 1.4s infinite both; }
-        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
     </style>
 </head>
 <body class="bg-gray-200 flex justify-center h-[100dvh] overflow-hidden">
@@ -41,15 +35,14 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        // --- Icons (SVG Components) ---
-        // Fixed: Wrapped adjacent elements in Fragments <></>
+        // --- Icons (FIXED: Wrapped all multi-element SVGs in Fragments <></>) ---
         const Icon = ({ name, size = 20, className = "" }) => {
             const icons = {
                 MapPin: <><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></>,
                 Calendar: <><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></>,
                 CheckSquare: <><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></>,
                 CreditCard: <><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></>,
-                MessageSquare: <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>,
+                Briefcase: <><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></>,
                 ShieldAlert: <><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></>,
                 ChevronDown: <polyline points="6 9 12 15 18 9"/>,
                 ChevronUp: <polyline points="18 15 12 9 6 15"/>,
@@ -63,28 +56,15 @@
                 Home: <><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></>,
                 User: <><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></>,
                 Phone: <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>,
-                Settings: <><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.18-.08a2 2 0 0 0-2 2v.44a2 2 0 0 0 2 2h.18a2 2 0 0 1 1.73 1l.25.43a2 2 0 0 1 0 2l-.08.18a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.18.08a2 2 0 0 0 2-2v-.44a2 2 0 0 0-2-2h-.18a2 2 0 0 1-1.73-1l-.25-.43a2 2 0 0 1 0-2l.08-.18a2 2 0 0 0-2-2zM12 22a10 10 0 1 1 10-10 10 10 0 0 1-10 10zm0-18a8 8 0 1 0 8 8 8 8 0 0 0-8-8z"/><circle cx="12" cy="12" r="3"/></>
+                Car: <path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a1 1 0 0 0-.8.4L1.74 11l-5.16.85a1 1 0 0 0-.84.99V16h3m14 0v2a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-2m-8 0v2a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-2"/>,
+                Refresh: <><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></>,
+                DollarSign: <><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>,
+                Type: <><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></>
             };
-
-            return (
-                <svg 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    width={size} 
-                    height={size} 
-                    viewBox="0 0 24 24" 
-                    fill="none" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    className={className}
-                >
-                    {icons[name] || <circle cx="12" cy="12" r="10"/>}
-                </svg>
-            );
+            return <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{icons[name] || <circle cx="12" cy="12" r="10"/>}</svg>;
         };
 
-        // --- Data ---
+        // --- GLOBAL CONSTANTS ---
         const initialTripData = {
           itinerary: [
             {
@@ -179,168 +159,100 @@
           { id: 'c14', text: '行動電源 & 充電線', done: false, cat: 'other' },
         ];
 
-        // --- Context for AI ---
-        const MANUAL_CONTEXT = `
-        福岡冬日家庭旅行戰術執行手冊 (12/9-12/15):
-        1. 核心理念: 洋蔥式穿搭(3-13度), 數位通關截圖備份, 備案(Plan B), 計程車保存體力。
-        2. 飯店: LIVEIL HAKATAEKIMAE (博多駅前4-31-11)。
-        3. 行程摘要:
-           - Day1: 機場搭計程車到飯店, 晚餐博多祇園鉄なべ(備案:たんやHAKATA), 超市MaxValu採買。
-           - Day2: 早餐Dacomecca, 櫛田神社, Full Full明太子法棍, 午餐吉塚鰻魚屋, 下午Lalaport鋼彈, 晚餐大東園燒肉(備案:華味鳥)。
-           - Day3: 太宰府(旅人號巴士), 天滿宮, 一蘭, 光明禪寺, 晚餐麵屋兼虎(備案:大砲拉麵)。
-           - Day4: 門司港(新幹線到小倉轉車), 燒咖哩, 唐戶市場, 晚餐但馬屋壽喜燒。
-           - Day5: 早餐食堂おわん, 午餐とんかつわか葉炸豬排, 運河城, 晚餐華味鳥/前田屋牛腸鍋。
-           - Day6: 六本松麵包Amam Dacotan, 大濠公園, 午餐魚忠, 福岡塔夜景, 晚餐小林養雞。
-           - Day7: 退房, 博多站採買(努努雞,福砂屋), 午餐Shin-Shin拉麵, 計程車去機場。
-        4. 戰術:
-           - 穿搭: 發熱衣(非純棉)+中層+防風外套+圍巾手套。
-           - 交通: 有行李或累了就搭計程車。
-           - 緊急: 護照遺失找台北駐福岡辦事處。急診找福岡市急患診療中心。
-        `;
+        // --- Tactical Toolbox ---
+        const ToolboxTab = () => {
+            const [jpy, setJpy] = useState('');
+            const [rate, setRate] = useState(0.22); // Default estimate
+            const [isAddressBig, setIsAddressBig] = useState(false);
 
-        // --- Simulated AI Knowledge Base (Fallback) ---
-        const aiKnowledge = [
-            { keywords: ['穿', '冷', '天氣', '衣服', '熱', '洋蔥'], 
-              responses: [
-                  "根據手冊，這幾天溫差大（3-13度）。請務必採用「3+1洋蔥式穿搭」：發熱衣（勿穿純棉）、中層羊毛/羽絨、外層防風外套。圍巾手套不可少！",
-                  "這天氣最怕進出室內外溫差。建議裡面穿薄一點的發熱衣，外面加件好脫的羽絨背心，進有暖氣的店家才不會熱到流汗。"
-              ] 
-            },
-            { keywords: ['吃', '餓', '餐廳', '美食', '飯'], 
-              responses: [
-                  "餓了嗎？如果目標名店（如鉄なべ）排隊超過 45 分鐘，請執行「戰術撤退」！直接開 Google Maps 找附近的居酒屋或定食。",
-                  "想吃好料嗎？午餐推薦「吉塚鰻魚屋」，但沒預約可能要排很久。備案可以考慮附近的百貨公司樓上。"
-              ] 
-            }
-        ];
-
-        const defaultResponses = [
-            "收到。如果要買伴手禮，努努雞和福砂屋長崎蛋糕是博多車站的必買清單喔！",
-            "指揮官，如果走累了，隨便找間咖啡廳休息一下吧。旅行是為了放鬆，不是行軍喔！"
-        ];
-
-        // --- Sub-Components ---
-
-        const AIChat = ({ apiKey }) => {
-            const [messages, setMessages] = useState([
-                { id: 1, sender: 'ai', text: '指揮官您好！我是您的戰術 AI。' + (apiKey ? '已連線 Google Gemini 衛星網路，請隨意發問！' : '目前使用離線資料庫。若需更強大功能，請至首頁輸入 API Key。') }
-            ]);
-            const [input, setInput] = useState('');
-            const [isTyping, setIsTyping] = useState(false);
-            const scrollRef = useRef(null);
-
-            useEffect(() => {
-                if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-            }, [messages, isTyping]);
-
-            const handleSend = async () => {
-                if (!input.trim()) return;
-                const userText = input;
-                const userMsg = { id: Date.now(), sender: 'user', text: userText };
-                
-                setMessages(prev => [...prev, userMsg]);
-                setInput('');
-                setIsTyping(true);
-
-                if (apiKey) {
-                    // --- REAL AI MODE (Gemini) with Auto-Fallback ---
-                    // Try 1.5-flash first, then 1.5-flash-latest, then gemini-pro
-                    const modelsToTry = ["gemini-1.5-flash", "gemini-1.5-flash-latest", "gemini-pro"];
-                    let success = false;
-                    let aiResponse = "";
-
-                    for (const model of modelsToTry) {
-                        try {
-                            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
-                                method: 'POST',
-                                headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({
-                                    contents: [{
-                                        parts: [{ text: `Context: ${MANUAL_CONTEXT} \n\n User Question: ${userText} \n\n Please answer in Traditional Chinese as a helpful travel assistant. Keep it concise.` }]
-                                    }]
-                                })
-                            });
-                            
-                            const data = await response.json();
-                            
-                            if (data.error) {
-                                // If error, throw to catch block to try next model
-                                console.log(`Model ${model} failed:`, data.error.message);
-                                throw new Error(data.error.message);
-                            }
-
-                            aiResponse = data.candidates[0].content.parts[0].text;
-                            success = true;
-                            break; // Success! Stop trying other models.
-
-                        } catch (error) {
-                            // Continue to next model
-                        }
-                    }
-
-                    setIsTyping(false);
-                    if (success) {
-                        setMessages(prev => [...prev, { id: Date.now() + 1, sender: 'ai', text: aiResponse }]);
-                    } else {
-                        setMessages(prev => [...prev, { id: Date.now() + 1, sender: 'ai', text: `連線錯誤：無法連接任何 AI 模型 (已嘗試 ${modelsToTry.join(', ')})。請檢查 API Key 是否正確。已暫時切換回離線模式。` }]);
-                    }
-
-                } else {
-                    // --- SIMULATED MODE (Fallback) ---
-                    setTimeout(() => {
-                        const q = userText.toLowerCase();
-                        let response = "";
-                        const matchedCategory = aiKnowledge.find(cat => cat.keywords.some(k => q.includes(k)));
-                        if (matchedCategory) {
-                            response = matchedCategory.responses[Math.floor(Math.random() * matchedCategory.responses.length)];
-                        } else {
-                            response = defaultResponses[Math.floor(Math.random() * defaultResponses.length)];
-                        }
-                        setIsTyping(false);
-                        setMessages(prev => [...prev, { id: Date.now() + 1, sender: 'ai', text: response }]);
-                    }, 800);
-                }
-            };
+            const phrases = [
+                { jp: "すみません", romaji: "Sumimasen", zh: "不好意思" },
+                { jp: "これをお願いします", romaji: "Kore o onegaishimasu", zh: "我要這個" },
+                { jp: "お会計をお願いします", romaji: "Okaikei o onegaishimasu", zh: "麻煩結帳" },
+                { jp: "トイレはどこですか", romaji: "Toire wa doko desu ka", zh: "廁所在哪裡" },
+                { jp: "袋はいりません", romaji: "Fukuro wa irimasen", zh: "不用袋子" }
+            ];
 
             return (
-                <div className="flex flex-col h-full bg-slate-50">
-                    <div className="flex-1 overflow-y-auto p-4 space-y-4" ref={scrollRef}>
-                        {messages.map(m => (
-                            <div key={m.id} className={`flex ${m.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                <div className={`max-w-[85%] p-3.5 rounded-2xl text-sm leading-relaxed shadow-sm ${
-                                    m.sender === 'user' 
-                                        ? 'bg-blue-600 text-white rounded-br-none' 
-                                        : 'bg-white border border-slate-200 text-slate-800 rounded-bl-none'
-                                }`}>
-                                    {m.text}
+                <div className="h-full overflow-y-auto p-4 space-y-6 pb-24 bg-slate-50">
+                    
+                    {/* 1. Taxi Card (Address) */}
+                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div className="bg-slate-800 text-white p-3 flex justify-between items-center">
+                            <h3 className="font-bold flex items-center gap-2"><Icon name="Car" size={18}/> 運將卡 (給司機看)</h3>
+                            <button onClick={() => setIsAddressBig(!isAddressBig)} className="text-xs bg-white/20 px-2 py-1 rounded hover:bg-white/30 transition">
+                                {isAddressBig ? "縮小" : "放大全螢幕"}
+                            </button>
+                        </div>
+                        <div className={`p-5 flex flex-col justify-center items-center text-center transition-all ${isAddressBig ? "fixed inset-0 z-50 bg-white justify-center h-screen" : ""}`}>
+                            {isAddressBig && (
+                                <button onClick={() => setIsAddressBig(false)} className="absolute top-4 right-4 bg-slate-100 p-2 rounded-full">
+                                    <Icon name="ChevronDown" size={24}/>
+                                </button>
+                            )}
+                            <p className="text-slate-500 text-sm mb-2">請載我到這家飯店：</p>
+                            <h2 className={`font-black text-slate-900 leading-tight ${isAddressBig ? "text-4xl" : "text-xl"}`}>
+                                LIVEIL HAKATAEKIMAE
+                            </h2>
+                            <p className={`mt-4 font-bold text-slate-800 bg-slate-100 p-4 rounded-xl ${isAddressBig ? "text-3xl" : "text-base"}`}>
+                                〒812-0011<br/>
+                                福岡市博多区<br/>博多駅前4丁目31-11
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* 2. Currency Converter */}
+                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
+                        <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-4"><Icon name="DollarSign" size={18} className="text-green-600"/> 即時匯率機</h3>
+                        <div className="flex gap-2 items-center mb-4">
+                            <div className="flex-1">
+                                <label className="text-xs text-slate-400 block mb-1">日幣 (JPY)</label>
+                                <input 
+                                    type="number" 
+                                    value={jpy}
+                                    onChange={(e) => setJpy(e.target.value)}
+                                    placeholder="0"
+                                    className="w-full text-2xl font-bold p-2 bg-slate-50 rounded-lg border border-slate-200 focus:ring-2 focus:ring-green-500 outline-none"
+                                />
+                            </div>
+                            <Icon name="Refresh" size={20} className="text-slate-300 mt-4"/>
+                            <div className="flex-1">
+                                <label className="text-xs text-slate-400 block mb-1">台幣 (TWD)</label>
+                                <div className="w-full text-2xl font-bold p-2 text-slate-800">
+                                    {jpy ? Math.round(jpy * rate).toLocaleString() : "0"}
                                 </div>
                             </div>
-                        ))}
-                        {isTyping && (
-                            <div className="flex justify-start">
-                                <div className="bg-white border border-slate-200 p-4 rounded-2xl rounded-bl-none shadow-sm flex gap-1 items-center">
-                                    <div className="w-1.5 h-1.5 bg-slate-400 rounded-full typing-dot"></div>
-                                    <div className="w-1.5 h-1.5 bg-slate-400 rounded-full typing-dot"></div>
-                                    <div className="w-1.5 h-1.5 bg-slate-400 rounded-full typing-dot"></div>
+                        </div>
+                        <div className="flex justify-end gap-2 items-center">
+                            <span className="text-xs text-slate-400">匯率設定:</span>
+                            <input 
+                                type="number" 
+                                value={rate}
+                                step="0.001"
+                                onChange={(e) => setRate(e.target.value)}
+                                className="w-16 text-xs p-1 bg-slate-50 border rounded text-center"
+                            />
+                        </div>
+                    </div>
+
+                    {/* 3. Survival Japanese */}
+                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div className="bg-orange-50 p-3 border-b border-orange-100">
+                            <h3 className="font-bold text-orange-800 flex items-center gap-2"><Icon name="Type" size={18}/> 生存日語</h3>
+                        </div>
+                        <div className="divide-y divide-slate-100">
+                            {phrases.map((p, i) => (
+                                <div key={i} className="p-3 hover:bg-slate-50 transition">
+                                    <div className="flex justify-between items-start mb-1">
+                                        <span className="font-bold text-slate-800">{p.zh}</span>
+                                        <span className="text-xs text-slate-400 font-mono">{p.romaji}</span>
+                                    </div>
+                                    <div className="text-lg text-blue-600 font-bold">{p.jp}</div>
                                 </div>
-                            </div>
-                        )}
+                            ))}
+                        </div>
                     </div>
-                    <div className="p-3 bg-white border-t border-slate-200 flex gap-2">
-                        <input 
-                            className="flex-1 bg-slate-100 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                            placeholder={apiKey ? "已連線 Gemini..." : "離線模式 (請至首頁設定Key)"}
-                            value={input} 
-                            onChange={(e) => setInput(e.target.value)} 
-                            onKeyDown={(e) => e.key === 'Enter' && handleSend()} 
-                        />
-                        <button 
-                            onClick={handleSend} 
-                            className={`p-2 rounded-full active:scale-95 transition shadow-sm text-white ${apiKey ? 'bg-gradient-to-r from-blue-500 to-purple-600' : 'bg-slate-600'}`}
-                        >
-                            <Icon name="Send" size={18} />
-                        </button>
-                    </div>
+
                 </div>
             );
         };
@@ -348,18 +260,13 @@
         const ExpenseTracker = () => {
             const [expenses, setExpenses] = useState(() => {
                 const saved = localStorage.getItem('fukuoka_expenses');
-                return saved ? JSON.parse(saved) : [
-                    { id: 1, item: '計程車 (機場-飯店)', amount: 2500, cat: 'transport' },
-                    { id: 2, item: '便利商店水/早餐', amount: 1200, cat: 'food' },
-                ];
+                return saved ? JSON.parse(saved) : [{ id: 1, item: '計程車 (機場-飯店)', amount: 2500, cat: 'transport' }, { id: 2, item: '便利商店水/早餐', amount: 1200, cat: 'food' }];
             });
             const [newItem, setNewItem] = useState('');
             const [newAmount, setNewAmount] = useState('');
             const [newCat, setNewCat] = useState('food');
 
-            useEffect(() => {
-                localStorage.setItem('fukuoka_expenses', JSON.stringify(expenses));
-            }, [expenses]);
+            useEffect(() => { localStorage.setItem('fukuoka_expenses', JSON.stringify(expenses)); }, [expenses]);
 
             const addExpense = () => {
                 if (!newItem || !newAmount) return;
@@ -369,9 +276,7 @@
             };
 
             const deleteExpense = (id) => {
-                if(confirm('確定要刪除這筆消費紀錄嗎？')) {
-                    setExpenses(prev => prev.filter(item => item.id !== id));
-                }
+                if(confirm('確定要刪除這筆消費紀錄嗎？')) setExpenses(prev => prev.filter(item => item.id !== id));
             };
 
             const total = expenses.reduce((sum, ex) => sum + ex.amount, 0);
@@ -388,10 +293,7 @@
                             <input placeholder="項目" className="col-span-2 p-2 bg-slate-50 rounded-lg border border-slate-200 text-sm" value={newItem} onChange={e => setNewItem(e.target.value)} />
                             <input type="number" placeholder="金額" className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-sm" value={newAmount} onChange={e => setNewAmount(e.target.value)} />
                             <select className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-sm" value={newCat} onChange={e => setNewCat(e.target.value)}>
-                                <option value="food">餐飲</option>
-                                <option value="transport">交通</option>
-                                <option value="shopping">購物</option>
-                                <option value="other">其他</option>
+                                <option value="food">餐飲</option><option value="transport">交通</option><option value="shopping">購物</option><option value="other">其他</option>
                             </select>
                         </div>
                         <button onClick={addExpense} className="w-full bg-slate-800 text-white py-2 rounded-lg font-medium text-sm active:scale-95 transition">紀錄</button>
@@ -508,47 +410,14 @@
             );
         };
 
-        const ChecklistTab = ({ items, toggleItem }) => {
-            const cats = { document: "必備文件", clothing: "穿搭防禦", money: "財務準備", other: "雜項補給" };
-            return (
-                <div className="h-full overflow-y-auto p-4 pb-20 space-y-6">
-                    <div className="bg-slate-800 text-white p-6 rounded-2xl shadow-md">
-                        <h2 className="text-xl font-bold mb-2">出擊準備清單</h2>
-                        <p className="text-slate-300 text-sm">確保裝備齊全，降低變數風險。</p>
-                        <div className="mt-4 flex gap-4 text-sm">
-                            <div><span className="text-2xl font-bold">{items.filter(i => i.done).length}</span><span className="text-slate-400 ml-1">完成</span></div>
-                            <div><span className="text-2xl font-bold">{items.length}</span><span className="text-slate-400 ml-1">總項</span></div>
-                        </div>
-                    </div>
-                    {Object.entries(cats).map(([key, label]) => (
-                        <div key={key}>
-                            <h3 className="text-slate-500 font-bold text-sm mb-2 px-1">{label}</h3>
-                            <div className="bg-white rounded-xl border border-slate-200 divide-y divide-slate-100">
-                                {items.filter(i => i.cat === key).map(item => (
-                                    <div key={item.id} onClick={() => toggleItem(item.id)} className="p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 active:bg-slate-100 transition">
-                                        <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition ${item.done ? 'bg-blue-600 border-blue-600' : 'border-slate-300'}`}>
-                                            {item.done && <Icon name="CheckSquare" size={16} className="text-white" />}
-                                        </div>
-                                        <span className={`text-sm font-medium transition ${item.done ? 'text-slate-400 line-through' : 'text-slate-800'}`}>{item.text}</span>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            );
-        };
-
-        const HomeTab = ({ leaderInfo, setLeaderInfo, setActiveTab, apiKey, setApiKey }) => {
+        const HomeTab = ({ leaderInfo, setLeaderInfo, setActiveTab }) => {
             const [isEditing, setIsEditing] = useState(false);
             const [tempName, setTempName] = useState(leaderInfo.name);
             const [tempPhone, setTempPhone] = useState(leaderInfo.phone);
             const [tempLine, setTempLine] = useState(leaderInfo.line);
-            const [tempKey, setTempKey] = useState(apiKey);
 
             const saveInfo = () => {
                 setLeaderInfo({ name: tempName, phone: tempPhone, line: tempLine });
-                setApiKey(tempKey);
                 setIsEditing(false);
             };
 
@@ -590,31 +459,6 @@
                                 </div>
                             )}
                         </div>
-
-                        {/* API Key Setting Section */}
-                        <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
-                            <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-3"><Icon name="Settings" size={18} className="text-purple-600"/> API 設定 (AI 升級)</h3>
-                            {isEditing ? (
-                                <div>
-                                    <p className="text-xs text-slate-400 mb-2">輸入 Google Gemini API Key 以啟用完整 AI 功能。</p>
-                                    <input 
-                                        type="password"
-                                        placeholder="貼上 API Key" 
-                                        value={tempKey} 
-                                        onChange={(e) => setTempKey(e.target.value)}
-                                        className="w-full p-2 bg-slate-50 border rounded-lg text-sm font-mono"
-                                    />
-                                </div>
-                            ) : (
-                                <div className="flex items-center justify-between bg-slate-50 p-3 rounded-xl">
-                                    <span className="text-sm font-medium text-slate-600">Google Gemini</span>
-                                    <span className={`text-xs font-bold px-2 py-1 rounded ${apiKey ? 'bg-green-100 text-green-600' : 'bg-gray-200 text-gray-500'}`}>
-                                        {apiKey ? '已連線' : '未設定'}
-                                    </span>
-                                </div>
-                            )}
-                        </div>
-
                         <div className="grid grid-cols-2 gap-3">
                             <button onClick={() => setActiveTab('itinerary')} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center gap-2 hover:bg-slate-50 transition">
                                 <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center"><Icon name="Calendar" size={20} /></div>
@@ -634,11 +478,9 @@
             );
         };
 
-        // --- Main App ---
         const App = () => {
             const [activeTab, setActiveTab] = useState('home');
             
-            // Load state from localStorage or use defaults
             const [itinerary, setItinerary] = useState(() => {
                 const saved = localStorage.getItem('fukuoka_itinerary');
                 return saved ? JSON.parse(saved) : initialTripData.itinerary;
@@ -651,15 +493,10 @@
                 const saved = localStorage.getItem('fukuoka_leader');
                 return saved ? JSON.parse(saved) : { name: '', phone: '', line: '' };
             });
-            const [apiKey, setApiKey] = useState(() => {
-                return localStorage.getItem('fukuoka_api_key') || '';
-            });
 
-            // Persist changes
             useEffect(() => { localStorage.setItem('fukuoka_itinerary', JSON.stringify(itinerary)); }, [itinerary]);
             useEffect(() => { localStorage.setItem('fukuoka_checklist', JSON.stringify(checklist)); }, [checklist]);
             useEffect(() => { localStorage.setItem('fukuoka_leader', JSON.stringify(leaderInfo)); }, [leaderInfo]);
-            useEffect(() => { localStorage.setItem('fukuoka_api_key', apiKey); }, [apiKey]);
 
             const handleDeleteTask = (dayNum, taskId) => {
                 if (window.confirm("確定要刪除這個行程嗎？")) {
@@ -671,11 +508,7 @@
                 setItinerary(prev => prev.map(day => {
                     if (day.day === dayNum) {
                         const updatedTasks = [...day.tasks, newTask];
-                        // Sort by time
-                        return { 
-                            ...day, 
-                            tasks: updatedTasks.sort((a, b) => a.time.localeCompare(b.time))
-                        };
+                        return { ...day, tasks: updatedTasks.sort((a, b) => a.time.localeCompare(b.time)) };
                     }
                     return day;
                 }));
@@ -698,20 +531,19 @@
                     )}
 
                     <div className="flex-1 overflow-hidden relative">
-                        {activeTab === 'home' && <HomeTab leaderInfo={leaderInfo} setLeaderInfo={setLeaderInfo} setActiveTab={setActiveTab} apiKey={apiKey} setApiKey={setApiKey} />}
+                        {activeTab === 'home' && <HomeTab leaderInfo={leaderInfo} setLeaderInfo={setLeaderInfo} setActiveTab={setActiveTab} />}
                         {activeTab === 'itinerary' && <div className="h-full overflow-y-auto p-4 space-y-4 pb-32">{itinerary.map(day => <ItineraryDay key={day.day} dayData={day} onDeleteTask={handleDeleteTask} onAddTask={handleAddTask} />)}</div>}
                         {activeTab === 'checklist' && <ChecklistTab items={checklist} toggleItem={toggleChecklist} />}
                         {activeTab === 'wallet' && <ExpenseTracker />}
-                        {activeTab === 'ai' && <AIChat apiKey={apiKey} />}
+                        {activeTab === 'toolbox' && <ToolboxTab />}
                     </div>
 
-                    {/* Floating Bottom Nav - Moves up to avoid ads/browser bars */}
                     <div className="fixed bottom-6 left-4 right-4 bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl shadow-2xl px-4 py-3 flex justify-between items-center z-50">
                         <button onClick={() => setActiveTab('home')} className={`flex flex-col items-center gap-1 transition min-w-[50px] ${activeTab === 'home' ? 'text-blue-600 scale-105' : 'text-slate-400'}`}><Icon name="Home" size={24} strokeWidth={activeTab === 'home' ? 2.5 : 2} /><span className="text-[10px] font-bold">首頁</span></button>
                         <button onClick={() => setActiveTab('itinerary')} className={`flex flex-col items-center gap-1 transition min-w-[50px] ${activeTab === 'itinerary' ? 'text-blue-600 scale-105' : 'text-slate-400'}`}><Icon name="Calendar" size={24} strokeWidth={activeTab === 'itinerary' ? 2.5 : 2} /><span className="text-[10px] font-bold">行程</span></button>
                         <button onClick={() => setActiveTab('checklist')} className={`flex flex-col items-center gap-1 transition min-w-[50px] ${activeTab === 'checklist' ? 'text-blue-600 scale-105' : 'text-slate-400'}`}><Icon name="CheckSquare" size={24} strokeWidth={activeTab === 'checklist' ? 2.5 : 2} /><span className="text-[10px] font-bold">清單</span></button>
                         <button onClick={() => setActiveTab('wallet')} className={`flex flex-col items-center gap-1 transition min-w-[50px] ${activeTab === 'wallet' ? 'text-blue-600 scale-105' : 'text-slate-400'}`}><Icon name="CreditCard" size={24} strokeWidth={activeTab === 'wallet' ? 2.5 : 2} /><span className="text-[10px] font-bold">花費</span></button>
-                        <button onClick={() => setActiveTab('ai')} className={`flex flex-col items-center gap-1 transition min-w-[50px] ${activeTab === 'ai' ? 'text-blue-600 scale-105' : 'text-slate-400'}`}><Icon name="MessageSquare" size={24} strokeWidth={activeTab === 'ai' ? 2.5 : 2} /><span className="text-[10px] font-bold">助手</span></button>
+                        <button onClick={() => setActiveTab('toolbox')} className={`flex flex-col items-center gap-1 transition min-w-[50px] ${activeTab === 'toolbox' ? 'text-blue-600 scale-105' : 'text-slate-400'}`}><Icon name="Briefcase" size={24} strokeWidth={activeTab === 'toolbox' ? 2.5 : 2} /><span className="text-[10px] font-bold">工具</span></button>
                     </div>
                 </div>
             );
