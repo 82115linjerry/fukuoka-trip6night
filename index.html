@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>福岡戰術執行手冊</title>
+    
+    <!-- 【在此修改 App 標題】 (加入主畫面後的名稱) -->
+    <title>福岡戰術手冊</title>
     
     <!-- PWA Settings -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#2563EB">
 
-    <!-- Icons -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' style='background:%232563EB'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='300' font-family='sans-serif' font-weight='bold'%3EF%3C/text%3E%3C/svg%3E">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' style='background:%232563EB'%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='300' font-family='sans-serif' font-weight='bold'%3EF%3C/text%3E%3C/svg%3E">
-    <link rel="manifest" href='data:application/manifest+json,{"name":"福岡戰術","short_name":"福岡戰術","display":"standalone","start_url":".","background_color":"#ffffff","theme_color":"#ffffff","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27 style=%27background:%232563EB%27%3E%3Ctext x=%2750%25%27 y=%2750%25%27 dominant-baseline=%27middle%27 text-anchor=%27middle%27 fill=%27white%27 font-size=%27300%27 font-family=%27sans-serif%27 font-weight=%27bold%27%3EF%3C/text%3E%3C/svg%3E","sizes":"512x512","type":"image/svg+xml"}]}'>
+    <!-- Beautified Icons (White F on Blue Background) -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' ry='100' fill='%232563EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='white' font-size='300' font-family='sans-serif' font-weight='bold'%3EF%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' ry='100' fill='%232563EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='white' font-size='300' font-family='sans-serif' font-weight='bold'%3EF%3C/text%3E%3C/svg%3E">
+    
+    <!-- Manifest for Android (Ensures icon looks good) -->
+    <link rel="manifest" href='data:application/manifest+json,{"name":"福岡戰術","short_name":"福岡戰術","display":"standalone","start_url":".","background_color":"#ffffff","theme_color":"#2563EB","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Crect width=%27512%27 height=%27512%27 rx=%27100%27 ry=%27100%27 fill=%27%232563EB%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 dominant-baseline=%27central%27 text-anchor=%27middle%27 fill=%27white%27 font-size=%27300%27 font-family=%27sans-serif%27 font-weight=%27bold%27%3EF%3C/text%3E%3C/svg%3E","sizes":"512x512","type":"image/svg+xml"}]}'>
 
     <!-- Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -35,7 +39,7 @@
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        // --- Icons (FIXED: Wrapped all multi-element SVGs in Fragments <></>) ---
+        // --- Icons ---
         const Icon = ({ name, size = 20, className = "" }) => {
             const icons = {
                 MapPin: <><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></>,
@@ -59,7 +63,9 @@
                 Car: <path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a1 1 0 0 0-.8.4L1.74 11l-5.16.85a1 1 0 0 0-.84.99V16h3m14 0v2a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2v-2m-8 0v2a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-2"/>,
                 Refresh: <><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></>,
                 DollarSign: <><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>,
-                Type: <><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></>
+                Type: <><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></>,
+                ExternalLink: <><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></>,
+                Percent: <><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></>
             };
             return <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{icons[name] || <circle cx="12" cy="12" r="10"/>}</svg>;
         };
@@ -162,8 +168,13 @@
         // --- Tactical Toolbox ---
         const ToolboxTab = () => {
             const [jpy, setJpy] = useState('');
-            const [rate, setRate] = useState(0.22); // Default estimate
+            const [rate, setRate] = useState(0.22);
             const [isAddressBig, setIsAddressBig] = useState(false);
+            
+            // Discount Calculator State
+            const [price, setPrice] = useState('');
+            const [discount, setDiscount] = useState(10); // Default tax free 10%
+            const [coupon, setCoupon] = useState(5); // Default coupon 5%
 
             const phrases = [
                 { jp: "すみません", romaji: "Sumimasen", zh: "不好意思" },
@@ -173,10 +184,34 @@
                 { jp: "袋はいりません", romaji: "Fukuro wa irimasen", zh: "不用袋子" }
             ];
 
+            const links = [
+                { name: "Google Maps", url: "https://www.google.com/maps", icon: "MapPin", color: "text-red-500" },
+                { name: "Tabelog (美食)", url: "https://tabelog.com/", icon: "Utensils", color: "text-orange-500" },
+                { name: "ロケスマ (找店神)", url: "https://www.locationsmart.org/", icon: "MapPin", color: "text-purple-500" },
+                { name: "Yahoo! 乘換案內", url: "https://transit.yahoo.co.jp/", icon: "Train", color: "text-green-600" },
+                { name: "Weather News", url: "https://weathernews.jp/s/", icon: "CheckSquare", color: "text-blue-500" }
+            ];
+
+            const finalPrice = price ? Math.round(price * (1 - (discount/100)) * (1 - (coupon/100))) : 0;
+            const finalTwd = Math.round(finalPrice * rate);
+
             return (
-                <div className="h-full overflow-y-auto p-4 space-y-6 pb-24 bg-slate-50">
+                <div className="h-full overflow-y-auto p-4 space-y-6 pb-28 bg-slate-50">
                     
-                    {/* 1. Taxi Card (Address) */}
+                    {/* 1. Tactical Links */}
+                    <div className="grid grid-cols-2 gap-3">
+                        {links.map((link, i) => (
+                            <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex items-center gap-3 hover:bg-slate-50 transition no-underline">
+                                <div className={`p-2 bg-slate-50 rounded-full ${link.color}`}>
+                                    <Icon name={link.icon} size={18}/>
+                                </div>
+                                <span className="font-bold text-slate-700 text-sm">{link.name}</span>
+                                <Icon name="ExternalLink" size={14} className="ml-auto text-slate-300"/>
+                            </a>
+                        ))}
+                    </div>
+
+                    {/* 2. Taxi Card (Address) */}
                     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                         <div className="bg-slate-800 text-white p-3 flex justify-between items-center">
                             <h3 className="font-bold flex items-center gap-2"><Icon name="Car" size={18}/> 運將卡 (給司機看)</h3>
@@ -201,41 +236,56 @@
                         </div>
                     </div>
 
-                    {/* 2. Currency Converter */}
+                    {/* 3. Discount Calculator */}
                     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
-                        <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-4"><Icon name="DollarSign" size={18} className="text-green-600"/> 即時匯率機</h3>
-                        <div className="flex gap-2 items-center mb-4">
+                        <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-4"><Icon name="Percent" size={18} className="text-pink-500"/> 折扣計算機</h3>
+                        <div className="grid grid-cols-3 gap-2 mb-4">
+                            <div className="col-span-3">
+                                <label className="text-xs text-slate-400 block mb-1">原價 (JPY)</label>
+                                <input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder="0" className="w-full text-xl font-bold p-2 bg-slate-50 rounded-lg border border-slate-200 outline-none"/>
+                            </div>
+                            <div>
+                                <label className="text-xs text-slate-400 block mb-1">免稅 (%)</label>
+                                <input type="number" value={discount} onChange={e => setDiscount(e.target.value)} className="w-full text-center font-bold p-2 bg-slate-50 rounded-lg border border-slate-200"/>
+                            </div>
+                            <div>
+                                <label className="text-xs text-slate-400 block mb-1">優惠券 (%)</label>
+                                <input type="number" value={coupon} onChange={e => setCoupon(e.target.value)} className="w-full text-center font-bold p-2 bg-slate-50 rounded-lg border border-slate-200"/>
+                            </div>
+                            <div>
+                                <label className="text-xs text-slate-400 block mb-1">匯率</label>
+                                <input type="number" value={rate} step="0.001" onChange={e => setRate(e.target.value)} className="w-full text-center font-bold p-2 bg-slate-50 rounded-lg border border-slate-200"/>
+                            </div>
+                        </div>
+                        <div className="bg-slate-800 text-white p-3 rounded-xl flex justify-between items-center">
+                            <span className="text-xs opacity-70">折後台幣約</span>
+                            <span className="text-2xl font-bold">NT$ {finalTwd.toLocaleString()}</span>
+                        </div>
+                    </div>
+
+                    {/* 4. Currency Converter */}
+                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
+                        <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-4"><Icon name="DollarSign" size={18} className="text-green-600"/> 簡易匯率換算</h3>
+                        <div className="flex gap-2 items-center">
                             <div className="flex-1">
-                                <label className="text-xs text-slate-400 block mb-1">日幣 (JPY)</label>
                                 <input 
                                     type="number" 
                                     value={jpy}
                                     onChange={(e) => setJpy(e.target.value)}
-                                    placeholder="0"
-                                    className="w-full text-2xl font-bold p-2 bg-slate-50 rounded-lg border border-slate-200 focus:ring-2 focus:ring-green-500 outline-none"
+                                    placeholder="日幣"
+                                    className="w-full text-lg font-bold p-2 bg-slate-50 rounded-lg border border-slate-200 outline-none"
                                 />
                             </div>
-                            <Icon name="Refresh" size={20} className="text-slate-300 mt-4"/>
+                            <Icon name="Refresh" size={20} className="text-slate-300"/>
                             <div className="flex-1">
-                                <label className="text-xs text-slate-400 block mb-1">台幣 (TWD)</label>
-                                <div className="w-full text-2xl font-bold p-2 text-slate-800">
-                                    {jpy ? Math.round(jpy * rate).toLocaleString() : "0"}
+                                <div className="w-full text-lg font-bold p-2 text-slate-800 bg-slate-50 rounded-lg border border-transparent">
+                                    NT$ {jpy ? Math.round(jpy * rate).toLocaleString() : "0"}
                                 </div>
                             </div>
                         </div>
-                        <div className="flex justify-end gap-2 items-center">
-                            <span className="text-xs text-slate-400">匯率設定:</span>
-                            <input 
-                                type="number" 
-                                value={rate}
-                                step="0.001"
-                                onChange={(e) => setRate(e.target.value)}
-                                className="w-16 text-xs p-1 bg-slate-50 border rounded text-center"
-                            />
-                        </div>
                     </div>
 
-                    {/* 3. Survival Japanese */}
+                    {/* 5. Survival Japanese */}
                     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                         <div className="bg-orange-50 p-3 border-b border-orange-100">
                             <h3 className="font-bold text-orange-800 flex items-center gap-2"><Icon name="Type" size={18}/> 生存日語</h3>
@@ -406,6 +456,37 @@
                             )}
                         </div>
                     )}
+                </div>
+            );
+        };
+
+        const ChecklistTab = ({ items, toggleItem }) => {
+            const cats = { document: "必備文件", clothing: "穿搭防禦", money: "財務準備", other: "雜項補給" };
+            return (
+                <div className="h-full overflow-y-auto p-4 pb-20 space-y-6">
+                    <div className="bg-slate-800 text-white p-6 rounded-2xl shadow-md">
+                        <h2 className="text-xl font-bold mb-2">出擊準備清單</h2>
+                        <p className="text-slate-300 text-sm">確保裝備齊全，降低變數風險。</p>
+                        <div className="mt-4 flex gap-4 text-sm">
+                            <div><span className="text-2xl font-bold">{items.filter(i => i.done).length}</span><span className="text-slate-400 ml-1">完成</span></div>
+                            <div><span className="text-2xl font-bold">{items.length}</span><span className="text-slate-400 ml-1">總項</span></div>
+                        </div>
+                    </div>
+                    {Object.entries(cats).map(([key, label]) => (
+                        <div key={key}>
+                            <h3 className="text-slate-500 font-bold text-sm mb-2 px-1">{label}</h3>
+                            <div className="bg-white rounded-xl border border-slate-200 divide-y divide-slate-100">
+                                {items.filter(i => i.cat === key).map(item => (
+                                    <div key={item.id} onClick={() => toggleItem(item.id)} className="p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 active:bg-slate-100 transition">
+                                        <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition ${item.done ? 'bg-blue-600 border-blue-600' : 'border-slate-300'}`}>
+                                            {item.done && <Icon name="CheckSquare" size={16} className="text-white" />}
+                                        </div>
+                                        <span className={`text-sm font-medium transition ${item.done ? 'text-slate-400 line-through' : 'text-slate-800'}`}>{item.text}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
                 </div>
             );
         };
