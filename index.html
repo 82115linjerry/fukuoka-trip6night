@@ -4,37 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <!-- 【在此修改 App 標題】 (加入主畫面後的名稱) -->
-    <title>福岡戰術手冊</title>
+    <!-- 標題設定 -->
+    <title>林糖糖的奴隸吃吃喝喝福岡行</title>
     
     <!-- PWA Settings -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#2563EB">
 
-    <!-- Beautified Icons (White F on Blue Background) -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' ry='100' fill='%232563EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='white' font-size='300' font-family='sans-serif' font-weight='bold'%3EF%3C/text%3E%3C/svg%3E">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' ry='100' fill='%232563EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='white' font-size='300' font-family='sans-serif' font-weight='bold'%3EF%3C/text%3E%3C/svg%3E">
-    
-    <!-- Manifest for Android (Ensures icon looks good) -->
-    <link rel="manifest" href='data:application/manifest+json,{"name":"福岡戰術","short_name":"福岡戰術","display":"standalone","start_url":".","background_color":"#ffffff","theme_color":"#2563EB","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Crect width=%27512%27 height=%27512%27 rx=%27100%27 ry=%27100%27 fill=%27%232563EB%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 dominant-baseline=%27central%27 text-anchor=%27middle%27 fill=%27white%27 font-size=%27300%27 font-family=%27sans-serif%27 font-weight=%27bold%27%3EF%3C/text%3E%3C/svg%3E","sizes":"512x512","type":"image/svg+xml"}]}'>
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' ry='100' fill='%232563EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='white' font-size='300' font-family='sans-serif' font-weight='bold'%3E糖%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' ry='100' fill='%232563EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='white' font-size='300' font-family='sans-serif' font-weight='bold'%3E糖%3C/text%3E%3C/svg%3E">
+    <link rel="manifest" href='data:application/manifest+json,{"name":"福岡戰術","short_name":"福岡戰術","display":"standalone","start_url":".","background_color":"#ffffff","theme_color":"#2563EB","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Crect width=%27512%27 height=%27512%27 rx=%27100%27 ry=%27100%27 fill=%27%232563EB%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 dominant-baseline=%27central%27 text-anchor=%27middle%27 fill=%27white%27 font-size=%27300%27 font-family=%27sans-serif%27 font-weight=%27bold%27%3E糖%3C/text%3E%3C/svg%3E","sizes":"512x512","type":"image/svg+xml"}]}'>
 
     <!-- Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Leaflet Map CSS & JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <style>
         body { -webkit-tap-highlight-color: transparent; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
+        /* Map Container Height */
+        #map { height: 100%; width: 100%; border-radius: 1rem; z-index: 0; }
     </style>
 </head>
-<body class="bg-gray-200 flex justify-center h-[100dvh] overflow-hidden">
+<body class="bg-gray-100 flex justify-center h-[100dvh] overflow-hidden">
 
-    <div id="root" class="w-full h-full max-w-md bg-slate-50 shadow-2xl overflow-hidden relative"></div>
+    <div id="root" class="w-full h-full max-w-md bg-white shadow-2xl overflow-hidden relative"></div>
 
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
@@ -65,116 +69,332 @@
                 DollarSign: <><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></>,
                 Type: <><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></>,
                 ExternalLink: <><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></>,
-                Percent: <><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></>
+                Percent: <><line x1="19" y1="5" x2="5" y2="19"/><circle cx="6.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="17.5" r="2.5"/></>,
+                Plane: <path d="M2 12h5l8 5 9-9-9-9-8 5H2v8z"/>,
+                Map: <><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></>,
+                Sun: <><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></>,
+                Cloud: <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>,
+                Edit: <><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></>
             };
             return <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{icons[name] || <circle cx="12" cy="12" r="10"/>}</svg>;
         };
 
-        // --- GLOBAL CONSTANTS ---
+        // --- GLOBAL CONSTANTS (UPDATED: Fully detailed from PDF + User Request) ---
         const initialTripData = {
           itinerary: [
             {
-              day: 1, date: "12/09 (週二)", theme: "初抵福地",
+              day: 1,
+              date: "12/09 (週二)",
+              theme: "初抵福地",
               tasks: [
-                { id: 't1-1', time: "11:00", title: "桃園機場出發 (IT720)", type: "transport", note: "APP自助報到" },
-                { id: 't1-2', time: "16:55", title: "抵達福岡機場", type: "transport", note: "開啟 VJW 截圖，保持隊形" },
-                { id: 't1-3', time: "18:00", title: "前往飯店", type: "transport", note: "計程車首選 (約¥2,500)，A3出口搭乘" },
-                { id: 't1-4', time: "20:00", title: "晚餐：博多祇園鉄なべ", type: "food", note: "排隊名店。備案：たんやHAKATA (牛舌)", map: "博多祇園鉄なべ" },
-                { id: 't1-5', time: "21:30", title: "補給：MaxValu Express", type: "shopping", note: "買水、水果、早餐", map: "MaxValu Express Hakata Ekimae" }
+                { id: 't1-1', time: "11:00-13:30", title: "桃園機場 -> 福岡機場 (IT720)", type: "transport", note: "APP自助報到與託運，避開人潮。" },
+                { id: 't1-2', time: "16:55-18:00", title: "入境審查 & 領行李", type: "transport", note: "關鍵：立即開啟 VJW 截圖，保持隊形。" },
+                { id: 't1-3', time: "18:00-18:45", title: "機場 -> 飯店 (計程車)", type: "transport", note: "從 A3 出口搭乘，車資約 ¥2,500。保留體力。" },
+                { id: 't1-4', time: "19:00-20:00", title: "Check-in & 休息", type: "transport", note: "長輩休息，熟悉飯店設備。" },
+                { id: 't1-5', time: "20:00-21:30", title: "晚餐：博多祇園鉄なべ", type: "food", map: "博多祇園鉄なべ", note: "排隊名店。備案B：たんやHAKATA (牛舌定食)。" },
+                { id: 't1-6', time: "21:30+", title: "夜間採買：MaxValu", type: "shopping", map: "MaxValu Express Hakata Ekimae", note: "建立初始庫存(水、水果、早餐)。" }
               ]
             },
             {
-              day: 2, date: "12/10 (週三)", theme: "新舊交融",
+              day: 2,
+              date: "12/10 (週三)",
+              theme: "新舊交融",
               tasks: [
-                { id: 't2-1', time: "08:00", title: "早餐：Dacomecca", type: "food", note: "排隊王者，建議年輕組先去", map: "Dacomecca" },
-                { id: 't2-2', time: "09:30", title: "櫛田神社 & 川端通", type: "sightseeing", note: "博多文化源頭", map: "Kushida Shrine" },
-                { id: 't2-3', time: "10:15", title: "Full Full Hakata", type: "food", note: "明太子法國麵包", map: "Full Full Hakata" },
-                { id: 't2-4', time: "12:00", title: "午餐：吉塚鰻魚屋", type: "food", note: "強烈建議預約！排隊需1hr+", map: "Yoshizuka Unagiya" },
-                { id: 't2-5', time: "15:00", title: "Lalaport 福岡", type: "sightseeing", note: "1:1 鋼彈立像 (整點演出)", map: "LaLaport Fukuoka" },
-                { id: 't2-6', time: "17:30", title: "晚餐：燒肉 大東園 本店", type: "food", note: "必須預約。備案：博多華味鳥", map: "Daitoen Honten" }
+                { id: 't2-1', time: "08:00-09:30", title: "早餐：Dacomecca", type: "food", map: "Dacomecca", note: "排隊王者，建議年輕成員先去排隊。" },
+                { id: 't2-2', time: "09:30-12:00", title: "櫛田神社 & 川端通商店街", type: "sightseeing", map: "Kushida Shrine", note: "感受博多文化源頭。" },
+                { id: 't2-3', time: "10:15", title: "Full Full Hakata", type: "food", map: "Full Full Hakata", note: "購買招牌明太子法國麵包。" },
+                { id: 't2-4', time: "12:00-13:30", title: "午餐：鰻魚四代目菊川", type: "food", map: "鰻魚四代目菊川 中洲春吉店", note: "吉塚鰻魚屋公休，改吃這家 (中洲春吉店)。" },
+                { id: 't2-5', time: "13:30-15:00", title: "(選擇性) COCO'S 大橋店", type: "food", map: "COCO'S Ohashi", note: "若體力不足建議取消，直接前往 Lalaport。" },
+                { id: 't2-6', time: "15:00-17:30", title: "Lalaport 福岡", type: "sightseeing", map: "LaLaport Fukuoka", note: "朝聖 1:1 鋼彈立像 (整點有演出)。" },
+                { id: 't2-7', time: "17:30-19:30", title: "晚餐：燒肉 大東園 本店", type: "food", map: "Daitoen Honten", note: "必須預約。備案B：博多華味鳥。" },
+                { id: 't2-8', time: "20:30+", title: "博多運河城", type: "sightseeing", map: "Canal City Hakata", note: "夜間水舞秀。" }
               ]
             },
             {
-              day: 3, date: "12/11 (週四)", theme: "太宰府禪意",
+              day: 3,
+              date: "12/11 (週四)",
+              theme: "太宰府禪意",
               tasks: [
-                { id: 't3-1', time: "10:00", title: "移動：巴士總站「旅人」號", type: "transport", note: "1F 11號月台，直達確保有位", map: "Hakata Bus Terminal" },
-                { id: 't3-2', time: "11:00", title: "太宰府天滿宮 & 表參道", type: "sightseeing", note: "梅枝餅、星巴克、飛梅館", map: "Dazaifu Tenmangu" },
-                { id: 't3-3', time: "12:30", title: "午餐：一蘭拉麵 太宰府店", type: "food", note: "特色五角碗", map: "Ichiran Dazaifu" },
-                { id: 't3-4', time: "14:30", title: "光明禪寺", type: "sightseeing", note: "枯山水庭園，拜觀料¥300現金", map: "Komyozenji" },
-                { id: 't3-5', time: "17:00", title: "Pain Stock (天神)", type: "food", note: "天神中央公園店", map: "stock" },
-                { id: 't3-6', time: "19:00", title: "晚餐：麵屋兼虎", type: "food", note: "沾麵名店。備案：大砲拉麵", map: "Menya Kanetora Tenjin" }
+                { id: 't3-1', time: "10:00-11:00", title: "移動：博多 -> 太宰府", type: "transport", map: "Hakata Bus Terminal", note: "博多巴士總站 1F 11號月台搭乘「旅人」號。" },
+                { id: 't3-2', time: "11:00-14:30", title: "太宰府精華遊", type: "sightseeing", map: "Dazaifu Tenmangu", note: "表參道梅枝餅、星巴克、天滿宮飛梅館。" },
+                { id: 't3-3', time: "12:30", title: "午餐：一蘭拉麵 太宰府店", type: "food", map: "Ichiran Dazaifu", note: "特色：合格五角碗。" },
+                { id: 't3-4', time: "14:30-16:00", title: "光明禪寺", type: "sightseeing", map: "Komyozenji", note: "枯山水庭園。拜觀料¥300僅收現金。" },
+                { id: 't3-5', time: "17:00-19:00", title: "返回天神 & Pain Stock", type: "shopping", map: "stock", note: "天神中央公園店，品嚐麵包與咖啡。" },
+                { id: 't3-6', time: "19:00-21:00", title: "晚餐：麵屋兼虎", type: "food", map: "Menya Kanetora Tenjin", note: "沾麵名店。備案B：大砲拉麵。" }
               ]
             },
             {
-              day: 4, date: "12/12 (週五)", theme: "港都懷舊",
+              day: 4,
+              date: "12/12 (週五)",
+              theme: "港都懷舊",
               tasks: [
-                { id: 't4-1', time: "09:00", title: "移動：新幹線 (博多>小倉)", type: "transport", note: "速度戰術！節省體力", map: "Hakata Station" },
-                { id: 't4-2', time: "10:30", title: "門司港懷舊區", type: "sightseeing", note: "舊三井俱樂部、藍翼橋", map: "Mojiko Retro" },
-                { id: 't4-3', time: "12:30", title: "午餐：伽哩本舖", type: "food", note: "燒咖哩，推薦窗邊", map: "Curry Honpo Mojiko" },
-                { id: 't4-4', time: "13:30", title: "唐戶市場 / 門司港午茶", type: "sightseeing", note: "方案A: MILKHALL布丁 / 方案B: 聯絡船+海底隧道", map: "Karato Market" },
-                { id: 't4-5', time: "17:00", title: "晚餐：但馬屋 / 小林養雞", type: "food", note: "回到博多用餐", map: "Hakata Station" }
+                { id: 't4-1', time: "09:00-10:20", title: "移動：博多 -> 門司港", type: "transport", map: "Hakata Station", note: "速度戰術：新幹線至小倉，再轉乘 JR 至門司港。" },
+                { id: 't4-2', time: "10:30-12:30", title: "門司港懷舊區散策", type: "sightseeing", map: "Mojiko Retro", note: "舊三井俱樂部、藍翼門司吊橋。" },
+                { id: 't4-3', time: "12:30-13:30", title: "午餐：伽哩本舖", type: "food", map: "Curry Honpo Mojiko", note: "燒咖哩名物，推薦窗邊座位。" },
+                { id: 't4-4', time: "13:30-15:30", title: "下午茶 & 體驗", type: "sightseeing", map: "Karato Market", note: "方案A: 門司港布丁 / 方案B: 聯絡船至唐戶市場+海底隧道。" },
+                { id: 't4-5', time: "17:00-19:00", title: "移動：小倉 -> 博多", type: "transport", note: "返回博多晚餐。" },
+                { id: 't4-6', time: "19:00+", title: "晚餐：但馬屋 / 小林養雞", type: "food", map: "Hakata Station", note: "壽喜燒吃到飽 或 日式居酒屋。" }
               ]
             },
             {
-              day: 5, date: "12/13 (週六)", theme: "博多美食精髓",
+              day: 5,
+              date: "12/13 (週六)",
+              theme: "博多美食精髓",
               tasks: [
-                { id: 't5-1', time: "08:30", title: "早餐：食堂 おわん", type: "food", note: "精緻日式朝食", map: "Shokudo Owan" },
-                { id: 't5-2', time: "12:00", title: "午餐：とんかつわか葉", type: "food", note: "炸豬排。11:15前要排隊！", map: "Tonkatsu Wakaba" },
-                { id: 't5-3', time: "15:00", title: "博多運河城", type: "sightseeing", note: "噴水秀、購物", map: "Canal City Hakata" },
-                { id: 't5-4', time: "17:30", title: "晚餐：華味鳥 / 前田屋", type: "food", note: "分組行動：清淡 vs 濃郁。需預約", map: "Hakata Hanamidori" }
+                { id: 't5-1', time: "08:30-10:00", title: "早餐：食堂 おわん", type: "food", map: "Shokudo Owan", note: "精緻日式傳統朝食。" },
+                { id: 't5-2', time: "10:00-12:00", title: "天神地下街", type: "shopping", map: "Tenjin Underground Shopping Center", note: "購物與伴手禮採買。" },
+                { id: 't5-3', time: "12:00-13:30", title: "午餐：とんかつわか葉", type: "food", map: "Tonkatsu Wakaba", note: "炸豬排。排隊兇猛，建議 11:15 前抵達。" },
+                { id: 't5-4', time: "15:00-17:00", title: "博多運河城", type: "sightseeing", map: "Canal City Hakata", note: "補完購物行程，觀賞噴水秀。" },
+                { id: 't5-5', time: "17:30-19:00", title: "晚餐：華味鳥 / 前田屋", type: "food", map: "Hakata Hanamidori", note: "分組行動：清淡水炊雞鍋 vs 濃郁牛腸鍋。需預約。" }
               ]
             },
             {
-              day: 6, date: "12/14 (週日)", theme: "福岡生活光譜",
+              day: 6,
+              date: "12/14 (週日)",
+              theme: "福岡生活光譜",
               tasks: [
-                { id: 't6-1', time: "09:00", title: "麵包巡禮：Amam Dacotan", type: "food", note: "六本松。備案：Matsu Pan", map: "Amam Dacotan" },
-                { id: 't6-2', time: "10:30", title: "大濠公園 & 美術館", type: "sightseeing", note: "湖畔享用麵包", map: "Ohori Park" },
-                { id: 't6-3', time: "14:00", title: "午餐：魚忠", type: "food", note: "CP值高海鮮定食", map: "Uochu" },
-                { id: 't6-4', time: "15:00", title: "藥院選物 & Coffee County", type: "shopping", note: "B・B・B POTTERS", map: "B・B・B POTTERS" },
-                { id: 't6-5', time: "17:00", title: "福岡塔 & 西新", type: "sightseeing", note: "百道海濱夜景、蜂樂饅頭", map: "Fukuoka Tower" },
-                { id: 't6-6', time: "19:00", title: "晚餐：小林養雞 (西新店)", type: "food", note: "居酒屋", map: "Kobayashi Youkei Nishijin" }
+                { id: 't6-1', time: "09:00-10:30", title: "六本松麵包：Amam Dacotan", type: "food", map: "Amam Dacotan", note: "全日本話題度最高。備案：Matsu Pan。" },
+                { id: 't6-2', time: "10:30-13:00", title: "大濠公園 & 美術館", type: "sightseeing", map: "Ohori Park", note: "湖畔享用麵包，欣賞草間彌生南瓜。" },
+                { id: 't6-3', time: "14:00-15:00", title: "午餐：魚忠", type: "food", map: "Uochu", note: "高級鮮魚店直營，CP值極高海鮮定食。" },
+                { id: 't6-4', time: "15:00-16:30", title: "藥院選物 & Coffee County", type: "shopping", map: "B・B・B POTTERS", note: "生活雜貨散策。" },
+                { id: 't6-5', time: "17:00-18:30", title: "西新散策 & 福岡塔", type: "sightseeing", map: "Fukuoka Tower", note: "蜂樂饅頭，欣賞百道海濱夜景。" },
+                { id: 't6-6', time: "19:00+", title: "晚餐：小林養雞 (西新店)", type: "food", map: "Kobayashi Youkei Nishijin", note: "在地人喜愛的居酒屋。" }
               ]
             },
             {
-              day: 7, date: "12/15 (週一)", theme: "完美歸途",
+              day: 7,
+              date: "12/15 (週一)",
+              theme: "完美歸途",
               tasks: [
-                { id: 't7-1', time: "09:00", title: "退房 & 行李寄放", type: "transport", note: "LIVEIL 櫃台" },
-                { id: 't7-2', time: "11:00", title: "博多站最後衝刺", type: "shopping", note: "阪急B1/AMU。伴手禮：福砂屋、努努雞", map: "Hakata Hankyu" },
-                { id: 't7-3', time: "12:00", title: "午餐：博多麵街道", type: "food", note: "Shin-Shin 或 海鳴", map: "Hakata Noodle Street" },
-                { id: 't7-4', time: "14:00", title: "搭計程車前往機場", type: "transport", note: "回飯店取行李直奔國際線" },
-                { id: 't7-5', time: "15:15", title: "出境程序 (IT721)", type: "transport", note: "17:55起飛。安檢人多請提早", map: "Fukuoka Airport International Terminal" }
+                { id: 't7-1', time: "09:00-11:00", title: "退房 & 行李寄放", type: "transport", note: "飯店櫃台寄放行李。" },
+                { id: 't7-2', time: "11:00-13:30", title: "博多站最後衝刺", type: "shopping", map: "Hakata Hankyu", note: "阪急B1/AMU。必買：福砂屋、努努雞。" },
+                { id: 't7-3', time: "12:00-13:00", title: "午餐：博多麵街道", type: "food", map: "Hakata Noodle Street", note: "最後一碗拉麵 (Shin-Shin/海鳴)。" },
+                { id: 't7-4', time: "14:00-15:00", title: "前往機場", type: "transport", note: "回飯店取行李，搭計程車直達國際線航廈。" },
+                { id: 't7-5', time: "15:00-15:15", title: "抵達福岡機場", type: "transport", map: "Fukuoka Airport International Terminal", note: "務必提早，安檢排隊長。" },
+                { id: 't7-6', time: "15:15-17:55", title: "出境程序 & 登機 (IT721)", type: "transport", note: "17:55 起飛。平安歸賦。" }
               ]
             }
           ]
         };
 
         const initialChecklist = [
-          { id: 'c1', text: 'Visit Japan Web QR Code (黃色入境)', done: false, cat: 'document' },
-          { id: 'c2', text: 'Visit Japan Web QR Code (藍色海關)', done: false, cat: 'document' },
-          { id: 'c3', text: '護照 (檢查效期)', done: false, cat: 'document' },
-          { id: 'c4', text: '機票、訂房憑證 (雲端+離線備份)', done: false, cat: 'document' },
-          { id: 'c5', text: '海外旅遊保險單', done: false, cat: 'document' },
-          { id: 'c6', text: '發熱衣 (Heattech, 非純棉)', done: false, cat: 'clothing' },
-          { id: 'c7', text: '洋蔥式中層 (羊毛衫/羽絨背心)', done: false, cat: 'clothing' },
-          { id: 'c8', text: '防風抗水外套', done: false, cat: 'clothing' },
-          { id: 'c9', text: '保暖配件 (圍巾、手套、毛帽)', done: false, cat: 'clothing' },
+          { id: 'c1', text: 'Visit Japan Web QR Code', done: false, cat: 'document' },
+          { id: 'c3', text: '護照 (效期確認)', done: false, cat: 'document' },
           { id: 'c10', text: '現金 (每人約 ¥50,000)', done: false, cat: 'money' },
-          { id: 'c11', text: '高回饋信用卡 (百貨/飯店用)', done: false, cat: 'money' },
-          { id: 'c12', text: 'IC卡 (Suica/ICOCA) ', done: false, cat: 'money' },
-          { id: 'c13', text: '常備藥 (感冒/胃藥/痠痛貼布)', done: false, cat: 'other' },
-          { id: 'c14', text: '行動電源 & 充電線', done: false, cat: 'other' },
+          { id: 'c12', text: 'IC卡 (Suica/ICOCA)', done: false, cat: 'money' },
+          { id: 'c14', text: '行動電源 & 充電線', done: false, cat: 'other' }
         ];
 
-        // --- Tactical Toolbox ---
+        // --- COMPONENTS ---
+
+        const MapTab = () => {
+            const mapContainerRef = useRef(null);
+            const mapInstanceRef = useRef(null);
+            const markerRef = useRef(null);
+            const [status, setStatus] = useState("等待定位...");
+
+            useEffect(() => {
+                if (!mapInstanceRef.current && mapContainerRef.current) {
+                    mapInstanceRef.current = L.map(mapContainerRef.current).setView([33.5902, 130.4207], 13);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; OpenStreetMap contributors'
+                    }).addTo(mapInstanceRef.current);
+                }
+
+                if (navigator.geolocation) {
+                    setStatus("正在搜尋您的奴隸位置...");
+                    const watchId = navigator.geolocation.watchPosition(
+                        (position) => {
+                            const { latitude, longitude } = position.coords;
+                            setStatus("定位成功！");
+                            
+                            const map = mapInstanceRef.current;
+                            if (map) {
+                                if (!markerRef.current) {
+                                    const customIcon = L.divIcon({
+                                        className: 'custom-div-icon',
+                                        html: "<div style='background-color:#2563EB; width:12px; height:12px; border-radius:50%; border:2px solid white; box-shadow: 0 0 0 4px rgba(37,99,235,0.3);'></div>",
+                                        iconSize: [20, 20],
+                                        iconAnchor: [10, 10]
+                                    });
+                                    markerRef.current = L.marker([latitude, longitude], {icon: customIcon}).addTo(map);
+                                    map.setView([latitude, longitude], 15);
+                                } else {
+                                    markerRef.current.setLatLng([latitude, longitude]);
+                                }
+                            }
+                        },
+                        (error) => { 
+                            console.log("GPS Error:", error);
+                            setStatus("預覽模式/無訊號：顯示預設位置 (博多站)");
+                            const map = mapInstanceRef.current;
+                            if(map) map.setView([33.5902, 130.4207], 14);
+                        },
+                        { enableHighAccuracy: true }
+                    );
+                    return () => navigator.geolocation.clearWatch(watchId);
+                } else {
+                    setStatus("瀏覽器不支援定位");
+                }
+            }, []);
+
+            return (
+                <div className="h-full flex flex-col bg-slate-50 relative">
+                    <div className="absolute top-4 left-4 right-4 z-[400] bg-white/90 backdrop-blur px-4 py-2 rounded-xl shadow-lg border border-slate-200 text-center">
+                        <span className="text-xs font-bold text-blue-600 animate-pulse">● {status}</span>
+                    </div>
+                    <div id="map" ref={mapContainerRef} className="flex-1 w-full h-full z-0"></div>
+                </div>
+            );
+        };
+
+        const HomeTab = ({ leaderInfo, setLeaderInfo, setActiveTab }) => {
+            const [isEditingTitle, setIsEditingTitle] = useState(false);
+            const [appTitle, setAppTitle] = useState(() => localStorage.getItem('fukuoka_app_title') || "林糖糖的奴隸吃吃喝喝福岡行");
+            const [isEditingLeader, setIsEditingLeader] = useState(false);
+            const [tempLeader, setTempLeader] = useState(leaderInfo);
+            const [weather, setWeather] = useState(null);
+            const [loadingWeather, setLoadingWeather] = useState(false);
+            const [weatherError, setWeatherError] = useState(null);
+
+            useEffect(() => { setTempLeader(leaderInfo); }, [leaderInfo]);
+
+            const now = new Date();
+            const outboundDate = new Date("2024-12-09T13:30:00+09:00");
+            const inboundDate = new Date("2024-12-15T17:55:00+09:00");
+            let flightStatus = "準備出發";
+            let targetDate = outboundDate;
+            let flightCode = "IT 720 (去程)";
+
+            if (now > outboundDate && now < inboundDate) {
+                flightStatus = "回程倒數";
+                targetDate = inboundDate;
+                flightCode = "IT 721 (回程)";
+            } else if (now > inboundDate) {
+                flightStatus = "旅程結束";
+                targetDate = null;
+            }
+
+            const diff = targetDate ? targetDate - now : 0;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
+            const saveTitle = () => { localStorage.setItem('fukuoka_app_title', appTitle); setIsEditingTitle(false); };
+            const saveLeader = () => { setLeaderInfo(tempLeader); setIsEditingLeader(false); };
+
+            const fetchWeather = () => {
+                setLoadingWeather(true);
+                setWeatherError(null);
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(async (position) => {
+                        const { latitude, longitude } = position.coords;
+                        try {
+                            const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&timezone=auto`);
+                            const data = await res.json();
+                            setWeather(data.current_weather);
+                        } catch (e) { setWeatherError("天氣獲取失敗"); }
+                        setLoadingWeather(false);
+                    }, (err) => { 
+                        console.log("Weather GPS Error:", err);
+                        setWeatherError("無法定位 (請在手機開啟GPS)");
+                        setLoadingWeather(false); 
+                    });
+                } else {
+                    setWeatherError("瀏覽器不支援");
+                    setLoadingWeather(false);
+                }
+            };
+
+            return (
+                <div className="h-full overflow-y-auto pb-24 bg-slate-50">
+                    <div className="bg-slate-900 text-white p-6 rounded-b-[2.5rem] shadow-xl relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full blur-[80px] opacity-20 -mr-16 -mt-16"></div>
+                        <div className="relative z-10">
+                            <div className="flex justify-between items-start">
+                                <div className="inline-block px-3 py-1 bg-blue-900/50 rounded-full text-blue-300 text-xs font-bold mb-4 border border-blue-800">2024.12.09 - 12.15</div>
+                                <button onClick={() => setIsEditingTitle(!isEditingTitle)} className="text-slate-400 hover:text-white"><Icon name="Edit" size={16}/></button>
+                            </div>
+                            {isEditingTitle ? (
+                                <div className="flex gap-2">
+                                    <input value={appTitle} onChange={(e) => setAppTitle(e.target.value)} className="text-slate-900 text-sm p-2 rounded flex-1"/>
+                                    <button onClick={saveTitle} className="bg-blue-600 px-3 rounded text-xs font-bold">儲存</button>
+                                </div>
+                            ) : (
+                                <h1 className="text-2xl font-black mb-1 tracking-tight leading-tight">{appTitle}</h1>
+                            )}
+                            <p className="text-slate-400 text-xs mt-1">Fukuoka Tactical Field Manual</p>
+                        </div>
+                    </div>
+
+                    <div className="p-5 space-y-4 -mt-6 relative z-20">
+                        <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+                            <div className="flex justify-between items-start mb-3">
+                                <h3 className="font-bold text-slate-800 flex items-center gap-2"><Icon name="User" size={16} className="text-blue-600"/> 領隊資訊</h3>
+                                <button onClick={() => isEditingLeader ? saveLeader() : setIsEditingLeader(true)} className="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{isEditingLeader ? '儲存' : '編輯'}</button>
+                            </div>
+                            {isEditingLeader ? (
+                                <div className="space-y-2">
+                                    <input placeholder="領隊姓名" value={tempLeader.name} onChange={(e) => setTempLeader({...tempLeader, name: e.target.value})} className="w-full p-2 bg-slate-50 border rounded text-sm"/>
+                                    <input placeholder="手機" value={tempLeader.phone} onChange={(e) => setTempLeader({...tempLeader, phone: e.target.value})} className="w-full p-2 bg-slate-50 border rounded text-sm"/>
+                                    <input placeholder="Line ID" value={tempLeader.line} onChange={(e) => setTempLeader({...tempLeader, line: e.target.value})} className="w-full p-2 bg-slate-50 border rounded text-sm"/>
+                                </div>
+                            ) : (
+                                <div className="flex items-center gap-3">
+                                    <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 font-bold text-xl">{leaderInfo.name ? leaderInfo.name[0] : <Icon name="User" size={24}/>}</div>
+                                    <div>
+                                        <div className="font-bold text-slate-800 text-lg">{leaderInfo.name || "未設定領隊"}</div>
+                                        <div className="text-xs text-slate-400 flex gap-2"><span>📱 {leaderInfo.phone || "--"}</span><span>ID: {leaderInfo.line || "--"}</span></div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        {targetDate && (
+                            <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 relative overflow-hidden">
+                                <div className="absolute right-0 top-0 w-20 h-20 bg-blue-50 rounded-bl-full -mr-4 -mt-4 z-0"></div>
+                                <div className="relative z-10">
+                                    <div className="flex items-center gap-2 mb-3">
+                                        <div className="p-2 bg-blue-100 text-blue-600 rounded-full"><Icon name="Train" size={18}/></div> 
+                                        <div><div className="text-xs text-slate-400 font-bold uppercase">{flightStatus}</div><div className="font-black text-slate-800">{flightCode}</div></div>
+                                    </div>
+                                    <div className="flex justify-between items-end">
+                                        <div className="text-3xl font-black text-blue-600 font-mono tracking-tighter">{days}<span className="text-sm text-slate-400 font-sans ml-1 mr-2">天</span>{hours}<span className="text-sm text-slate-400 font-sans ml-1">時</span></div>
+                                        <div className="text-xs text-slate-400 font-mono">{targetDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} 起飛</div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center">
+                            <div>
+                                <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-1"><Icon name="Sun" size={16} className="text-orange-500"/> 現地氣候</h3>
+                                {weather ? <div className="text-2xl font-black text-slate-800">{weather.temperature}°C</div> : <button onClick={fetchWeather} className="text-xs bg-slate-100 px-3 py-1.5 rounded-lg text-slate-500 font-bold mt-1">{loadingWeather ? "連線中..." : (weatherError || "點此抓取位置天氣")}</button>}
+                            </div>
+                            {weather && <div className="text-right"><div className="text-xs text-slate-400">風速: {weather.windspeed} km/h</div><button onClick={fetchWeather} className="text-xs text-blue-500 mt-1">重新整理</button></div>}
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                            <button onClick={() => setActiveTab('itinerary')} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center gap-2">
+                                <div className="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center"><Icon name="Calendar" size={20} /></div>
+                                <span className="font-bold text-slate-700 text-sm">行程表</span>
+                            </button>
+                            <button onClick={() => setActiveTab('map')} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center gap-2">
+                                <div className="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center"><Icon name="Map" size={20} /></div>
+                                <span className="font-bold text-slate-700 text-sm">定位地圖</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
         const ToolboxTab = () => {
             const [jpy, setJpy] = useState('');
             const [rate, setRate] = useState(0.22);
             const [isAddressBig, setIsAddressBig] = useState(false);
-            
-            // Discount Calculator State
             const [price, setPrice] = useState('');
-            const [discount, setDiscount] = useState(10); // Default tax free 10%
-            const [coupon, setCoupon] = useState(5); // Default coupon 5%
+            const [discount, setDiscount] = useState(10);
+            const [coupon, setCoupon] = useState(5);
 
             const phrases = [
                 { jp: "すみません", romaji: "Sumimasen", zh: "不好意思" },
@@ -188,8 +408,7 @@
                 { name: "Google Maps", url: "https://www.google.com/maps", icon: "MapPin", color: "text-red-500" },
                 { name: "Tabelog (美食)", url: "https://tabelog.com/", icon: "Utensils", color: "text-orange-500" },
                 { name: "ロケスマ (找店神)", url: "https://www.locationsmart.org/", icon: "MapPin", color: "text-purple-500" },
-                { name: "Yahoo! 乘換案內", url: "https://transit.yahoo.co.jp/", icon: "Train", color: "text-green-600" },
-                { name: "Weather News", url: "https://weathernews.jp/s/", icon: "CheckSquare", color: "text-blue-500" }
+                { name: "Yahoo! 乘換案內", url: "https://transit.yahoo.co.jp/", icon: "Train", color: "text-green-600" }
             ];
 
             const finalPrice = price ? Math.round(price * (1 - (discount/100)) * (1 - (coupon/100))) : 0;
@@ -197,73 +416,42 @@
 
             return (
                 <div className="h-full overflow-y-auto p-4 space-y-6 pb-28 bg-slate-50">
-                    
-                    {/* 1. Tactical Links */}
                     <div className="grid grid-cols-2 gap-3">
                         {links.map((link, i) => (
                             <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex items-center gap-3 hover:bg-slate-50 transition no-underline">
-                                <div className={`p-2 bg-slate-50 rounded-full ${link.color}`}>
-                                    <Icon name={link.icon} size={18}/>
-                                </div>
+                                <div className={`p-2 bg-slate-50 rounded-full ${link.color}`}><Icon name={link.icon} size={18}/></div>
                                 <span className="font-bold text-slate-700 text-sm">{link.name}</span>
-                                <Icon name="ExternalLink" size={14} className="ml-auto text-slate-300"/>
                             </a>
                         ))}
                     </div>
 
-                    {/* 2. Taxi Card (Address) */}
                     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                         <div className="bg-slate-800 text-white p-3 flex justify-between items-center">
-                            <h3 className="font-bold flex items-center gap-2"><Icon name="Car" size={18}/> 運將卡 (給司機看)</h3>
-                            <button onClick={() => setIsAddressBig(!isAddressBig)} className="text-xs bg-white/20 px-2 py-1 rounded hover:bg-white/30 transition">
-                                {isAddressBig ? "縮小" : "放大全螢幕"}
-                            </button>
+                            <h3 className="font-bold flex items-center gap-2"><Icon name="Car" size={18}/> 運將卡</h3>
+                            <button onClick={() => setIsAddressBig(!isAddressBig)} className="text-xs bg-white/20 px-2 py-1 rounded">{isAddressBig ? "縮小" : "放大"}</button>
                         </div>
                         <div className={`p-5 flex flex-col justify-center items-center text-center transition-all ${isAddressBig ? "fixed inset-0 z-50 bg-white justify-center h-screen" : ""}`}>
-                            {isAddressBig && (
-                                <button onClick={() => setIsAddressBig(false)} className="absolute top-4 right-4 bg-slate-100 p-2 rounded-full">
-                                    <Icon name="ChevronDown" size={24}/>
-                                </button>
-                            )}
+                            {isAddressBig && <button onClick={() => setIsAddressBig(false)} className="absolute top-4 right-4 bg-slate-100 p-2 rounded-full"><Icon name="ChevronDown" size={24}/></button>}
                             <p className="text-slate-500 text-sm mb-2">請載我到這家飯店：</p>
-                            <h2 className={`font-black text-slate-900 leading-tight ${isAddressBig ? "text-4xl" : "text-xl"}`}>
-                                LIVEIL HAKATAEKIMAE
-                            </h2>
-                            <p className={`mt-4 font-bold text-slate-800 bg-slate-100 p-4 rounded-xl ${isAddressBig ? "text-3xl" : "text-base"}`}>
-                                〒812-0011<br/>
-                                福岡市博多区<br/>博多駅前4丁目31-11
-                            </p>
+                            <h2 className={`font-black text-slate-900 leading-tight ${isAddressBig ? "text-4xl" : "text-xl"}`}>LIVEIL HAKATAEKIMAE</h2>
+                            <p className={`mt-4 font-bold text-slate-800 bg-slate-100 p-4 rounded-xl ${isAddressBig ? "text-3xl" : "text-base"}`}>〒812-0011 福岡市博多区<br/>博多駅前4丁目31-11</p>
                         </div>
                     </div>
 
-                    {/* 3. Discount Calculator */}
                     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
                         <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-4"><Icon name="Percent" size={18} className="text-pink-500"/> 折扣計算機</h3>
                         <div className="grid grid-cols-3 gap-2 mb-4">
-                            <div className="col-span-3">
-                                <label className="text-xs text-slate-400 block mb-1">原價 (JPY)</label>
-                                <input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder="0" className="w-full text-xl font-bold p-2 bg-slate-50 rounded-lg border border-slate-200 outline-none"/>
-                            </div>
-                            <div>
-                                <label className="text-xs text-slate-400 block mb-1">免稅 (%)</label>
-                                <input type="number" value={discount} onChange={e => setDiscount(e.target.value)} className="w-full text-center font-bold p-2 bg-slate-50 rounded-lg border border-slate-200"/>
-                            </div>
-                            <div>
-                                <label className="text-xs text-slate-400 block mb-1">優惠券 (%)</label>
-                                <input type="number" value={coupon} onChange={e => setCoupon(e.target.value)} className="w-full text-center font-bold p-2 bg-slate-50 rounded-lg border border-slate-200"/>
-                            </div>
-                            <div>
-                                <label className="text-xs text-slate-400 block mb-1">匯率</label>
-                                <input type="number" value={rate} step="0.001" onChange={e => setRate(e.target.value)} className="w-full text-center font-bold p-2 bg-slate-50 rounded-lg border border-slate-200"/>
-                            </div>
+                            <div className="col-span-3"><input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder="原價 (JPY)" className="w-full text-xl font-bold p-2 bg-slate-50 rounded-lg border border-slate-200"/></div>
+                            <div><input type="number" value={discount} onChange={e => setDiscount(e.target.value)} className="w-full p-2 bg-slate-50 border rounded-lg text-center" placeholder="免稅%"/></div>
+                            <div><input type="number" value={coupon} onChange={e => setCoupon(e.target.value)} className="w-full p-2 bg-slate-50 border rounded-lg text-center" placeholder="優惠%"/></div>
+                            <div><input type="number" value={rate} step="0.001" onChange={e => setRate(e.target.value)} className="w-full p-2 bg-slate-50 border rounded-lg text-center"/></div>
                         </div>
                         <div className="bg-slate-800 text-white p-3 rounded-xl flex justify-between items-center">
-                            <span className="text-xs opacity-70">折後台幣約</span>
-                            <span className="text-2xl font-bold">NT$ {finalTwd.toLocaleString()}</span>
+                            <span className="text-xs opacity-70">折後台幣</span><span className="text-2xl font-bold">NT$ {finalTwd.toLocaleString()}</span>
                         </div>
                     </div>
 
-                    {/* 4. Currency Converter */}
+                    {/* Restored Simple Currency Converter */}
                     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
                         <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-4"><Icon name="DollarSign" size={18} className="text-green-600"/> 簡易匯率換算</h3>
                         <div className="flex gap-2 items-center">
@@ -285,7 +473,7 @@
                         </div>
                     </div>
 
-                    {/* 5. Survival Japanese */}
+                    {/* Restored Survival Japanese */}
                     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                         <div className="bg-orange-50 p-3 border-b border-orange-100">
                             <h3 className="font-bold text-orange-800 flex items-center gap-2"><Icon name="Type" size={18}/> 生存日語</h3>
@@ -302,7 +490,6 @@
                             ))}
                         </div>
                     </div>
-
                 </div>
             );
         };
@@ -310,7 +497,7 @@
         const ExpenseTracker = () => {
             const [expenses, setExpenses] = useState(() => {
                 const saved = localStorage.getItem('fukuoka_expenses');
-                return saved ? JSON.parse(saved) : [{ id: 1, item: '計程車 (機場-飯店)', amount: 2500, cat: 'transport' }, { id: 2, item: '便利商店水/早餐', amount: 1200, cat: 'food' }];
+                return saved ? JSON.parse(saved) : [{ id: 1, item: '計程車', amount: 2500, cat: 'transport' }];
             });
             const [newItem, setNewItem] = useState('');
             const [newAmount, setNewAmount] = useState('');
@@ -326,7 +513,7 @@
             };
 
             const deleteExpense = (id) => {
-                if(confirm('確定要刪除這筆消費紀錄嗎？')) setExpenses(prev => prev.filter(item => item.id !== id));
+                if(confirm('確定刪除？')) setExpenses(prev => prev.filter(item => item.id !== id));
             };
 
             const total = expenses.reduce((sum, ex) => sum + ex.amount, 0);
@@ -338,7 +525,6 @@
                         <div className="text-4xl font-bold text-slate-800">¥ {total.toLocaleString()}</div>
                     </div>
                     <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3">
-                        <h3 className="font-bold text-slate-700 flex items-center gap-2"><Icon name="Plus" size={18} /> 新增消費</h3>
                         <div className="grid grid-cols-2 gap-2">
                             <input placeholder="項目" className="col-span-2 p-2 bg-slate-50 rounded-lg border border-slate-200 text-sm" value={newItem} onChange={e => setNewItem(e.target.value)} />
                             <input type="number" placeholder="金額" className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-sm" value={newAmount} onChange={e => setNewAmount(e.target.value)} />
@@ -349,26 +535,13 @@
                         <button onClick={addExpense} className="w-full bg-slate-800 text-white py-2 rounded-lg font-medium text-sm active:scale-95 transition">紀錄</button>
                     </div>
                     <div className="space-y-2 pb-20">
-                        <h3 className="font-bold text-slate-700 px-1">消費明細</h3>
-                        {expenses.length === 0 && <div className="text-center text-slate-400 text-sm py-4">暫無消費紀錄</div>}
                         {expenses.slice().reverse().map(ex => (
-                            <div key={ex.id} className="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-100 group">
-                                <div className="flex items-center gap-3 overflow-hidden">
-                                    <div className={`p-2 rounded-full shrink-0 ${ex.cat === 'food' ? 'bg-orange-100 text-orange-600' : ex.cat === 'transport' ? 'bg-blue-100 text-blue-600' : ex.cat === 'shopping' ? 'bg-pink-100 text-pink-600' : 'bg-gray-100 text-gray-600'}`}>
-                                        {ex.cat === 'food' && <Icon name="Utensils" size={16} />}
-                                        {ex.cat === 'transport' && <Icon name="Train" size={16} />}
-                                        {ex.cat === 'shopping' && <Icon name="ShoppingBag" size={16} />}
-                                        {ex.cat === 'other' && <Icon name="CreditCard" size={16} />}
-                                    </div>
-                                    <div className="min-w-0">
-                                        <div className="text-sm font-medium text-slate-800 truncate">{ex.item}</div>
-                                        <div className="text-xs text-slate-400">{ex.cat === 'food' ? '餐飲' : ex.cat === 'transport' ? '交通' : ex.cat === 'shopping' ? '購物' : '其他'}</div>
-                                    </div>
+                            <div key={ex.id} className="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-100">
+                                <div className="flex items-center gap-3">
+                                    <div className={`p-2 rounded-full ${ex.cat === 'food' ? 'bg-orange-100 text-orange-600' : 'bg-gray-100'}`}><Icon name={ex.cat === 'food' ? 'Utensils' : 'CreditCard'} size={16}/></div>
+                                    <div><div className="text-sm font-medium">{ex.item}</div></div>
                                 </div>
-                                <div className="flex items-center gap-3 pl-2 shrink-0">
-                                    <div className="font-bold text-slate-700">¥{ex.amount.toLocaleString()}</div>
-                                    <button onClick={() => deleteExpense(ex.id)} className="p-1.5 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-lg transition"><Icon name="Trash2" size={16} /></button>
-                                </div>
+                                <div className="flex items-center gap-2"><span className="font-bold">¥{ex.amount}</span><button onClick={() => deleteExpense(ex.id)}><Icon name="Trash2" size={16} className="text-slate-300"/></button></div>
                             </div>
                         ))}
                     </div>
@@ -379,81 +552,46 @@
         const ItineraryDay = ({ dayData, onDeleteTask, onAddTask }) => {
             const [isOpen, setIsOpen] = useState(false);
             const [isAdding, setIsAdding] = useState(false);
-            const [newTask, setNewTask] = useState({ time: '', title: '', note: '', type: 'sightseeing' });
+            const [newTask, setNewTask] = useState({ time: '', title: '', type: 'sightseeing' });
 
             useEffect(() => { if (dayData.day === 1) setIsOpen(true); }, [dayData.day]);
 
             const handleSave = () => {
                 if (!newTask.title) return;
                 onAddTask(dayData.day, { ...newTask, id: 't' + Date.now() });
-                setNewTask({ time: '', title: '', note: '', type: 'sightseeing' });
                 setIsAdding(false);
             };
 
             return (
-                <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden transition-all duration-300">
-                    <div onClick={() => setIsOpen(!isOpen)} className="p-4 flex items-center justify-between cursor-pointer bg-slate-50 hover:bg-slate-100 transition">
+                <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                    <div onClick={() => setIsOpen(!isOpen)} className="p-4 flex items-center justify-between cursor-pointer bg-slate-50 hover:bg-slate-100">
                         <div className="flex items-center gap-4">
                             <div className="bg-slate-800 text-white w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg">{dayData.day}</div>
-                            <div>
-                                <div className="text-xs text-slate-500 font-medium">{dayData.date}</div>
-                                <div className="text-slate-800 font-bold">{dayData.theme}</div>
-                            </div>
+                            <div><div className="text-xs text-slate-500 font-medium">{dayData.date}</div><div className="text-slate-800 font-bold">{dayData.theme}</div></div>
                         </div>
                         <Icon name={isOpen ? "ChevronUp" : "ChevronDown"} className="text-slate-400" />
                     </div>
                     {isOpen && (
                         <div className="p-4 space-y-4 border-t border-slate-100">
-                            {dayData.tasks.length === 0 && <div className="text-center text-slate-400 text-sm py-2">無行程</div>}
-                            {dayData.tasks.map((task, idx) => (
-                                <div key={task.id} className="flex gap-3 relative group">
-                                    {idx !== dayData.tasks.length - 1 && <div className="absolute left-[19px] top-8 bottom-[-16px] w-[2px] bg-slate-100"></div>}
-                                    <div className={`mt-1 min-w-[40px] h-[40px] rounded-full flex items-center justify-center z-10 ${task.type === 'food' ? 'bg-orange-50 text-orange-500' : task.type === 'transport' ? 'bg-blue-50 text-blue-500' : task.type === 'shopping' ? 'bg-pink-50 text-pink-500' : 'bg-green-50 text-green-500'}`}>
-                                        {task.type === 'food' && <Icon name="Utensils" size={18} />}
-                                        {task.type === 'transport' && <Icon name="Train" size={18} />}
-                                        {task.type === 'shopping' && <Icon name="ShoppingBag" size={18} />}
-                                        {task.type === 'sightseeing' && <Icon name="MapPin" size={18} />}
-                                    </div>
-                                    <div className="flex-1 pb-2">
-                                        <div className="flex justify-between items-start">
-                                            <div>
-                                                <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md mr-2">{task.time}</span>
-                                                <span className="font-bold text-slate-800">{task.title}</span>
-                                            </div>
-                                            <button onClick={() => onDeleteTask(dayData.day, task.id)} className="text-slate-300 hover:text-red-500 p-1"><Icon name="Trash2" size={16} /></button>
+                            {dayData.tasks.map((task) => (
+                                <div key={task.id} className="flex gap-3">
+                                    <div className="mt-1 min-w-[40px] h-[40px] rounded-full bg-blue-50 text-blue-500 flex items-center justify-center"><Icon name="MapPin" size={18}/></div>
+                                    <div className="flex-1">
+                                        <div className="flex justify-between">
+                                            <div><span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded mr-2">{task.time}</span><span className="font-bold text-slate-800">{task.title}</span></div>
+                                            <button onClick={() => onDeleteTask(dayData.day, task.id)} className="text-slate-300"><Icon name="Trash2" size={16}/></button>
                                         </div>
                                         <div className="text-sm text-slate-500 mt-1 leading-relaxed">{task.note}</div>
-                                        {task.map && (
-                                            <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(task.map + " Fukuoka")}`} target="_blank" className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-blue-600 hover:bg-blue-50 px-2 py-1 rounded-lg border border-blue-100 transition">
-                                                <Icon name="Navigation" size={12} /> 導航
-                                            </a>
-                                        )}
+                                        {task.map && <a href={`https://www.google.com/maps/search/?api=1&query=${task.map} Fukuoka`} target="_blank" className="text-xs text-blue-500 mt-1 block">導航 ></a>}
                                     </div>
                                 </div>
                             ))}
-                            
-                            {/* Add Task UI */}
-                            {!isAdding ? (
-                                <button onClick={() => setIsAdding(true)} className="w-full py-2 flex items-center justify-center gap-2 text-sm font-bold text-blue-600 bg-blue-50 rounded-xl hover:bg-blue-100 transition"><Icon name="Plus" size={16} /> 新增行程</button>
-                            ) : (
-                                <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 space-y-3 animate-pulse-once">
-                                    <div className="flex gap-2">
-                                        <input placeholder="時間" className="w-1/3 p-2 text-sm border rounded-lg" value={newTask.time} onChange={e => setNewTask({...newTask, time: e.target.value})} />
-                                        <select className="w-1/3 p-2 text-sm border rounded-lg" value={newTask.type} onChange={e => setNewTask({...newTask, type: e.target.value})}>
-                                            <option value="sightseeing">景點</option>
-                                            <option value="food">美食</option>
-                                            <option value="shopping">購物</option>
-                                            <option value="transport">交通</option>
-                                        </select>
-                                    </div>
-                                    <input placeholder="行程標題" className="w-full p-2 text-sm border rounded-lg" value={newTask.title} onChange={e => setNewTask({...newTask, title: e.target.value})} />
-                                    <input placeholder="備註 (選填)" className="w-full p-2 text-sm border rounded-lg" value={newTask.note} onChange={e => setNewTask({...newTask, note: e.target.value})} />
-                                    <div className="flex gap-2">
-                                        <button onClick={() => setIsAdding(false)} className="flex-1 py-2 text-slate-500 text-sm font-bold bg-white border border-slate-200 rounded-lg">取消</button>
-                                        <button onClick={handleSave} className="flex-1 py-2 text-white text-sm font-bold bg-blue-600 rounded-lg shadow-sm">確認新增</button>
-                                    </div>
-                                </div>
-                            )}
+                            {!isAdding ? <button onClick={() => setIsAdding(true)} className="w-full py-2 bg-slate-50 text-slate-500 rounded text-sm font-bold">+ 新增</button> : 
+                            <div className="bg-slate-50 p-3 rounded space-y-2">
+                                <input placeholder="時間" className="w-full p-2 text-sm border rounded" value={newTask.time} onChange={e => setNewTask({...newTask, time: e.target.value})}/>
+                                <input placeholder="標題" className="w-full p-2 text-sm border rounded" value={newTask.title} onChange={e => setNewTask({...newTask, title: e.target.value})}/>
+                                <div className="flex gap-2"><button onClick={() => setIsAdding(false)} className="flex-1 bg-white p-2 text-sm border rounded">取消</button><button onClick={handleSave} className="flex-1 bg-blue-600 text-white p-2 text-sm rounded">儲存</button></div>
+                            </div>}
                         </div>
                     )}
                 </div>
@@ -461,99 +599,19 @@
         };
 
         const ChecklistTab = ({ items, toggleItem }) => {
-            const cats = { document: "必備文件", clothing: "穿搭防禦", money: "財務準備", other: "雜項補給" };
             return (
-                <div className="h-full overflow-y-auto p-4 pb-20 space-y-6">
+                <div className="h-full overflow-y-auto p-4 space-y-4">
                     <div className="bg-slate-800 text-white p-6 rounded-2xl shadow-md">
-                        <h2 className="text-xl font-bold mb-2">出擊準備清單</h2>
-                        <p className="text-slate-300 text-sm">確保裝備齊全，降低變數風險。</p>
-                        <div className="mt-4 flex gap-4 text-sm">
-                            <div><span className="text-2xl font-bold">{items.filter(i => i.done).length}</span><span className="text-slate-400 ml-1">完成</span></div>
-                            <div><span className="text-2xl font-bold">{items.length}</span><span className="text-slate-400 ml-1">總項</span></div>
-                        </div>
+                        <h2 className="text-xl font-bold">出擊清單</h2>
+                        <div className="mt-2 text-2xl font-bold">{items.filter(i => i.done).length} / {items.length}</div>
                     </div>
-                    {Object.entries(cats).map(([key, label]) => (
-                        <div key={key}>
-                            <h3 className="text-slate-500 font-bold text-sm mb-2 px-1">{label}</h3>
-                            <div className="bg-white rounded-xl border border-slate-200 divide-y divide-slate-100">
-                                {items.filter(i => i.cat === key).map(item => (
-                                    <div key={item.id} onClick={() => toggleItem(item.id)} className="p-4 flex items-center gap-3 cursor-pointer hover:bg-slate-50 active:bg-slate-100 transition">
-                                        <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition ${item.done ? 'bg-blue-600 border-blue-600' : 'border-slate-300'}`}>
-                                            {item.done && <Icon name="CheckSquare" size={16} className="text-white" />}
-                                        </div>
-                                        <span className={`text-sm font-medium transition ${item.done ? 'text-slate-400 line-through' : 'text-slate-800'}`}>{item.text}</span>
-                                    </div>
-                                ))}
+                    <div className="bg-white rounded-xl border border-slate-200 divide-y divide-slate-100">
+                        {items.map(item => (
+                            <div key={item.id} onClick={() => toggleItem(item.id)} className="p-4 flex items-center gap-3 cursor-pointer">
+                                <div className={`w-6 h-6 rounded border-2 flex items-center justify-center ${item.done ? 'bg-blue-600 border-blue-600' : 'border-slate-300'}`}>{item.done && <Icon name="CheckSquare" size={16} className="text-white"/>}</div>
+                                <span className={item.done ? 'text-slate-400 line-through' : 'text-slate-800'}>{item.text}</span>
                             </div>
-                        </div>
-                    ))}
-                </div>
-            );
-        };
-
-        const HomeTab = ({ leaderInfo, setLeaderInfo, setActiveTab }) => {
-            const [isEditing, setIsEditing] = useState(false);
-            const [tempName, setTempName] = useState(leaderInfo.name);
-            const [tempPhone, setTempPhone] = useState(leaderInfo.phone);
-            const [tempLine, setTempLine] = useState(leaderInfo.line);
-
-            const saveInfo = () => {
-                setLeaderInfo({ name: tempName, phone: tempPhone, line: tempLine });
-                setIsEditing(false);
-            };
-
-            return (
-                <div className="h-full overflow-y-auto pb-20 bg-slate-50">
-                    <div className="bg-slate-900 text-white p-8 rounded-b-[2.5rem] shadow-xl relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full blur-[80px] opacity-20 -mr-16 -mt-16"></div>
-                        <div className="relative z-10">
-                            <div className="inline-block px-3 py-1 bg-blue-900/50 rounded-full text-blue-300 text-xs font-bold mb-4 border border-blue-800">2024.12.09 - 12.15</div>
-                            <h1 className="text-3xl font-black mb-2 tracking-tight">福岡冬日<br/>戰術執行手冊</h1>
-                            <p className="text-slate-400 text-sm">Fukuoka Tactical Field Manual</p>
-                        </div>
-                    </div>
-                    <div className="p-5 space-y-6 -mt-8 relative z-20">
-                        <div className="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
-                            <div className="flex justify-between items-start mb-4">
-                                <h3 className="font-bold text-slate-800 flex items-center gap-2"><Icon name="User" size={18} className="text-blue-600"/> 領隊資訊</h3>
-                                <button onClick={() => isEditing ? saveInfo() : setIsEditing(true)} className="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full">{isEditing ? '儲存' : '編輯'}</button>
-                            </div>
-                            {isEditing ? (
-                                <div className="space-y-3">
-                                    <input placeholder="領隊姓名" value={tempName} onChange={(e) => setTempName(e.target.value)} className="w-full p-2 bg-slate-50 border rounded-lg text-sm" />
-                                    <input placeholder="手機號碼" value={tempPhone} onChange={(e) => setTempPhone(e.target.value)} className="w-full p-2 bg-slate-50 border rounded-lg text-sm" />
-                                    <input placeholder="Line ID" value={tempLine} onChange={(e) => setTempLine(e.target.value)} className="w-full p-2 bg-slate-50 border rounded-lg text-sm" />
-                                </div>
-                            ) : (
-                                <div className="space-y-3">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 font-bold">{leaderInfo.name ? leaderInfo.name[0] : "L"}</div>
-                                        <div>
-                                            <div className="font-bold text-slate-800">{leaderInfo.name || "未設定領隊"}</div>
-                                            <div className="text-xs text-slate-400">主要聯絡人</div>
-                                        </div>
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-3 mt-2">
-                                        <div className="bg-slate-50 p-3 rounded-xl flex flex-col gap-1"><span className="text-xs text-slate-400">手機</span><span className="font-mono font-bold text-slate-700">{leaderInfo.phone || "--"}</span></div>
-                                        <div className="bg-slate-50 p-3 rounded-xl flex flex-col gap-1"><span className="text-xs text-slate-400">Line ID</span><span className="font-mono font-bold text-slate-700">{leaderInfo.line || "--"}</span></div>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-                        <div className="grid grid-cols-2 gap-3">
-                            <button onClick={() => setActiveTab('itinerary')} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center gap-2 hover:bg-slate-50 transition">
-                                <div className="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center"><Icon name="Calendar" size={20} /></div>
-                                <span className="font-bold text-slate-700 text-sm">行程總覽</span>
-                            </button>
-                            <button onClick={() => setActiveTab('checklist')} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center gap-2 hover:bg-slate-50 transition">
-                                <div className="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center"><Icon name="CheckSquare" size={20} /></div>
-                                <span className="font-bold text-slate-700 text-sm">準備清單</span>
-                            </button>
-                        </div>
-                        <div className="bg-orange-50 p-4 rounded-2xl border border-orange-100">
-                            <h3 className="font-bold text-orange-800 mb-2 flex items-center gap-2"><Icon name="ShieldAlert" size={16}/> 緊急提示</h3>
-                            <p className="text-sm text-orange-700 leading-relaxed">若遇突發狀況，請優先保持冷靜。領隊應立即確認全員位置，並參考手冊中的「應急預案」行動。</p>
-                        </div>
+                        ))}
                     </div>
                 </div>
             );
@@ -561,70 +619,38 @@
 
         const App = () => {
             const [activeTab, setActiveTab] = useState('home');
-            
-            const [itinerary, setItinerary] = useState(() => {
-                const saved = localStorage.getItem('fukuoka_itinerary');
-                return saved ? JSON.parse(saved) : initialTripData.itinerary;
-            });
-            const [checklist, setChecklist] = useState(() => {
-                const saved = localStorage.getItem('fukuoka_checklist');
-                return saved ? JSON.parse(saved) : initialChecklist;
-            });
-            const [leaderInfo, setLeaderInfo] = useState(() => {
-                const saved = localStorage.getItem('fukuoka_leader');
-                return saved ? JSON.parse(saved) : { name: '', phone: '', line: '' };
-            });
+            const [itinerary, setItinerary] = useState(() => JSON.parse(localStorage.getItem('fukuoka_itinerary')) || initialTripData.itinerary);
+            const [checklist, setChecklist] = useState(() => JSON.parse(localStorage.getItem('fukuoka_checklist')) || initialChecklist);
+            const [leaderInfo, setLeaderInfo] = useState(() => JSON.parse(localStorage.getItem('fukuoka_leader')) || { name: '', phone: '', line: '' });
 
             useEffect(() => { localStorage.setItem('fukuoka_itinerary', JSON.stringify(itinerary)); }, [itinerary]);
             useEffect(() => { localStorage.setItem('fukuoka_checklist', JSON.stringify(checklist)); }, [checklist]);
             useEffect(() => { localStorage.setItem('fukuoka_leader', JSON.stringify(leaderInfo)); }, [leaderInfo]);
 
             const handleDeleteTask = (dayNum, taskId) => {
-                if (window.confirm("確定要刪除這個行程嗎？")) {
-                    setItinerary(prev => prev.map(day => day.day === dayNum ? { ...day, tasks: day.tasks.filter(t => t.id !== taskId) } : day));
-                }
+                if (window.confirm("刪除？")) setItinerary(prev => prev.map(d => d.day === dayNum ? { ...d, tasks: d.tasks.filter(t => t.id !== taskId) } : d));
             };
-
             const handleAddTask = (dayNum, newTask) => {
-                setItinerary(prev => prev.map(day => {
-                    if (day.day === dayNum) {
-                        const updatedTasks = [...day.tasks, newTask];
-                        return { ...day, tasks: updatedTasks.sort((a, b) => a.time.localeCompare(b.time)) };
-                    }
-                    return day;
-                }));
+                setItinerary(prev => prev.map(d => d.day === dayNum ? { ...d, tasks: [...d.tasks, newTask].sort((a,b)=>a.time.localeCompare(b.time)) } : d));
             };
-
-            const toggleChecklist = (id) => {
-                setChecklist(prev => prev.map(item => item.id === id ? { ...item, done: !item.done } : item));
-            };
+            const toggleChecklist = (id) => setChecklist(prev => prev.map(i => i.id === id ? { ...i, done: !i.done } : i));
 
             return (
                 <div className="flex flex-col h-full font-sans text-slate-900">
-                    {activeTab !== 'home' && (
-                        <div className="bg-white px-5 py-4 border-b border-slate-200 flex justify-between items-center z-10 sticky top-0">
-                            <div>
-                                <h1 className="font-black text-lg text-slate-800 tracking-tight">FUKUOKA <span className="text-blue-600">TACTICS</span></h1>
-                                <p className="text-xs text-slate-400 font-medium tracking-wide">冬日家庭旅行執行手冊</p>
-                            </div>
-                            <button onClick={() => setActiveTab('home')} className="bg-slate-100 p-2 rounded-full text-slate-600 hover:bg-slate-200"><Icon name="Home" size={18} /></button>
-                        </div>
-                    )}
-
                     <div className="flex-1 overflow-hidden relative">
                         {activeTab === 'home' && <HomeTab leaderInfo={leaderInfo} setLeaderInfo={setLeaderInfo} setActiveTab={setActiveTab} />}
                         {activeTab === 'itinerary' && <div className="h-full overflow-y-auto p-4 space-y-4 pb-32">{itinerary.map(day => <ItineraryDay key={day.day} dayData={day} onDeleteTask={handleDeleteTask} onAddTask={handleAddTask} />)}</div>}
-                        {activeTab === 'checklist' && <ChecklistTab items={checklist} toggleItem={toggleChecklist} />}
+                        {activeTab === 'map' && <MapTab />}
                         {activeTab === 'wallet' && <ExpenseTracker />}
-                        {activeTab === 'toolbox' && <ToolboxTab />}
+                        {activeTab === 'tools' && <ToolboxTab />}
+                        {activeTab === 'checklist' && <ChecklistTab items={checklist} toggleItem={toggleChecklist} />}
                     </div>
-
                     <div className="fixed bottom-6 left-4 right-4 bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl shadow-2xl px-4 py-3 flex justify-between items-center z-50">
-                        <button onClick={() => setActiveTab('home')} className={`flex flex-col items-center gap-1 transition min-w-[50px] ${activeTab === 'home' ? 'text-blue-600 scale-105' : 'text-slate-400'}`}><Icon name="Home" size={24} strokeWidth={activeTab === 'home' ? 2.5 : 2} /><span className="text-[10px] font-bold">首頁</span></button>
-                        <button onClick={() => setActiveTab('itinerary')} className={`flex flex-col items-center gap-1 transition min-w-[50px] ${activeTab === 'itinerary' ? 'text-blue-600 scale-105' : 'text-slate-400'}`}><Icon name="Calendar" size={24} strokeWidth={activeTab === 'itinerary' ? 2.5 : 2} /><span className="text-[10px] font-bold">行程</span></button>
-                        <button onClick={() => setActiveTab('checklist')} className={`flex flex-col items-center gap-1 transition min-w-[50px] ${activeTab === 'checklist' ? 'text-blue-600 scale-105' : 'text-slate-400'}`}><Icon name="CheckSquare" size={24} strokeWidth={activeTab === 'checklist' ? 2.5 : 2} /><span className="text-[10px] font-bold">清單</span></button>
-                        <button onClick={() => setActiveTab('wallet')} className={`flex flex-col items-center gap-1 transition min-w-[50px] ${activeTab === 'wallet' ? 'text-blue-600 scale-105' : 'text-slate-400'}`}><Icon name="CreditCard" size={24} strokeWidth={activeTab === 'wallet' ? 2.5 : 2} /><span className="text-[10px] font-bold">花費</span></button>
-                        <button onClick={() => setActiveTab('toolbox')} className={`flex flex-col items-center gap-1 transition min-w-[50px] ${activeTab === 'toolbox' ? 'text-blue-600 scale-105' : 'text-slate-400'}`}><Icon name="Briefcase" size={24} strokeWidth={activeTab === 'toolbox' ? 2.5 : 2} /><span className="text-[10px] font-bold">工具</span></button>
+                        <button onClick={() => setActiveTab('home')} className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-blue-600 scale-110' : 'text-slate-400'}`}><Icon name="Home" size={24}/><span className="text-[10px] font-bold">首頁</span></button>
+                        <button onClick={() => setActiveTab('itinerary')} className={`flex flex-col items-center gap-1 ${activeTab === 'itinerary' ? 'text-blue-600 scale-110' : 'text-slate-400'}`}><Icon name="Calendar" size={24}/><span className="text-[10px] font-bold">行程</span></button>
+                        <button onClick={() => setActiveTab('map')} className={`flex flex-col items-center gap-1 ${activeTab === 'map' ? 'text-blue-600 scale-110' : 'text-slate-400'}`}><Icon name="Map" size={24}/><span className="text-[10px] font-bold">地圖</span></button>
+                        <button onClick={() => setActiveTab('wallet')} className={`flex flex-col items-center gap-1 ${activeTab === 'wallet' ? 'text-blue-600 scale-110' : 'text-slate-400'}`}><Icon name="CreditCard" size={24}/><span className="text-[10px] font-bold">錢包</span></button>
+                        <button onClick={() => setActiveTab('tools')} className={`flex flex-col items-center gap-1 ${activeTab === 'tools' ? 'text-blue-600 scale-110' : 'text-slate-400'}`}><Icon name="Briefcase" size={24}/><span className="text-[10px] font-bold">工具</span></button>
                     </div>
                 </div>
             );
