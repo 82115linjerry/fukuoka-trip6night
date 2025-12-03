@@ -34,6 +34,18 @@
         .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
         /* Map Container Height */
         #map { height: 100%; width: 100%; border-radius: 1rem; z-index: 0; }
+        /* Leaflet Popups & Tooltips */
+        .leaflet-popup-content-wrapper { border-radius: 12px; font-family: system-ui; padding: 0; overflow: hidden; }
+        .leaflet-popup-content { margin: 12px; }
+        .leaflet-tooltip { font-weight: bold; border-radius: 4px; border: 1px solid #cbd5e1; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-size: 12px; padding: 4px 8px; color: #1e293b; background: rgba(255, 255, 255, 0.95); }
+        
+        /* Animations */
+        @keyframes bounceIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            60% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); }
+        }
+        .animate-bounce-in { animation: bounceIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     </style>
 </head>
 <body class="bg-gray-100 flex justify-center h-[100dvh] overflow-hidden">
@@ -74,12 +86,13 @@
                 Map: <><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></>,
                 Sun: <><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></>,
                 Cloud: <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>,
-                Edit: <><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></>
+                Edit: <><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></>,
+                X: <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>
             };
             return <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{icons[name] || <circle cx="12" cy="12" r="10"/>}</svg>;
         };
 
-        // --- GLOBAL CONSTANTS (UPDATED: Fully detailed from PDF + User Request) ---
+        // --- GLOBAL CONSTANTS (Full Detail) ---
         const initialTripData = {
           itinerary: [
             {
@@ -87,12 +100,12 @@
               date: "12/09 (週二)",
               theme: "初抵福地",
               tasks: [
-                { id: 't1-1', time: "11:00-13:30", title: "桃園機場 -> 福岡機場 (IT720)", type: "transport", note: "APP自助報到與託運，避開人潮。" },
+                { id: 't1-1', time: "11:00-13:30", title: "桃園機場 -> 福岡機場 (IT720)", type: "transport", lat: 33.5859, lng: 130.4507, note: "APP自助報到與託運，避開人潮。" },
                 { id: 't1-2', time: "16:55-18:00", title: "入境審查 & 領行李", type: "transport", note: "關鍵：立即開啟 VJW 截圖，保持隊形。" },
-                { id: 't1-3', time: "18:00-18:45", title: "機場 -> 飯店 (計程車)", type: "transport", note: "從 A3 出口搭乘，車資約 ¥2,500。保留體力。" },
+                { id: 't1-3', time: "18:00-18:45", title: "機場 -> 飯店 (計程車)", type: "transport", lat: 33.5861, lng: 130.4190, note: "從 A3 出口搭乘，車資約 ¥2,500。保留體力。" },
                 { id: 't1-4', time: "19:00-20:00", title: "Check-in & 休息", type: "transport", note: "長輩休息，熟悉飯店設備。" },
-                { id: 't1-5', time: "20:00-21:30", title: "晚餐：博多祇園鉄なべ", type: "food", map: "博多祇園鉄なべ", note: "排隊名店。備案B：たんやHAKATA (牛舌定食)。" },
-                { id: 't1-6', time: "21:30+", title: "夜間採買：MaxValu", type: "shopping", map: "MaxValu Express Hakata Ekimae", note: "建立初始庫存(水、水果、早餐)。" }
+                { id: 't1-5', time: "20:00-21:30", title: "晚餐：博多祇園鉄なべ", type: "food", map: "博多祇園鉄なべ", lat: 33.5912, lng: 130.4162, note: "排隊名店。備案B：たんやHAKATA (牛舌定食)。" },
+                { id: 't1-6', time: "21:30+", title: "夜間採買：MaxValu", type: "shopping", map: "MaxValu Express Hakata Ekimae", lat: 33.5855, lng: 130.4178, note: "建立初始庫存(水、水果、早餐)。" }
               ]
             },
             {
@@ -100,14 +113,14 @@
               date: "12/10 (週三)",
               theme: "新舊交融",
               tasks: [
-                { id: 't2-1', time: "08:00-09:30", title: "早餐：Dacomecca", type: "food", map: "Dacomecca", note: "排隊王者，建議年輕成員先去排隊。" },
-                { id: 't2-2', time: "09:30-12:00", title: "櫛田神社 & 川端通商店街", type: "sightseeing", map: "Kushida Shrine", note: "感受博多文化源頭。" },
-                { id: 't2-3', time: "10:15", title: "Full Full Hakata", type: "food", map: "Full Full Hakata", note: "購買招牌明太子法國麵包。" },
-                { id: 't2-4', time: "12:00-13:30", title: "午餐：鰻魚四代目菊川", type: "food", map: "鰻魚四代目菊川 中洲春吉店", note: "吉塚鰻魚屋公休，改吃這家 (中洲春吉店)。" },
+                { id: 't2-1', time: "08:00-09:30", title: "早餐：Dacomecca", type: "food", map: "Dacomecca", lat: 33.5895, lng: 130.4222, note: "排隊王者，建議年輕成員先去排隊。" },
+                { id: 't2-2', time: "09:30-12:00", title: "櫛田神社 & 川端通商店街", type: "sightseeing", map: "Kushida Shrine", lat: 33.5930, lng: 130.4106, note: "感受博多文化源頭。" },
+                { id: 't2-3', time: "10:15", title: "Full Full Hakata", type: "food", map: "Full Full Hakata", lat: 33.5942, lng: 130.4140, note: "購買招牌明太子法國麵包。" },
+                { id: 't2-4', time: "12:00-13:30", title: "午餐：鰻魚四代目菊川", type: "food", map: "鰻魚四代目菊川 中洲春吉店", lat: 33.5905, lng: 130.4075, note: "吉塚鰻魚屋公休，改吃這家 (中洲春吉店)。" },
                 { id: 't2-5', time: "13:30-15:00", title: "(選擇性) COCO'S 大橋店", type: "food", map: "COCO'S Ohashi", note: "若體力不足建議取消，直接前往 Lalaport。" },
-                { id: 't2-6', time: "15:00-17:30", title: "Lalaport 福岡", type: "sightseeing", map: "LaLaport Fukuoka", note: "朝聖 1:1 鋼彈立像 (整點有演出)。" },
-                { id: 't2-7', time: "17:30-19:30", title: "晚餐：燒肉 大東園 本店", type: "food", map: "Daitoen Honten", note: "必須預約。備案B：博多華味鳥。" },
-                { id: 't2-8', time: "20:30+", title: "博多運河城", type: "sightseeing", map: "Canal City Hakata", note: "夜間水舞秀。" }
+                { id: 't2-6', time: "15:00-17:30", title: "Lalaport 福岡", type: "sightseeing", map: "LaLaport Fukuoka", lat: 33.5504, lng: 130.4463, note: "朝聖 1:1 鋼彈立像 (整點有演出)。" },
+                { id: 't2-7', time: "17:30-19:30", title: "晚餐：燒肉 大東園 本店", type: "food", map: "Daitoen Honten", lat: 33.5935, lng: 130.4128, note: "必須預約。備案B：博多華味鳥。" },
+                { id: 't2-8', time: "20:30+", title: "博多運河城", type: "sightseeing", map: "Canal City Hakata", lat: 33.5898, lng: 130.4108, note: "夜間水舞秀。" }
               ]
             },
             {
@@ -116,11 +129,11 @@
               theme: "太宰府禪意",
               tasks: [
                 { id: 't3-1', time: "10:00-11:00", title: "移動：博多 -> 太宰府", type: "transport", map: "Hakata Bus Terminal", note: "博多巴士總站 1F 11號月台搭乘「旅人」號。" },
-                { id: 't3-2', time: "11:00-14:30", title: "太宰府精華遊", type: "sightseeing", map: "Dazaifu Tenmangu", note: "表參道梅枝餅、星巴克、天滿宮飛梅館。" },
-                { id: 't3-3', time: "12:30", title: "午餐：一蘭拉麵 太宰府店", type: "food", map: "Ichiran Dazaifu", note: "特色：合格五角碗。" },
-                { id: 't3-4', time: "14:30-16:00", title: "光明禪寺", type: "sightseeing", map: "Komyozenji", note: "枯山水庭園。拜觀料¥300僅收現金。" },
-                { id: 't3-5', time: "17:00-19:00", title: "返回天神 & Pain Stock", type: "shopping", map: "stock", note: "天神中央公園店，品嚐麵包與咖啡。" },
-                { id: 't3-6', time: "19:00-21:00", title: "晚餐：麵屋兼虎", type: "food", map: "Menya Kanetora Tenjin", note: "沾麵名店。備案B：大砲拉麵。" }
+                { id: 't3-2', time: "11:00-14:30", title: "太宰府精華遊", type: "sightseeing", map: "Dazaifu Tenmangu", lat: 33.5215, lng: 130.5349, note: "表參道梅枝餅、星巴克、天滿宮飛梅館。" },
+                { id: 't3-3', time: "12:30", title: "午餐：一蘭拉麵 太宰府店", type: "food", map: "Ichiran Dazaifu", lat: 33.5192, lng: 130.5317, note: "特色：合格五角碗。" },
+                { id: 't3-4', time: "14:30-16:00", title: "光明禪寺", type: "sightseeing", map: "Komyozenji", lat: 33.5186, lng: 130.5344, note: "枯山水庭園。拜觀料¥300僅收現金。" },
+                { id: 't3-5', time: "17:00-19:00", title: "返回天神 & Pain Stock", type: "shopping", map: "stock", lat: 33.5900, lng: 130.4035, note: "天神中央公園店，品嚐麵包與咖啡。" },
+                { id: 't3-6', time: "19:00-21:00", title: "晚餐：麵屋兼虎", type: "food", map: "Menya Kanetora Tenjin", lat: 33.5886, lng: 130.3995, note: "沾麵名店。備案B：大砲拉麵。" }
               ]
             },
             {
@@ -129,11 +142,11 @@
               theme: "港都懷舊",
               tasks: [
                 { id: 't4-1', time: "09:00-10:20", title: "移動：博多 -> 門司港", type: "transport", map: "Hakata Station", note: "速度戰術：新幹線至小倉，再轉乘 JR 至門司港。" },
-                { id: 't4-2', time: "10:30-12:30", title: "門司港懷舊區散策", type: "sightseeing", map: "Mojiko Retro", note: "舊三井俱樂部、藍翼門司吊橋。" },
-                { id: 't4-3', time: "12:30-13:30", title: "午餐：伽哩本舖", type: "food", map: "Curry Honpo Mojiko", note: "燒咖哩名物，推薦窗邊座位。" },
+                { id: 't4-2', time: "10:30-12:30", title: "門司港懷舊區散策", type: "sightseeing", map: "Mojiko Retro", lat: 33.9446, lng: 130.9633, note: "舊三井俱樂部、藍翼門司吊橋。" },
+                { id: 't4-3', time: "12:30-13:30", title: "午餐：伽哩本舖", type: "food", map: "Curry Honpo Mojiko", lat: 33.9458, lng: 130.9615, note: "燒咖哩名物，推薦窗邊座位。" },
                 { id: 't4-4', time: "13:30-15:30", title: "下午茶 & 體驗", type: "sightseeing", map: "Karato Market", note: "方案A: 門司港布丁 / 方案B: 聯絡船至唐戶市場+海底隧道。" },
                 { id: 't4-5', time: "17:00-19:00", title: "移動：小倉 -> 博多", type: "transport", note: "返回博多晚餐。" },
-                { id: 't4-6', time: "19:00+", title: "晚餐：但馬屋 / 小林養雞", type: "food", map: "Hakata Station", note: "壽喜燒吃到飽 或 日式居酒屋。" }
+                { id: 't4-6', time: "19:00+", title: "晚餐：但馬屋 / 小林養雞", type: "food", map: "Hakata Station", lat: 33.5902, lng: 130.4207, note: "壽喜燒吃到飽 或 日式居酒屋。" }
               ]
             },
             {
@@ -141,11 +154,11 @@
               date: "12/13 (週六)",
               theme: "博多美食精髓",
               tasks: [
-                { id: 't5-1', time: "08:30-10:00", title: "早餐：食堂 おわん", type: "food", map: "Shokudo Owan", note: "精緻日式傳統朝食。" },
+                { id: 't5-1', time: "08:30-10:00", title: "早餐：食堂 おわん", type: "food", map: "Shokudo Owan", lat: 33.5925, lng: 130.4135, note: "精緻日式傳統朝食。" },
                 { id: 't5-2', time: "10:00-12:00", title: "天神地下街", type: "shopping", map: "Tenjin Underground Shopping Center", note: "購物與伴手禮採買。" },
-                { id: 't5-3', time: "12:00-13:30", title: "午餐：とんかつわか葉", type: "food", map: "Tonkatsu Wakaba", note: "炸豬排。排隊兇猛，建議 11:15 前抵達。" },
-                { id: 't5-4', time: "15:00-17:00", title: "博多運河城", type: "sightseeing", map: "Canal City Hakata", note: "補完購物行程，觀賞噴水秀。" },
-                { id: 't5-5', time: "17:30-19:00", title: "晚餐：華味鳥 / 前田屋", type: "food", map: "Hakata Hanamidori", note: "分組行動：清淡水炊雞鍋 vs 濃郁牛腸鍋。需預約。" }
+                { id: 't5-3', time: "12:00-13:30", title: "午餐：とんかつわか葉", type: "food", map: "Tonkatsu Wakaba", lat: 33.5938, lng: 130.4032, note: "炸豬排。排隊兇猛，建議 11:15 前抵達。" },
+                { id: 't5-4', time: "15:00-17:00", title: "博多運河城", type: "sightseeing", map: "Canal City Hakata", lat: 33.5898, lng: 130.4108, note: "補完購物行程，觀賞噴水秀。" },
+                { id: 't5-5', time: "17:30-19:00", title: "晚餐：華味鳥 / 前田屋", type: "food", map: "Hakata Hanamidori", lat: 33.5935, lng: 130.4110, note: "分組行動：清淡水炊雞鍋 vs 濃郁牛腸鍋。需預約。" }
               ]
             },
             {
@@ -153,12 +166,12 @@
               date: "12/14 (週日)",
               theme: "福岡生活光譜",
               tasks: [
-                { id: 't6-1', time: "09:00-10:30", title: "六本松麵包：Amam Dacotan", type: "food", map: "Amam Dacotan", note: "全日本話題度最高。備案：Matsu Pan。" },
-                { id: 't6-2', time: "10:30-13:00", title: "大濠公園 & 美術館", type: "sightseeing", map: "Ohori Park", note: "湖畔享用麵包，欣賞草間彌生南瓜。" },
-                { id: 't6-3', time: "14:00-15:00", title: "午餐：魚忠", type: "food", map: "Uochu", note: "高級鮮魚店直營，CP值極高海鮮定食。" },
+                { id: 't6-1', time: "09:00-10:30", title: "六本松麵包：Amam Dacotan", type: "food", map: "Amam Dacotan", lat: 33.5755, lng: 130.3768, note: "全日本話題度最高。備案：Matsu Pan。" },
+                { id: 't6-2', time: "10:30-13:00", title: "大濠公園 & 美術館", type: "sightseeing", map: "Ohori Park", lat: 33.5865, lng: 130.3763, note: "湖畔享用麵包，欣賞草間彌生南瓜。" },
+                { id: 't6-3', time: "14:00-15:00", title: "午餐：魚忠", type: "food", map: "Uochu", lat: 33.5835, lng: 130.3955, note: "高級鮮魚店直營，CP值極高海鮮定食。" },
                 { id: 't6-4', time: "15:00-16:30", title: "藥院選物 & Coffee County", type: "shopping", map: "B・B・B POTTERS", note: "生活雜貨散策。" },
-                { id: 't6-5', time: "17:00-18:30", title: "西新散策 & 福岡塔", type: "sightseeing", map: "Fukuoka Tower", note: "蜂樂饅頭，欣賞百道海濱夜景。" },
-                { id: 't6-6', time: "19:00+", title: "晚餐：小林養雞 (西新店)", type: "food", map: "Kobayashi Youkei Nishijin", note: "在地人喜愛的居酒屋。" }
+                { id: 't6-5', time: "17:00-18:30", title: "西新散策 & 福岡塔", type: "sightseeing", map: "Fukuoka Tower", lat: 33.5933, lng: 130.3515, note: "蜂樂饅頭，欣賞百道海濱夜景。" },
+                { id: 't6-6', time: "19:00+", title: "晚餐：小林養雞 (西新店)", type: "food", map: "Kobayashi Youkei Nishijin", lat: 33.5828, lng: 130.3555, note: "在地人喜愛的居酒屋。" }
               ]
             },
             {
@@ -167,10 +180,10 @@
               theme: "完美歸途",
               tasks: [
                 { id: 't7-1', time: "09:00-11:00", title: "退房 & 行李寄放", type: "transport", note: "飯店櫃台寄放行李。" },
-                { id: 't7-2', time: "11:00-13:30", title: "博多站最後衝刺", type: "shopping", map: "Hakata Hankyu", note: "阪急B1/AMU。必買：福砂屋、努努雞。" },
+                { id: 't7-2', time: "11:00-13:30", title: "博多站最後衝刺", type: "shopping", map: "Hakata Hankyu", lat: 33.5895, lng: 130.4205, note: "阪急B1/AMU。必買：福砂屋、努努雞。" },
                 { id: 't7-3', time: "12:00-13:00", title: "午餐：博多麵街道", type: "food", map: "Hakata Noodle Street", note: "最後一碗拉麵 (Shin-Shin/海鳴)。" },
                 { id: 't7-4', time: "14:00-15:00", title: "前往機場", type: "transport", note: "回飯店取行李，搭計程車直達國際線航廈。" },
-                { id: 't7-5', time: "15:00-15:15", title: "抵達福岡機場", type: "transport", map: "Fukuoka Airport International Terminal", note: "務必提早，安檢排隊長。" },
+                { id: 't7-5', time: "15:00-15:15", title: "抵達福岡機場", type: "transport", map: "Fukuoka Airport International Terminal", lat: 33.5859, lng: 130.4507, note: "務必提早，安檢排隊長。" },
                 { id: 't7-6', time: "15:15-17:55", title: "出境程序 & 登機 (IT721)", type: "transport", note: "17:55 起飛。平安歸賦。" }
               ]
             }
@@ -187,11 +200,28 @@
 
         // --- COMPONENTS ---
 
-        const MapTab = () => {
+        const MapTab = ({ itinerary }) => {
             const mapContainerRef = useRef(null);
             const mapInstanceRef = useRef(null);
-            const markerRef = useRef(null);
-            const [status, setStatus] = useState("等待定位...");
+            const userMarkerRef = useRef(null);
+            const [status, setStatus] = useState("點擊地圖可新增標記");
+            const [userMarkers, setUserMarkers] = useState(() => JSON.parse(localStorage.getItem('fukuoka_user_markers')) || []);
+            const [isAdding, setIsAdding] = useState(false);
+            const [newMarkerPos, setNewMarkerPos] = useState(null);
+            const [newMarkerName, setNewMarkerName] = useState('');
+            const [newMarkerType, setNewMarkerType] = useState('food');
+
+            useEffect(() => { localStorage.setItem('fukuoka_user_markers', JSON.stringify(userMarkers)); }, [userMarkers]);
+
+            // Attach delete function to window safely
+            useEffect(() => {
+                window.fukuokaDeleteMarker = (id) => {
+                    if(window.confirm('確定刪除此標記？')) {
+                        setUserMarkers(prev => prev.filter(m => m.id !== id));
+                    }
+                };
+                return () => { delete window.fukuokaDeleteMarker; };
+            }, []);
 
             useEffect(() => {
                 if (!mapInstanceRef.current && mapContainerRef.current) {
@@ -199,50 +229,174 @@
                     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                         attribution: '&copy; OpenStreetMap contributors'
                     }).addTo(mapInstanceRef.current);
+
+                    mapInstanceRef.current.on('click', (e) => {
+                        setNewMarkerPos(e.latlng);
+                        setIsAdding(true);
+                    });
                 }
 
+                const map = mapInstanceRef.current;
+
+                // Clear existing markers
+                map.eachLayer((layer) => {
+                    if (layer instanceof L.Marker && layer !== userMarkerRef.current) {
+                        map.removeLayer(layer);
+                    }
+                });
+
+                const addMarkerToMap = (lat, lng, title, type, isUser = false, id = null) => {
+                    let color = '#22C55E';
+                    if (type === 'food') color = '#F97316';
+                    if (type === 'sightseeing') color = '#3B82F6';
+                    if (type === 'shopping') color = '#EC4899';
+                    
+                    const borderStyle = isUser ? 'border: 2px dashed white;' : 'border: 2px solid white;';
+                    const markerHtml = `<div style="background-color:${color}; width:16px; height:16px; border-radius:50%; ${borderStyle} box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`;
+                    
+                    const icon = L.divIcon({
+                        className: 'custom-pin',
+                        html: markerHtml,
+                        iconSize: [16, 16],
+                        iconAnchor: [8, 8],
+                        popupAnchor: [0, -10],
+                        tooltipAnchor: [8, -4] 
+                    });
+                    
+                    const marker = L.marker([lat, lng], { icon }).addTo(map);
+                    
+                    // Add Tooltip (Name label) for Hover/Tap
+                    marker.bindTooltip(title, { 
+                        permanent: false, 
+                        direction: 'top',
+                        offset: [0, -12],
+                        opacity: 0.9
+                    });
+
+                    const googleMapLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(title)}`;
+                    
+                    let popupContent = `
+                        <div style="text-align:center; min-width: 120px;">
+                            <div style="font-weight:bold; color:#1e293b; margin-bottom:8px; font-size:14px;">${title}</div>
+                            <a href="${googleMapLink}" target="_blank" style="background-color:#3B82F6; color:white; padding:6px 16px; border-radius:99px; text-decoration:none; font-size:12px; font-weight:bold; display:inline-block; box-shadow: 0 2px 4px rgba(59,130,246,0.3);">導航 GO ></a>
+                    `;
+
+                    if (isUser) {
+                        popupContent += `<div style="margin-top:12px; border-top:1px solid #eee; padding-top:8px;"><button onclick="window.fukuokaDeleteMarker(${id})" style="color:#ef4444; font-size:12px; border:none; background:none; text-decoration:underline; cursor:pointer; font-weight:bold;">刪除此標記</button></div>`;
+                    }
+                    
+                    popupContent += `</div>`;
+                    marker.bindPopup(popupContent);
+                };
+
+                // Add Markers
+                itinerary.forEach(day => {
+                    day.tasks.forEach(task => {
+                        if (task.lat && task.lng) {
+                            addMarkerToMap(task.lat, task.lng, task.title, task.type);
+                        }
+                    });
+                });
+
+                userMarkers.forEach(m => {
+                    addMarkerToMap(m.lat, m.lng, m.title, m.type, true, m.id);
+                });
+
+                // User Location
                 if (navigator.geolocation) {
-                    setStatus("正在搜尋您的奴隸位置...");
-                    const watchId = navigator.geolocation.watchPosition(
+                    navigator.geolocation.watchPosition(
                         (position) => {
                             const { latitude, longitude } = position.coords;
-                            setStatus("定位成功！");
-                            
-                            const map = mapInstanceRef.current;
                             if (map) {
-                                if (!markerRef.current) {
-                                    const customIcon = L.divIcon({
-                                        className: 'custom-div-icon',
-                                        html: "<div style='background-color:#2563EB; width:12px; height:12px; border-radius:50%; border:2px solid white; box-shadow: 0 0 0 4px rgba(37,99,235,0.3);'></div>",
-                                        iconSize: [20, 20],
-                                        iconAnchor: [10, 10]
+                                if (!userMarkerRef.current) {
+                                    const userIcon = L.divIcon({
+                                        className: 'user-pin',
+                                        html: "<div style='background-color:#2563EB; width:16px; height:16px; border-radius:50%; border:3px solid white; box-shadow: 0 0 0 4px rgba(37,99,235,0.4);'></div>",
+                                        iconSize: [24, 24],
+                                        iconAnchor: [12, 12]
                                     });
-                                    markerRef.current = L.marker([latitude, longitude], {icon: customIcon}).addTo(map);
-                                    map.setView([latitude, longitude], 15);
+                                    userMarkerRef.current = L.marker([latitude, longitude], {icon: userIcon, zIndexOffset: 1000}).addTo(map);
                                 } else {
-                                    markerRef.current.setLatLng([latitude, longitude]);
+                                    userMarkerRef.current.setLatLng([latitude, longitude]);
                                 }
                             }
                         },
-                        (error) => { 
-                            console.log("GPS Error:", error);
-                            setStatus("預覽模式/無訊號：顯示預設位置 (博多站)");
-                            const map = mapInstanceRef.current;
-                            if(map) map.setView([33.5902, 130.4207], 14);
-                        },
+                        (error) => { console.log("GPS Error", error); },
                         { enableHighAccuracy: true }
                     );
-                    return () => navigator.geolocation.clearWatch(watchId);
-                } else {
-                    setStatus("瀏覽器不支援定位");
                 }
-            }, []);
+            }, [itinerary, userMarkers]); 
+
+            const confirmAddMarker = () => {
+                if (!newMarkerName || !newMarkerPos) return;
+                const newMarker = {
+                    id: Date.now(),
+                    lat: newMarkerPos.lat,
+                    lng: newMarkerPos.lng,
+                    title: newMarkerName,
+                    type: newMarkerType
+                };
+                setUserMarkers([...userMarkers, newMarker]);
+                setIsAdding(false);
+                setNewMarkerName('');
+            };
 
             return (
                 <div className="h-full flex flex-col bg-slate-50 relative">
-                    <div className="absolute top-4 left-4 right-4 z-[400] bg-white/90 backdrop-blur px-4 py-2 rounded-xl shadow-lg border border-slate-200 text-center">
-                        <span className="text-xs font-bold text-blue-600 animate-pulse">● {status}</span>
+                    {/* Instructions Overlay */}
+                    <div className="absolute top-4 left-4 right-4 z-[400] bg-white/90 backdrop-blur px-4 py-2 rounded-xl shadow-lg border border-slate-200 flex justify-between items-center">
+                        <span className="text-xs font-bold text-slate-600">👆 點擊地圖：先偵察</span>
+                        <div className="flex gap-2 text-[10px] font-bold text-slate-500">
+                            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-orange-500"></span>食</span>
+                            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-500"></span>玩</span>
+                            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-pink-500"></span>購</span>
+                        </div>
                     </div>
+                    
+                    {/* Add Marker Modal (Recon Mode) */}
+                    {isAdding && (
+                        <div className="absolute inset-0 z-[500] bg-black/20 flex items-center justify-center p-4">
+                            <div className="bg-white p-4 rounded-2xl shadow-2xl w-full max-w-xs animate-bounce-in">
+                                <h3 className="font-bold text-slate-800 mb-1">📍 偵察新地點</h3>
+                                <p className="text-xs text-slate-500 mb-3">座標: {newMarkerPos.lat.toFixed(4)}, {newMarkerPos.lng.toFixed(4)}</p>
+                                
+                                <a 
+                                    href={`https://www.google.com/maps/search/?api=1&query=${newMarkerPos.lat},${newMarkerPos.lng}`}
+                                    target="_blank"
+                                    className="block w-full text-center py-2 mb-4 bg-blue-50 text-blue-600 rounded-lg text-sm font-bold border border-blue-100 hover:bg-blue-100"
+                                >
+                                    🔍 在 Google Maps 確認此處
+                                </a>
+
+                                <div className="border-t border-slate-100 pt-3">
+                                    <label className="text-xs font-bold text-slate-400 block mb-1">確認要新增嗎？請輸入名稱：</label>
+                                    <input 
+                                        placeholder="例如：好吃的拉麵" 
+                                        className="w-full p-2 mb-3 border rounded-lg text-sm"
+                                        value={newMarkerName}
+                                        onChange={e => setNewMarkerName(e.target.value)}
+                                        autoFocus
+                                    />
+                                    <div className="flex gap-2 mb-3">
+                                        {['food', 'sightseeing', 'shopping'].map(t => (
+                                            <button 
+                                                key={t}
+                                                onClick={() => setNewMarkerType(t)}
+                                                className={`flex-1 py-1 rounded text-xs font-bold capitalize border ${newMarkerType === t ? 'bg-slate-800 text-white border-slate-800' : 'bg-white text-slate-500 border-slate-200'}`}
+                                            >
+                                                {t === 'food' ? '食' : t === 'sightseeing' ? '玩' : '購'}
+                                            </button>
+                                        ))}
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <button onClick={() => setIsAdding(false)} className="flex-1 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm font-bold">取消</button>
+                                        <button onClick={confirmAddMarker} className="flex-1 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold">確認新增</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
                     <div id="map" ref={mapContainerRef} className="flex-1 w-full h-full z-0"></div>
                 </div>
             );
@@ -582,7 +736,7 @@
                                             <button onClick={() => onDeleteTask(dayData.day, task.id)} className="text-slate-300"><Icon name="Trash2" size={16}/></button>
                                         </div>
                                         <div className="text-sm text-slate-500 mt-1 leading-relaxed">{task.note}</div>
-                                        {task.map && <a href={`https://www.google.com/maps/search/?api=1&query=${task.map} Fukuoka`} target="_blank" className="text-xs text-blue-500 mt-1 block">導航 ></a>}
+                                        {task.map && <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(task.map + " Fukuoka")}`} target="_blank" className="text-xs text-blue-500 mt-1 block">導航 ></a>}
                                     </div>
                                 </div>
                             ))}
@@ -640,7 +794,7 @@
                     <div className="flex-1 overflow-hidden relative">
                         {activeTab === 'home' && <HomeTab leaderInfo={leaderInfo} setLeaderInfo={setLeaderInfo} setActiveTab={setActiveTab} />}
                         {activeTab === 'itinerary' && <div className="h-full overflow-y-auto p-4 space-y-4 pb-32">{itinerary.map(day => <ItineraryDay key={day.day} dayData={day} onDeleteTask={handleDeleteTask} onAddTask={handleAddTask} />)}</div>}
-                        {activeTab === 'map' && <MapTab />}
+                        {activeTab === 'map' && <MapTab itinerary={itinerary} />}
                         {activeTab === 'wallet' && <ExpenseTracker />}
                         {activeTab === 'tools' && <ToolboxTab />}
                         {activeTab === 'checklist' && <ChecklistTab items={checklist} toggleItem={toggleChecklist} />}
