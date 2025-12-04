@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <!-- 標題設定 -->
-    <title>林糖糖的奴隸吃吃喝喝福岡行</title>
+    <title>林糖糖的福岡冬日之旅 ❄️</title>
     
     <!-- PWA Settings -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#2563EB">
+    <meta name="theme-color" content="#FCA5A5">
 
-    <!-- Icons -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' ry='100' fill='%232563EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='white' font-size='300' font-family='sans-serif' font-weight='bold'%3E糖%3C/text%3E%3C/svg%3E">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='100' ry='100' fill='%232563EB'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='white' font-size='300' font-family='sans-serif' font-weight='bold'%3E糖%3C/text%3E%3C/svg%3E">
-    <link rel="manifest" href='data:application/manifest+json,{"name":"福岡戰術","short_name":"福岡戰術","display":"standalone","start_url":".","background_color":"#ffffff","theme_color":"#2563EB","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Crect width=%27512%27 height=%27512%27 rx=%27100%27 ry=%27100%27 fill=%27%232563EB%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 dominant-baseline=%27central%27 text-anchor=%27middle%27 fill=%27white%27 font-size=%27300%27 font-family=%27sans-serif%27 font-weight=%27bold%27%3E糖%3C/text%3E%3C/svg%3E","sizes":"512x512","type":"image/svg+xml"}]}'>
+    <!-- Icons (更可愛的配色) -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' ry='120' fill='%23FCA5A5'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='white' font-size='300' font-family='sans-serif' font-weight='bold'%3E糖%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' ry='120' fill='%23FCA5A5'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' fill='white' font-size='300' font-family='sans-serif' font-weight='bold'%3E糖%3C/text%3E%3C/svg%3E">
+    <link rel="manifest" href='data:application/manifest+json,{"name":"林糖糖的福岡行","short_name":"福岡之旅","display":"standalone","start_url":".","background_color":"#FFF7ED","theme_color":"#FCA5A5","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 512 512%27%3E%3Crect width=%27512%27 height=%27512%27 rx=%27120%27 ry=%27120%27 fill=%27%23FCA5A5%27/%3E%3Ctext x=%2750%25%27 y=%2750%25%27 dominant-baseline=%27central%27 text-anchor=%27middle%27 fill=%27white%27 font-size=%27300%27 font-family=%27sans-serif%27 font-weight=%27bold%27%3E糖%3C/text%3E%3C/svg%3E","sizes":"512x512","type":"image/svg+xml"}]}'>
 
     <!-- Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -28,38 +28,51 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
     <style>
-        body { -webkit-tap-highlight-color: transparent; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        /* 柔和字體與背景 */
+        body { 
+            -webkit-tap-highlight-color: transparent; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            background-color: #FFF7ED; /* 暖米色背景 */
+            color: #4B5563; /* 柔和的深灰色文字 */
+        }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .pb-safe { padding-bottom: env(safe-area-inset-bottom); }
-        /* Map Container Height */
-        #map { height: 100%; width: 100%; border-radius: 1rem; z-index: 0; }
-        /* Leaflet Popups & Tooltips */
-        .leaflet-popup-content-wrapper { border-radius: 12px; font-family: system-ui; padding: 0; overflow: hidden; }
-        .leaflet-popup-content { margin: 12px; }
-        .leaflet-tooltip { font-weight: bold; border-radius: 4px; border: 1px solid #cbd5e1; box-shadow: 0 2px 4px rgba(0,0,0,0.1); font-size: 12px; padding: 4px 8px; color: #1e293b; background: rgba(255, 255, 255, 0.95); }
         
+        /* Map Styling */
+        #map { height: 100%; width: 100%; border-radius: 1.5rem; z-index: 0; border: 4px solid white; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); }
+        .leaflet-popup-content-wrapper { border-radius: 16px; font-family: system-ui; padding: 0; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .leaflet-popup-content { margin: 16px; }
+        .leaflet-tooltip { font-weight: bold; border-radius: 8px; border: none; box-shadow: 0 4px 6px rgba(0,0,0,0.05); font-size: 12px; padding: 6px 10px; color: #4B5563; background: rgba(255, 255, 255, 0.95); }
+        
+        /* FIX: Ensure divIcon markers are visible */
+        .custom-pin, .user-pin { display: block !important; width: 16px !important; height: 16px !important; }
+
         /* Animations */
         @keyframes bounceIn {
             0% { transform: scale(0.8); opacity: 0; }
             60% { transform: scale(1.05); opacity: 1; }
             100% { transform: scale(1); }
         }
-        .animate-bounce-in { animation: bounceIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        @keyframes blink { 50% { opacity: 0; } }
-        .typing-dot { animation: blink 1.4s infinite both; }
-        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        .animate-bounce-in { animation: bounceIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        
+        /* Soft Gradient Text */
+        .text-gradient {
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-image: linear-gradient(to right, #F472B6, #FB923C);
+        }
     </style>
 </head>
-<body class="bg-gray-100 flex justify-center h-[100dvh] overflow-hidden">
+<body class="flex justify-center h-[100dvh] overflow-hidden bg-[#FFF7ED]">
 
-    <div id="root" class="w-full h-full max-w-md bg-white shadow-2xl overflow-hidden relative"></div>
+    <div id="root" class="w-full h-full max-w-md bg-[#FFF7ED] shadow-2xl overflow-hidden relative"></div>
 
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
 
-        // --- Icons ---
+        // --- Icons (Adjusted for softer look) ---
         const Icon = ({ name, size = 20, className = "" }) => {
             const icons = {
                 MapPin: <><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></>,
@@ -100,13 +113,11 @@
             return <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{icons[name] || <circle cx="12" cy="12" r="10"/>}</svg>;
         };
 
-        // --- GLOBAL CONSTANTS (Full Detail) ---
+        // --- GLOBAL CONSTANTS ---
         const initialTripData = {
           itinerary: [
             {
-              day: 1,
-              date: "12/09 (週二)",
-              theme: "初抵福地",
+              day: 1, date: "12/09 (週二)", theme: "初抵福地 ✈️",
               tasks: [
                 { id: 't1-1', time: "11:00-13:30", title: "桃園機場 -> 福岡機場 (IT720)", type: "transport", lat: 33.5859, lng: 130.4507, note: "APP自助報到與託運，避開人潮。" },
                 { id: 't1-2', time: "16:55-18:00", title: "入境審查 & 領行李", type: "transport", note: "關鍵：立即開啟 VJW 截圖，保持隊形。" },
@@ -117,12 +128,10 @@
               ]
             },
             {
-              day: 2,
-              date: "12/10 (週三)",
-              theme: "新舊交融",
+              day: 2, date: "12/10 (週三)", theme: "新舊交融 ⛩️",
               tasks: [
                 { id: 't2-1', time: "08:00-09:30", title: "早餐：Dacomecca", type: "food", map: "Dacomecca", lat: 33.5895, lng: 130.4222, note: "排隊王者，建議年輕成員先去排隊。" },
-                { id: 't2-2', time: "09:30-12:00", title: "櫛田神社 & 川端通商店街", type: "sightseeing", map: "Kushida Shrine", lat: 33.5930, lng: 130.4106, note: "感受博多文化源頭。" },
+                { id: 't2-2', time: "09:30-12:00", title: "櫛田神社 & 川端通", type: "sightseeing", map: "Kushida Shrine", lat: 33.5930, lng: 130.4106, note: "感受博多文化源頭。" },
                 { id: 't2-3', time: "10:15", title: "Full Full Hakata", type: "food", map: "Full Full Hakata", lat: 33.5942, lng: 130.4140, note: "購買招牌明太子法國麵包。" },
                 { id: 't2-4', time: "12:00-13:30", title: "午餐：鰻魚四代目菊川", type: "food", map: "鰻魚四代目菊川 中洲春吉店", lat: 33.5905, lng: 130.4075, note: "吉塚鰻魚屋公休，改吃這家 (中洲春吉店)。" },
                 { id: 't2-5', time: "13:30-15:00", title: "(選擇性) COCO'S 大橋店", type: "food", map: "COCO'S Ohashi", note: "若體力不足建議取消，直接前往 Lalaport。" },
@@ -132,22 +141,18 @@
               ]
             },
             {
-              day: 3,
-              date: "12/11 (週四)",
-              theme: "太宰府禪意",
+              day: 3, date: "12/11 (週四)", theme: "太宰府禪意 🌸",
               tasks: [
                 { id: 't3-1', time: "10:00-11:00", title: "移動：博多 -> 太宰府", type: "transport", map: "Hakata Bus Terminal", note: "博多巴士總站 1F 11號月台搭乘「旅人」號。" },
                 { id: 't3-2', time: "11:00-14:30", title: "太宰府精華遊", type: "sightseeing", map: "Dazaifu Tenmangu", lat: 33.5215, lng: 130.5349, note: "表參道梅枝餅、星巴克、天滿宮飛梅館。" },
                 { id: 't3-3', time: "12:30", title: "午餐：一蘭拉麵 太宰府店", type: "food", map: "Ichiran Dazaifu", lat: 33.5192, lng: 130.5317, note: "特色：合格五角碗。" },
                 { id: 't3-4', time: "14:30-16:00", title: "光明禪寺", type: "sightseeing", map: "Komyozenji", lat: 33.5186, lng: 130.5344, note: "枯山水庭園。拜觀料¥300僅收現金。" },
-                { id: 't3-5', time: "17:00-19:00", title: "返回天神 & Pain Stock", type: "shopping", map: "stock", lat: 33.5900, lng: 130.4035, note: "天神中央公園店，品嚐麵包與咖啡。" },
+                { id: 't3-5', time: "17:00-19:00", title: "Pain Stock 天神", type: "shopping", map: "stock", lat: 33.5900, lng: 130.4035, note: "天神中央公園店，品嚐麵包與咖啡。" },
                 { id: 't3-6', time: "19:00-21:00", title: "晚餐：麵屋兼虎", type: "food", map: "Menya Kanetora Tenjin", lat: 33.5886, lng: 130.3995, note: "沾麵名店。備案B：大砲拉麵。" }
               ]
             },
             {
-              day: 4,
-              date: "12/12 (週五)",
-              theme: "港都懷舊",
+              day: 4, date: "12/12 (週五)", theme: "港都懷舊 ⚓",
               tasks: [
                 { id: 't4-1', time: "09:00-10:20", title: "移動：博多 -> 門司港", type: "transport", map: "Hakata Station", note: "速度戰術：新幹線至小倉，再轉乘 JR 至門司港。" },
                 { id: 't4-2', time: "10:30-12:30", title: "門司港懷舊區散策", type: "sightseeing", map: "Mojiko Retro", lat: 33.9446, lng: 130.9633, note: "舊三井俱樂部、藍翼門司吊橋。" },
@@ -158,9 +163,7 @@
               ]
             },
             {
-              day: 5,
-              date: "12/13 (週六)",
-              theme: "博多美食精髓",
+              day: 5, date: "12/13 (週六)", theme: "博多美食精髓 🍜",
               tasks: [
                 { id: 't5-1', time: "08:30-10:00", title: "早餐：食堂 おわん", type: "food", map: "Shokudo Owan", lat: 33.5925, lng: 130.4135, note: "精緻日式傳統朝食。" },
                 { id: 't5-2', time: "10:00-12:00", title: "天神地下街", type: "shopping", map: "Tenjin Underground Shopping Center", note: "購物與伴手禮採買。" },
@@ -170,22 +173,18 @@
               ]
             },
             {
-              day: 6,
-              date: "12/14 (週日)",
-              theme: "福岡生活光譜",
+              day: 6, date: "12/14 (週日)", theme: "福岡生活光譜 🍞",
               tasks: [
-                { id: 't6-1', time: "09:00-10:30", title: "六本松麵包：Amam Dacotan", type: "food", map: "Amam Dacotan", lat: 33.5755, lng: 130.3768, note: "全日本話題度最高。備案：Matsu Pan。" },
+                { id: 't6-1', time: "09:00-10:30", title: "Amam Dacotan", type: "food", map: "Amam Dacotan", lat: 33.5755, lng: 130.3768, note: "全日本話題度最高。備案：Matsu Pan。" },
                 { id: 't6-2', time: "10:30-13:00", title: "大濠公園 & 美術館", type: "sightseeing", map: "Ohori Park", lat: 33.5865, lng: 130.3763, note: "湖畔享用麵包，欣賞草間彌生南瓜。" },
                 { id: 't6-3', time: "14:00-15:00", title: "午餐：魚忠", type: "food", map: "Uochu", lat: 33.5835, lng: 130.3955, note: "高級鮮魚店直營，CP值極高海鮮定食。" },
                 { id: 't6-4', time: "15:00-16:30", title: "藥院選物 & Coffee County", type: "shopping", map: "B・B・B POTTERS", note: "生活雜貨散策。" },
-                { id: 't6-5', time: "17:00-18:30", title: "西新散策 & 福岡塔", type: "sightseeing", map: "Fukuoka Tower", lat: 33.5933, lng: 130.3515, note: "蜂樂饅頭，欣賞百道海濱夜景。" },
-                { id: 't6-6', time: "19:00+", title: "晚餐：小林養雞 (西新店)", type: "food", map: "Kobayashi Youkei Nishijin", lat: 33.5828, lng: 130.3555, note: "在地人喜愛的居酒屋。" }
+                { id: 't6-5', time: "17:00-18:30", title: "福岡塔", type: "sightseeing", map: "Fukuoka Tower", lat: 33.5933, lng: 130.3515, note: "蜂樂饅頭，欣賞百道海濱夜景。" },
+                { id: 't6-6', time: "19:00+", title: "晚餐：小林養雞", type: "food", map: "Kobayashi Youkei Nishijin", lat: 33.5828, lng: 130.3555, note: "在地人喜愛的居酒屋。" }
               ]
             },
             {
-              day: 7,
-              date: "12/15 (週一)",
-              theme: "完美歸途",
+              day: 7, date: "12/15 (週一)", theme: "完美歸途 🏡",
               tasks: [
                 { id: 't7-1', time: "09:00-11:00", title: "退房 & 行李寄放", type: "transport", note: "飯店櫃台寄放行李。" },
                 { id: 't7-2', time: "11:00-13:30", title: "博多站最後衝刺", type: "shopping", map: "Hakata Hankyu", lat: 33.5895, lng: 130.4205, note: "阪急B1/AMU。必買：福砂屋、努努雞。" },
@@ -212,6 +211,7 @@
             const mapContainerRef = useRef(null);
             const mapInstanceRef = useRef(null);
             const userMarkerRef = useRef(null);
+            const markersGroupRef = useRef(null);
             const [status, setStatus] = useState("點擊地圖可新增標記");
             const [userMarkers, setUserMarkers] = useState(() => JSON.parse(localStorage.getItem('fukuoka_user_markers')) || []);
             const [isAdding, setIsAdding] = useState(false);
@@ -242,25 +242,23 @@
                         setNewMarkerPos(e.latlng);
                         setIsAdding(true);
                     });
+                    
+                    markersGroupRef.current = L.layerGroup().addTo(mapInstanceRef.current);
                 }
 
                 const map = mapInstanceRef.current;
+                const markersLayer = markersGroupRef.current;
 
-                // Clear existing markers
-                map.eachLayer((layer) => {
-                    if (layer instanceof L.Marker && layer !== userMarkerRef.current) {
-                        map.removeLayer(layer);
-                    }
-                });
+                if (markersLayer) markersLayer.clearLayers();
 
                 const addMarkerToMap = (lat, lng, title, type, isUser = false, id = null) => {
-                    let color = '#22C55E';
-                    if (type === 'food') color = '#F97316';
-                    if (type === 'sightseeing') color = '#3B82F6';
-                    if (type === 'shopping') color = '#EC4899';
+                    let color = '#22C55E'; // Green
+                    if (type === 'food') color = '#F97316'; // Orange
+                    if (type === 'sightseeing') color = '#3B82F6'; // Blue
+                    if (type === 'shopping') color = '#EC4899'; // Pink
                     
                     const borderStyle = isUser ? 'border: 2px dashed white;' : 'border: 2px solid white;';
-                    const markerHtml = `<div style="background-color:${color}; width:16px; height:16px; border-radius:50%; ${borderStyle} box-shadow: 0 2px 4px rgba(0,0,0,0.3);"></div>`;
+                    const markerHtml = `<div style="background-color:${color}; width:16px; height:16px; border-radius:50%; ${borderStyle} box-shadow: 0 3px 6px rgba(0,0,0,0.3);"></div>`;
                     
                     const icon = L.divIcon({
                         className: 'custom-pin',
@@ -271,9 +269,8 @@
                         tooltipAnchor: [8, -4] 
                     });
                     
-                    const marker = L.marker([lat, lng], { icon }).addTo(map);
+                    const marker = L.marker([lat, lng], { icon }).addTo(markersLayer);
                     
-                    // Add Tooltip (Name label) for Hover/Tap
                     marker.bindTooltip(title, { 
                         permanent: false, 
                         direction: 'top',
@@ -285,20 +282,18 @@
                     
                     let popupContent = `
                         <div style="text-align:center; min-width: 120px;">
-                            <div style="font-weight:bold; color:#1e293b; margin-bottom:8px; font-size:14px;">${title}</div>
-                            <a href="${googleMapLink}" target="_blank" style="background-color:#3B82F6; color:white; padding:6px 16px; border-radius:99px; text-decoration:none; font-size:12px; font-weight:bold; display:inline-block; box-shadow: 0 2px 4px rgba(59,130,246,0.3);">導航 GO ></a>
+                            <div style="font-weight:bold; color:#4B5563; margin-bottom:8px; font-size:14px;">${title}</div>
+                            <a href="${googleMapLink}" target="_blank" style="background-color:#60A5FA; color:white; padding:6px 16px; border-radius:99px; text-decoration:none; font-size:12px; font-weight:bold; display:inline-block; box-shadow: 0 2px 5px rgba(96,165,250,0.4);">導航 GO ></a>
                     `;
 
                     if (isUser) {
-                        // Use the global function we defined
-                        popupContent += `<div style="margin-top:12px; border-top:1px solid #eee; padding-top:8px;"><button onclick="window.fukuokaDeleteMarker(${id})" style="color:#ef4444; font-size:12px; border:none; background:none; text-decoration:underline; cursor:pointer; font-weight:bold;">刪除此標記</button></div>`;
+                        popupContent += `<div style="margin-top:12px; border-top:1px solid #F3F4F6; padding-top:8px;"><button onclick="window.fukuokaDeleteMarker(${id})" style="color:#F87171; font-size:12px; border:none; background:none; text-decoration:underline; cursor:pointer; font-weight:bold;">刪除此標記</button></div>`;
                     }
                     
                     popupContent += `</div>`;
                     marker.bindPopup(popupContent);
                 };
 
-                // Add Markers
                 itinerary.forEach(day => {
                     day.tasks.forEach(task => {
                         if (task.lat && task.lng) {
@@ -311,7 +306,6 @@
                     addMarkerToMap(m.lat, m.lng, m.title, m.type, true, m.id);
                 });
 
-                // User Location
                 if (navigator.geolocation) {
                     navigator.geolocation.watchPosition(
                         (position) => {
@@ -320,9 +314,9 @@
                                 if (!userMarkerRef.current) {
                                     const userIcon = L.divIcon({
                                         className: 'user-pin',
-                                        html: "<div style='background-color:#2563EB; width:16px; height:16px; border-radius:50%; border:3px solid white; box-shadow: 0 0 0 4px rgba(37,99,235,0.4);'></div>",
-                                        iconSize: [24, 24],
-                                        iconAnchor: [12, 12]
+                                        html: "<div style='background-color:#3B82F6; width:20px; height:20px; border-radius:50%; border:3px solid white; box-shadow: 0 0 0 6px rgba(59,130,246,0.3);'></div>",
+                                        iconSize: [28, 28],
+                                        iconAnchor: [14, 14]
                                     });
                                     userMarkerRef.current = L.marker([latitude, longitude], {icon: userIcon, zIndexOffset: 1000}).addTo(map);
                                 } else {
@@ -351,55 +345,55 @@
             };
 
             return (
-                <div className="h-full flex flex-col bg-slate-50 relative">
+                <div className="h-full flex flex-col bg-[#FFF7ED] relative">
                     {/* Instructions Overlay */}
-                    <div className="absolute top-4 left-4 right-4 z-[400] bg-white/90 backdrop-blur px-4 py-2 rounded-xl shadow-lg border border-slate-200 flex justify-between items-center">
+                    <div className="absolute top-4 left-4 right-4 z-[400] bg-white/90 backdrop-blur-md px-4 py-3 rounded-2xl shadow-lg border border-orange-100 flex justify-between items-center">
                         <span className="text-xs font-bold text-slate-600">👆 點擊地圖：先偵察</span>
                         <div className="flex gap-2 text-[10px] font-bold text-slate-500">
-                            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-orange-500"></span>食</span>
-                            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-500"></span>玩</span>
-                            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-pink-500"></span>購</span>
+                            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-orange-400"></span>食</span>
+                            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-400"></span>玩</span>
+                            <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-pink-400"></span>購</span>
                         </div>
                     </div>
                     
                     {/* Add Marker Modal (Recon Mode) */}
                     {isAdding && (
                         <div className="absolute inset-0 z-[500] bg-black/20 flex items-center justify-center p-4">
-                            <div className="bg-white p-4 rounded-2xl shadow-2xl w-full max-w-xs animate-bounce-in">
-                                <h3 className="font-bold text-slate-800 mb-1">📍 偵察新地點</h3>
-                                <p className="text-xs text-slate-500 mb-3">座標: {newMarkerPos.lat.toFixed(4)}, {newMarkerPos.lng.toFixed(4)}</p>
+                            <div className="bg-white p-6 rounded-3xl shadow-2xl w-full max-w-xs animate-bounce-in">
+                                <h3 className="font-bold text-slate-800 mb-1 text-lg">📍 偵察新地點</h3>
+                                <p className="text-xs text-slate-400 mb-4">座標: {newMarkerPos.lat.toFixed(4)}, {newMarkerPos.lng.toFixed(4)}</p>
                                 
                                 <a 
                                     href={`https://www.google.com/maps/search/?api=1&query=${newMarkerPos.lat},${newMarkerPos.lng}`}
                                     target="_blank"
-                                    className="block w-full text-center py-2 mb-4 bg-blue-50 text-blue-600 rounded-lg text-sm font-bold border border-blue-100 hover:bg-blue-100"
+                                    className="block w-full text-center py-3 mb-5 bg-blue-50 text-blue-600 rounded-xl text-sm font-bold border border-blue-100 hover:bg-blue-100 transition"
                                 >
-                                    🔍 在 Google Maps 確認此處
+                                    🔍 在 Google Maps 確認
                                 </a>
 
-                                <div className="border-t border-slate-100 pt-3">
-                                    <label className="text-xs font-bold text-slate-400 block mb-1">確認要新增嗎？請輸入名稱：</label>
+                                <div className="border-t border-slate-100 pt-4">
+                                    <label className="text-xs font-bold text-slate-400 block mb-2">確認要新增嗎？請輸入名稱：</label>
                                     <input 
                                         placeholder="例如：好吃的拉麵" 
-                                        className="w-full p-2 mb-3 border rounded-lg text-sm"
+                                        className="w-full p-3 mb-4 border border-slate-200 rounded-xl text-sm bg-slate-50 focus:bg-white focus:ring-2 focus:ring-blue-100 outline-none transition"
                                         value={newMarkerName}
                                         onChange={e => setNewMarkerName(e.target.value)}
                                         autoFocus
                                     />
-                                    <div className="flex gap-2 mb-3">
+                                    <div className="flex gap-2 mb-4">
                                         {['food', 'sightseeing', 'shopping'].map(t => (
                                             <button 
                                                 key={t}
                                                 onClick={() => setNewMarkerType(t)}
-                                                className={`flex-1 py-1 rounded text-xs font-bold capitalize border ${newMarkerType === t ? 'bg-slate-800 text-white border-slate-800' : 'bg-white text-slate-500 border-slate-200'}`}
+                                                className={`flex-1 py-2 rounded-xl text-xs font-bold capitalize border-2 transition ${newMarkerType === t ? 'bg-slate-800 text-white border-slate-800' : 'bg-white text-slate-400 border-slate-100'}`}
                                             >
                                                 {t === 'food' ? '食' : t === 'sightseeing' ? '玩' : '購'}
                                             </button>
                                         ))}
                                     </div>
-                                    <div className="flex gap-2">
-                                        <button onClick={() => setIsAdding(false)} className="flex-1 py-2 bg-slate-100 text-slate-600 rounded-lg text-sm font-bold">取消</button>
-                                        <button onClick={confirmAddMarker} className="flex-1 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold">確認新增</button>
+                                    <div className="flex gap-3">
+                                        <button onClick={() => setIsAdding(false)} className="flex-1 py-3 bg-slate-100 text-slate-500 rounded-xl text-sm font-bold">取消</button>
+                                        <button onClick={confirmAddMarker} className="flex-1 py-3 bg-gradient-to-r from-blue-400 to-blue-600 text-white rounded-xl text-sm font-bold shadow-lg shadow-blue-200">確認新增</button>
                                     </div>
                                 </div>
                             </div>
@@ -474,59 +468,63 @@
             };
 
             return (
-                <div className="h-full overflow-y-auto pb-24 bg-slate-50">
-                    <div className="bg-slate-900 text-white p-6 rounded-b-[2.5rem] shadow-xl relative overflow-hidden">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600 rounded-full blur-[80px] opacity-20 -mr-16 -mt-16"></div>
+                <div className="h-full overflow-y-auto pb-28 bg-[#FFF7ED]">
+                    <div className="bg-gradient-to-br from-indigo-300 to-purple-300 text-white p-8 pb-12 rounded-b-[3rem] shadow-xl relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-[60px] -mr-16 -mt-16"></div>
                         <div className="relative z-10">
                             <div className="flex justify-between items-start">
-                                <div className="inline-block px-3 py-1 bg-blue-900/50 rounded-full text-blue-300 text-xs font-bold mb-4 border border-blue-800">2024.12.09 - 12.15</div>
-                                <button onClick={() => setIsEditingTitle(!isEditingTitle)} className="text-slate-400 hover:text-white"><Icon name="Edit" size={16}/></button>
+                                <div className="inline-block px-4 py-1.5 bg-white/20 backdrop-blur-md rounded-full text-white text-xs font-bold mb-4 border border-white/30 shadow-sm">2024.12.09 - 12.15</div>
+                                <button onClick={() => setIsEditingTitle(!isEditingTitle)} className="text-white/70 hover:text-white bg-white/10 p-2 rounded-full"><Icon name="Edit" size={16}/></button>
                             </div>
                             {isEditingTitle ? (
                                 <div className="flex gap-2">
-                                    <input value={appTitle} onChange={(e) => setAppTitle(e.target.value)} className="text-slate-900 text-sm p-2 rounded flex-1"/>
-                                    <button onClick={saveTitle} className="bg-blue-600 px-3 rounded text-xs font-bold">儲存</button>
+                                    <input value={appTitle} onChange={(e) => setAppTitle(e.target.value)} className="text-slate-800 text-lg p-3 rounded-xl flex-1 shadow-lg outline-none"/>
+                                    <button onClick={saveTitle} className="bg-white text-indigo-600 px-4 rounded-xl text-sm font-bold shadow-lg">儲存</button>
                                 </div>
                             ) : (
-                                <h1 className="text-2xl font-black mb-1 tracking-tight leading-tight">{appTitle}</h1>
+                                <h1 className="text-3xl font-black mb-2 tracking-tight leading-tight drop-shadow-sm">{appTitle}</h1>
                             )}
-                            <p className="text-slate-400 text-xs mt-1">Fukuoka Tactical Field Manual</p>
+                            <p className="text-white/80 text-sm font-medium">Fukuoka Tactical Field Manual</p>
                         </div>
                     </div>
 
-                    <div className="p-5 space-y-4 -mt-6 relative z-20">
-                        <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
-                            <div className="flex justify-between items-start mb-3">
-                                <h3 className="font-bold text-slate-800 flex items-center gap-2"><Icon name="User" size={16} className="text-blue-600"/> 領隊資訊 & API</h3>
-                                <button onClick={() => isEditingLeader ? saveLeader() : setIsEditingLeader(true)} className="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{isEditingLeader ? '儲存' : '編輯'}</button>
+                    <div className="p-5 space-y-5 -mt-10 relative z-20">
+                        <div className="bg-white p-5 rounded-3xl shadow-lg shadow-indigo-100/50 border border-white">
+                            <div className="flex justify-between items-start mb-4">
+                                <h3 className="font-bold text-slate-700 flex items-center gap-2"><Icon name="User" size={18} className="text-indigo-400"/> 領隊資訊 & API</h3>
+                                <button onClick={() => isEditingLeader ? saveLeader() : setIsEditingLeader(true)} className="text-xs font-bold text-indigo-500 bg-indigo-50 px-3 py-1.5 rounded-full hover:bg-indigo-100 transition">{isEditingLeader ? '儲存' : '編輯'}</button>
                             </div>
                             {isEditingLeader ? (
-                                <div className="space-y-2">
-                                    <input placeholder="領隊姓名" value={tempLeader.name} onChange={(e) => setTempLeader({...tempLeader, name: e.target.value})} className="w-full p-2 bg-slate-50 border rounded text-sm"/>
-                                    <input placeholder="手機" value={tempLeader.phone} onChange={(e) => setTempLeader({...tempLeader, phone: e.target.value})} className="w-full p-2 bg-slate-50 border rounded text-sm"/>
-                                    <input placeholder="Line ID" value={tempLeader.line} onChange={(e) => setTempLeader({...tempLeader, line: e.target.value})} className="w-full p-2 bg-slate-50 border rounded text-sm"/>
-                                    <div className="pt-2 border-t border-slate-100 mt-2">
-                                        <label className="text-xs text-slate-400 block mb-1">Google Gemini API Key (選填):</label>
+                                <div className="space-y-3">
+                                    <input placeholder="領隊姓名" value={tempLeader.name} onChange={(e) => setTempLeader({...tempLeader, name: e.target.value})} className="w-full p-3 bg-slate-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-indigo-100"/>
+                                    <input placeholder="手機" value={tempLeader.phone} onChange={(e) => setTempLeader({...tempLeader, phone: e.target.value})} className="w-full p-3 bg-slate-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-indigo-100"/>
+                                    <input placeholder="Line ID" value={tempLeader.line} onChange={(e) => setTempLeader({...tempLeader, line: e.target.value})} className="w-full p-3 bg-slate-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-indigo-100"/>
+                                    <div className="pt-3 border-t border-slate-50 mt-2">
+                                        <label className="text-xs text-slate-400 block mb-2 font-bold">Google Gemini API Key (選填):</label>
                                         <input 
                                             type="password" 
                                             placeholder="貼上 API Key 以啟用 AI 記帳" 
                                             value={tempKey} 
                                             onChange={(e) => setTempKey(e.target.value)}
-                                            className="w-full p-2 bg-slate-50 border rounded text-sm font-mono"
+                                            className="w-full p-3 bg-slate-50 border-none rounded-xl text-sm font-mono focus:ring-2 focus:ring-indigo-100"
                                         />
                                     </div>
                                 </div>
                             ) : (
-                                <div className="flex flex-col gap-3">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 font-bold text-xl">{leaderInfo.name ? leaderInfo.name[0] : <Icon name="User" size={24}/>}</div>
+                                <div className="flex flex-col gap-4">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-100 to-purple-100 flex items-center justify-center text-indigo-400 shadow-sm">
+                                            {leaderInfo.name ? <span className="text-xl font-black">{leaderInfo.name[0]}</span> : <Icon name="User" size={28}/>}
+                                        </div>
                                         <div>
                                             <div className="font-bold text-slate-800 text-lg">{leaderInfo.name || "未設定領隊"}</div>
-                                            <div className="text-xs text-slate-400 flex gap-2"><span>📱 {leaderInfo.phone || "--"}</span><span>ID: {leaderInfo.line || "--"}</span></div>
+                                            <div className="text-sm text-slate-400 flex gap-3 mt-1">
+                                                <span className="flex items-center gap-1"><Icon name="Phone" size={12}/> {leaderInfo.phone || "--"}</span>
+                                            </div>
                                         </div>
                                     </div>
                                     {apiKey && (
-                                        <div className="flex items-center gap-2 bg-green-50 p-2 rounded-lg text-xs text-green-700">
+                                        <div className="flex items-center gap-2 bg-green-50 p-3 rounded-xl text-xs font-bold text-green-600 border border-green-100">
                                             <Icon name="CheckSquare" size={14}/> AI 功能已啟用 (Gemini)
                                         </div>
                                     )}
@@ -535,36 +533,36 @@
                         </div>
 
                         {targetDate && (
-                            <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 relative overflow-hidden">
-                                <div className="absolute right-0 top-0 w-20 h-20 bg-blue-50 rounded-bl-full -mr-4 -mt-4 z-0"></div>
+                            <div className="bg-white p-5 rounded-3xl shadow-lg shadow-blue-100/50 border border-white relative overflow-hidden group hover:shadow-xl transition">
+                                <div className="absolute right-0 top-0 w-24 h-24 bg-blue-50 rounded-bl-[3rem] -mr-6 -mt-6 z-0 group-hover:bg-blue-100 transition"></div>
                                 <div className="relative z-10">
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <div className="p-2 bg-blue-100 text-blue-600 rounded-full"><Icon name="Train" size={18}/></div> 
-                                        <div><div className="text-xs text-slate-400 font-bold uppercase">{flightStatus}</div><div className="font-black text-slate-800">{flightCode}</div></div>
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <div className="p-2.5 bg-blue-100 text-blue-600 rounded-xl shadow-sm"><Icon name="Train" size={20}/></div> 
+                                        <div><div className="text-xs text-slate-400 font-bold uppercase tracking-wider">{flightStatus}</div><div className="font-black text-slate-800 text-lg">{flightCode}</div></div>
                                     </div>
                                     <div className="flex justify-between items-end">
-                                        <div className="text-3xl font-black text-blue-600 font-mono tracking-tighter">{days}<span className="text-sm text-slate-400 font-sans ml-1 mr-2">天</span>{hours}<span className="text-sm text-slate-400 font-sans ml-1">時</span></div>
-                                        <div className="text-xs text-slate-400 font-mono">{targetDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} 起飛</div>
+                                        <div className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-indigo-500 font-mono tracking-tighter">{days}<span className="text-sm text-slate-400 font-sans font-bold ml-1 mr-3">天</span>{hours}<span className="text-sm text-slate-400 font-sans font-bold ml-1">時</span></div>
+                                        <div className="text-xs text-slate-400 font-mono bg-slate-50 px-2 py-1 rounded-lg">{targetDate.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} 起飛</div>
                                     </div>
                                 </div>
                             </div>
                         )}
 
-                        <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex justify-between items-center">
+                        <div className="bg-white p-5 rounded-3xl shadow-lg shadow-orange-100/50 border border-white flex justify-between items-center">
                             <div>
-                                <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-1"><Icon name="Sun" size={16} className="text-orange-500"/> 現地氣候</h3>
-                                {weather ? <div className="text-2xl font-black text-slate-800">{weather.temperature}°C</div> : <button onClick={fetchWeather} className="text-xs bg-slate-100 px-3 py-1.5 rounded-lg text-slate-500 font-bold mt-1">{loadingWeather ? "連線中..." : (weatherError || "點此抓取位置天氣")}</button>}
+                                <h3 className="font-bold text-slate-700 flex items-center gap-2 mb-2"><Icon name="Sun" size={18} className="text-orange-400"/> 現地氣候</h3>
+                                {weather ? <div className="text-3xl font-black text-slate-800">{weather.temperature}°C</div> : <button onClick={fetchWeather} className="text-xs bg-orange-50 text-orange-600 px-4 py-2 rounded-xl font-bold mt-1 hover:bg-orange-100 transition">{loadingWeather ? "連線中..." : (weatherError || "點此抓取位置天氣")}</button>}
                             </div>
-                            {weather && <div className="text-right"><div className="text-xs text-slate-400">風速: {weather.windspeed} km/h</div><button onClick={fetchWeather} className="text-xs text-blue-500 mt-1">重新整理</button></div>}
+                            {weather && <div className="text-right"><div className="text-xs text-slate-400 font-medium mb-1">風速: {weather.windspeed} km/h</div><button onClick={fetchWeather} className="text-xs text-blue-500 font-bold bg-blue-50 px-3 py-1 rounded-lg">重新整理</button></div>}
                         </div>
 
-                        <div className="grid grid-cols-2 gap-3">
-                            <button onClick={() => setActiveTab('itinerary')} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center gap-2">
-                                <div className="w-10 h-10 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center"><Icon name="Calendar" size={20} /></div>
+                        <div className="grid grid-cols-2 gap-4">
+                            <button onClick={() => setActiveTab('itinerary')} className="bg-white p-5 rounded-3xl shadow-lg shadow-indigo-100/50 border border-white flex flex-col items-center gap-3 hover:scale-[1.02] transition active:scale-95">
+                                <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-500 flex items-center justify-center shadow-sm"><Icon name="Calendar" size={24} /></div>
                                 <span className="font-bold text-slate-700 text-sm">行程表</span>
                             </button>
-                            <button onClick={() => setActiveTab('map')} className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center gap-2">
-                                <div className="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center"><Icon name="Map" size={20} /></div>
+                            <button onClick={() => setActiveTab('map')} className="bg-white p-5 rounded-3xl shadow-lg shadow-green-100/50 border border-white flex flex-col items-center gap-3 hover:scale-[1.02] transition active:scale-95">
+                                <div className="w-12 h-12 rounded-2xl bg-green-50 text-green-500 flex items-center justify-center shadow-sm"><Icon name="Map" size={24} /></div>
                                 <span className="font-bold text-slate-700 text-sm">定位地圖</span>
                             </button>
                         </div>
@@ -590,85 +588,85 @@
             ];
 
             const links = [
-                { name: "Google Maps", url: "https://www.google.com/maps", icon: "MapPin", color: "text-red-500" },
-                { name: "Tabelog (美食)", url: "https://tabelog.com/", icon: "Utensils", color: "text-orange-500" },
-                { name: "ロケスマ (找店神)", url: "https://www.locationsmart.org/", icon: "MapPin", color: "text-purple-500" },
-                { name: "Yahoo! 乘換案內", url: "https://transit.yahoo.co.jp/", icon: "Train", color: "text-green-600" }
+                { name: "Google Maps", url: "https://www.google.com/maps", icon: "MapPin", color: "text-red-500", bg: "bg-red-50" },
+                { name: "Tabelog (美食)", url: "https://tabelog.com/", icon: "Utensils", color: "text-orange-500", bg: "bg-orange-50" },
+                { name: "ロケスマ (找店)", url: "https://www.locationsmart.org/", icon: "MapPin", color: "text-purple-500", bg: "bg-purple-50" },
+                { name: "Yahoo! 乘換", url: "https://transit.yahoo.co.jp/", icon: "Train", color: "text-green-600", bg: "bg-green-50" }
             ];
 
             const finalPrice = price ? Math.round(price * (1 - (discount/100)) * (1 - (coupon/100))) : 0;
             const finalTwd = Math.round(finalPrice * rate);
 
             return (
-                <div className="h-full overflow-y-auto p-4 space-y-6 pb-28 bg-slate-50">
+                <div className="h-full overflow-y-auto p-5 space-y-5 pb-32 bg-[#FFF7ED]">
                     <div className="grid grid-cols-2 gap-3">
                         {links.map((link, i) => (
-                            <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="bg-white p-3 rounded-xl shadow-sm border border-slate-200 flex items-center gap-3 hover:bg-slate-50 transition no-underline">
-                                <div className={`p-2 bg-slate-50 rounded-full ${link.color}`}><Icon name={link.icon} size={18}/></div>
+                            <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="bg-white p-4 rounded-2xl shadow-sm border border-white flex items-center gap-3 hover:bg-white/80 transition no-underline">
+                                <div className={`p-2.5 rounded-xl ${link.bg} ${link.color}`}><Icon name={link.icon} size={18}/></div>
                                 <span className="font-bold text-slate-700 text-sm">{link.name}</span>
                             </a>
                         ))}
                     </div>
 
-                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                        <div className="bg-slate-800 text-white p-3 flex justify-between items-center">
+                    <div className="bg-white rounded-3xl shadow-lg shadow-indigo-100/50 border border-white overflow-hidden">
+                        <div className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-4 flex justify-between items-center">
                             <h3 className="font-bold flex items-center gap-2"><Icon name="Car" size={18}/> 運將卡</h3>
-                            <button onClick={() => setIsAddressBig(!isAddressBig)} className="text-xs bg-white/20 px-2 py-1 rounded">{isAddressBig ? "縮小" : "放大"}</button>
+                            <button onClick={() => setIsAddressBig(!isAddressBig)} className="text-xs bg-white/20 px-3 py-1.5 rounded-lg backdrop-blur-sm hover:bg-white/30 transition font-bold">{isAddressBig ? "縮小" : "放大"}</button>
                         </div>
-                        <div className={`p-5 flex flex-col justify-center items-center text-center transition-all ${isAddressBig ? "fixed inset-0 z-50 bg-white justify-center h-screen" : ""}`}>
-                            {isAddressBig && <button onClick={() => setIsAddressBig(false)} className="absolute top-4 right-4 bg-slate-100 p-2 rounded-full"><Icon name="ChevronDown" size={24}/></button>}
-                            <p className="text-slate-500 text-sm mb-2">請載我到這家飯店：</p>
-                            <h2 className={`font-black text-slate-900 leading-tight ${isAddressBig ? "text-4xl" : "text-xl"}`}>LIVEIL HAKATAEKIMAE</h2>
-                            <p className={`mt-4 font-bold text-slate-800 bg-slate-100 p-4 rounded-xl ${isAddressBig ? "text-3xl" : "text-base"}`}>〒812-0011 福岡市博多区<br/>博多駅前4丁目31-11</p>
-                        </div>
-                    </div>
-
-                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
-                        <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-4"><Icon name="Percent" size={18} className="text-pink-500"/> 折扣計算機</h3>
-                        <div className="grid grid-cols-3 gap-2 mb-4">
-                            <div className="col-span-3"><input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder="原價 (JPY)" className="w-full text-xl font-bold p-2 bg-slate-50 rounded-lg border border-slate-200"/></div>
-                            <div><input type="number" value={discount} onChange={e => setDiscount(e.target.value)} className="w-full p-2 bg-slate-50 border rounded-lg text-center" placeholder="免稅%"/></div>
-                            <div><input type="number" value={coupon} onChange={e => setCoupon(e.target.value)} className="w-full p-2 bg-slate-50 border rounded-lg text-center" placeholder="優惠%"/></div>
-                            <div><input type="number" value={rate} step="0.001" onChange={e => setRate(e.target.value)} className="w-full p-2 bg-slate-50 border rounded-lg text-center"/></div>
-                        </div>
-                        <div className="bg-slate-800 text-white p-3 rounded-xl flex justify-between items-center">
-                            <span className="text-xs opacity-70">折後台幣</span><span className="text-2xl font-bold">NT$ {finalTwd.toLocaleString()}</span>
+                        <div className={`p-6 flex flex-col justify-center items-center text-center transition-all duration-300 ${isAddressBig ? "fixed inset-0 z-[999] bg-white justify-center h-screen p-10" : ""}`}>
+                            {isAddressBig && <button onClick={() => setIsAddressBig(false)} className="absolute top-6 right-6 bg-slate-100 p-3 rounded-full shadow-lg"><Icon name="ChevronDown" size={28}/></button>}
+                            <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-3">DESTINATION</p>
+                            <h2 className={`font-black text-slate-800 leading-tight mb-4 ${isAddressBig ? "text-5xl" : "text-2xl"}`}>LIVEIL<br/>HAKATAEKIMAE</h2>
+                            <p className={`font-bold text-slate-600 bg-slate-50 p-5 rounded-2xl w-full ${isAddressBig ? "text-2xl" : "text-sm"}`}>〒812-0011<br/>福岡市博多区<br/>博多駅前4丁目31-11</p>
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
-                        <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-4"><Icon name="DollarSign" size={18} className="text-green-600"/> 簡易匯率換算</h3>
-                        <div className="flex gap-2 items-center">
+                    <div className="bg-white rounded-3xl shadow-lg shadow-pink-100/50 border border-white p-5">
+                        <h3 className="font-bold text-slate-700 flex items-center gap-2 mb-5"><Icon name="Percent" size={18} className="text-pink-500"/> 折扣計算機</h3>
+                        <div className="grid grid-cols-3 gap-3 mb-5">
+                            <div className="col-span-3"><label className="text-[10px] font-bold text-slate-400 mb-1 block ml-1">原價 (JPY)</label><input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder="0" className="w-full text-2xl font-black p-3 bg-slate-50 rounded-xl border-none focus:ring-2 focus:ring-pink-100 outline-none text-slate-800"/></div>
+                            <div><label className="text-[10px] font-bold text-slate-400 mb-1 block ml-1">免稅 %</label><input type="number" value={discount} onChange={e => setDiscount(e.target.value)} className="w-full p-3 bg-slate-50 border-none rounded-xl text-center font-bold text-slate-700"/></div>
+                            <div><label className="text-[10px] font-bold text-slate-400 mb-1 block ml-1">優惠 %</label><input type="number" value={coupon} onChange={e => setCoupon(e.target.value)} className="w-full p-3 bg-slate-50 border-none rounded-xl text-center font-bold text-slate-700"/></div>
+                            <div><label className="text-[10px] font-bold text-slate-400 mb-1 block ml-1">匯率</label><input type="number" value={rate} step="0.001" onChange={e => setRate(e.target.value)} className="w-full p-3 bg-slate-50 border-none rounded-xl text-center font-bold text-slate-700"/></div>
+                        </div>
+                        <div className="bg-slate-800 text-white p-4 rounded-2xl flex justify-between items-center shadow-lg">
+                            <span className="text-xs opacity-60 font-bold">折後台幣約</span><span className="text-3xl font-black">NT$ {finalTwd.toLocaleString()}</span>
+                        </div>
+                    </div>
+
+                    <div className="bg-white rounded-3xl shadow-lg shadow-green-100/50 border border-white p-5">
+                        <h3 className="font-bold text-slate-700 flex items-center gap-2 mb-4"><Icon name="DollarSign" size={18} className="text-green-500"/> 簡易匯率</h3>
+                        <div className="flex gap-3 items-center">
                             <div className="flex-1">
                                 <input 
                                     type="number" 
                                     value={jpy}
                                     onChange={(e) => setJpy(e.target.value)}
                                     placeholder="日幣"
-                                    className="w-full text-lg font-bold p-2 bg-slate-50 rounded-lg border border-slate-200 outline-none"
+                                    className="w-full text-xl font-bold p-3 bg-slate-50 rounded-xl border-none outline-none text-slate-800"
                                 />
                             </div>
                             <Icon name="Refresh" size={20} className="text-slate-300"/>
                             <div className="flex-1">
-                                <div className="w-full text-lg font-bold p-2 text-slate-800 bg-slate-50 rounded-lg border border-transparent">
+                                <div className="w-full text-xl font-bold p-3 text-slate-800 bg-slate-50 rounded-xl border-none">
                                     NT$ {jpy ? Math.round(jpy * rate).toLocaleString() : "0"}
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                        <div className="bg-orange-50 p-3 border-b border-orange-100">
-                            <h3 className="font-bold text-orange-800 flex items-center gap-2"><Icon name="Type" size={18}/> 生存日語</h3>
+                    <div className="bg-white rounded-3xl shadow-lg shadow-orange-100/50 border border-white overflow-hidden">
+                        <div className="bg-orange-50 p-4 border-b border-orange-100">
+                            <h3 className="font-bold text-orange-600 flex items-center gap-2"><Icon name="Type" size={18}/> 生存日語</h3>
                         </div>
-                        <div className="divide-y divide-slate-100">
+                        <div className="divide-y divide-slate-50">
                             {phrases.map((p, i) => (
-                                <div key={i} className="p-3 hover:bg-slate-50 transition">
+                                <div key={i} className="p-4 hover:bg-slate-50 transition">
                                     <div className="flex justify-between items-start mb-1">
-                                        <span className="font-bold text-slate-800">{p.zh}</span>
-                                        <span className="text-xs text-slate-400 font-mono">{p.romaji}</span>
+                                        <span className="font-bold text-slate-700">{p.zh}</span>
+                                        <span className="text-xs text-slate-400 font-mono bg-slate-100 px-2 py-0.5 rounded">{p.romaji}</span>
                                     </div>
-                                    <div className="text-lg text-blue-600 font-bold">{p.jp}</div>
+                                    <div className="text-lg text-blue-500 font-bold tracking-wide">{p.jp}</div>
                                 </div>
                             ))}
                         </div>
@@ -701,6 +699,12 @@
                 if(confirm('確定刪除？')) setExpenses(prev => prev.filter(item => item.id !== id));
             };
 
+            const triggerCamera = () => {
+                if (fileInputRef.current) {
+                    fileInputRef.current.click();
+                }
+            };
+
             const handleImageUpload = async (e) => {
                 const file = e.target.files[0];
                 if (!file) return;
@@ -712,14 +716,12 @@
 
                 setIsScanning(true);
 
-                // Convert to Base64
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onloadend = async () => {
                     const base64Data = reader.result.split(',')[1];
                     
                     try {
-                        // Call Gemini Vision API
                         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
@@ -737,7 +739,6 @@
                         if (data.error) throw new Error(data.error.message);
 
                         const text = data.candidates[0].content.parts[0].text;
-                        // Clean markdown if present
                         const jsonText = text.replace(/```json|```/g, '').trim();
                         const result = JSON.parse(jsonText);
 
@@ -751,7 +752,6 @@
                         alert("掃描失敗，請手動輸入。\n" + error.message);
                     } finally {
                         setIsScanning(false);
-                        // Reset input
                         if (fileInputRef.current) fileInputRef.current.value = '';
                     }
                 };
@@ -760,48 +760,72 @@
             const total = expenses.reduce((sum, ex) => sum + ex.amount, 0);
 
             return (
-                <div className="p-4 space-y-6 bg-slate-50 h-full overflow-y-auto">
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 relative overflow-hidden">
+                <div className="p-5 space-y-5 bg-[#FFF7ED] h-full overflow-y-auto pb-32">
+                    <div className="bg-slate-900 p-6 rounded-3xl shadow-xl shadow-slate-300 relative overflow-hidden text-white">
+                        <div className="absolute right-0 top-0 w-32 h-32 bg-white/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
                         <div className="relative z-10">
-                            <div className="text-slate-500 text-sm mb-1">總支出 (日圓)</div>
-                            <div className="text-4xl font-bold text-slate-800">¥ {total.toLocaleString()}</div>
+                            <div className="text-white/60 text-sm font-bold tracking-widest mb-1 uppercase">Total Expenses</div>
+                            <div className="text-5xl font-black tracking-tighter">¥ {total.toLocaleString()}</div>
                         </div>
                         
-                        <label className="absolute right-4 top-4 p-3 bg-blue-50 rounded-full text-blue-600 cursor-pointer active:scale-95 transition">
+                        <button 
+                            className="absolute right-5 top-5 p-3 bg-white/20 backdrop-blur-md rounded-2xl text-white active:scale-95 transition z-20 hover:bg-white/30"
+                            onClick={triggerCamera}
+                            disabled={isScanning}
+                        >
                              {isScanning ? (
-                                 <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                                 <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                              ) : (
                                  <Icon name="Camera" size={24} />
                              )}
-                             <input 
-                                type="file" 
-                                className="hidden" 
-                                accept="image/*" 
-                                capture="environment"
-                                onChange={handleImageUpload}
-                                disabled={isScanning} 
-                            />
-                        </label>
+                        </button>
+                        <input 
+                            type="file" 
+                            ref={fileInputRef} 
+                            className="hidden" 
+                            accept="image/*" 
+                            capture="environment"
+                            onChange={handleImageUpload}
+                        />
                     </div>
 
-                    <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3">
-                        <div className="grid grid-cols-2 gap-2">
-                            <input placeholder="項目" className="col-span-2 p-2 bg-slate-50 rounded-lg border border-slate-200 text-sm" value={newItem} onChange={e => setNewItem(e.target.value)} />
-                            <input type="number" placeholder="金額" className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-sm" value={newAmount} onChange={e => setNewAmount(e.target.value)} />
-                            <select className="p-2 bg-slate-50 rounded-lg border border-slate-200 text-sm" value={newCat} onChange={e => setNewCat(e.target.value)}>
-                                <option value="food">餐飲</option><option value="transport">交通</option><option value="shopping">購物</option><option value="other">其他</option>
-                            </select>
+                    <div className="bg-white p-5 rounded-3xl shadow-lg shadow-indigo-100/50 border border-white space-y-3">
+                        <div className="flex justify-between items-center mb-1">
+                            <h3 className="font-bold text-slate-700">新增消費</h3>
                         </div>
-                        <button onClick={addExpense} className="w-full bg-slate-800 text-white py-2 rounded-lg font-medium text-sm active:scale-95 transition">紀錄</button>
+                        <div className="space-y-3">
+                            <input placeholder="項目名稱" className="w-full p-3 bg-slate-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-indigo-100 transition" value={newItem} onChange={e => setNewItem(e.target.value)} />
+                            <div className="flex gap-3">
+                                <input type="number" placeholder="金額" className="flex-1 p-3 bg-slate-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-indigo-100 transition" value={newAmount} onChange={e => setNewAmount(e.target.value)} />
+                                <select className="flex-1 p-3 bg-slate-50 border-none rounded-xl text-sm focus:ring-2 focus:ring-indigo-100 transition text-slate-600" value={newCat} onChange={e => setNewCat(e.target.value)}>
+                                    <option value="food">餐飲</option><option value="transport">交通</option><option value="shopping">購物</option><option value="other">其他</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button onClick={addExpense} className="w-full bg-slate-800 text-white py-3 rounded-xl font-bold text-sm active:scale-95 transition shadow-lg shadow-slate-200 mt-2">紀錄一筆</button>
                     </div>
-                    <div className="space-y-2 pb-20">
+                    
+                    <div className="space-y-3">
+                         <h3 className="font-bold text-slate-400 text-xs uppercase tracking-widest ml-2">History</h3>
                         {expenses.slice().reverse().map(ex => (
-                            <div key={ex.id} className="flex justify-between items-center bg-white p-3 rounded-xl border border-slate-100">
-                                <div className="flex items-center gap-3">
-                                    <div className={`p-2 rounded-full ${ex.cat === 'food' ? 'bg-orange-100 text-orange-600' : 'bg-gray-100'}`}><Icon name={ex.cat === 'food' ? 'Utensils' : 'CreditCard'} size={16}/></div>
-                                    <div><div className="text-sm font-medium">{ex.item}</div></div>
+                            <div key={ex.id} className="flex justify-between items-center bg-white p-4 rounded-2xl border border-white shadow-sm hover:shadow-md transition">
+                                <div className="flex items-center gap-4">
+                                    <div className={`p-3 rounded-xl ${
+                                        ex.cat === 'food' ? 'bg-orange-50 text-orange-500' : 
+                                        ex.cat === 'transport' ? 'bg-blue-50 text-blue-500' : 
+                                        ex.cat === 'shopping' ? 'bg-pink-50 text-pink-500' : 'bg-slate-50 text-slate-500'
+                                    }`}>
+                                        <Icon name={ex.cat === 'food' ? 'Utensils' : ex.cat === 'shopping' ? 'ShoppingBag' : ex.cat === 'transport' ? 'Train' : 'CreditCard'} size={20}/>
+                                    </div>
+                                    <div>
+                                        <div className="font-bold text-slate-700">{ex.item}</div>
+                                        <div className="text-xs text-slate-400 capitalize">{ex.cat === 'food' ? '餐飲' : ex.cat === 'transport' ? '交通' : ex.cat === 'shopping' ? '購物' : '其他'}</div>
+                                    </div>
                                 </div>
-                                <div className="flex items-center gap-2"><span className="font-bold">¥{ex.amount}</span><button onClick={() => deleteExpense(ex.id)}><Icon name="Trash2" size={16} className="text-slate-300"/></button></div>
+                                <div className="flex items-center gap-3">
+                                    <span className="font-black text-slate-800">¥{ex.amount.toLocaleString()}</span>
+                                    <button onClick={() => deleteExpense(ex.id)} className="text-slate-300 hover:text-red-400 transition p-2"><Icon name="Trash2" size={18}/></button>
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -823,35 +847,66 @@
             };
 
             return (
-                <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                    <div onClick={() => setIsOpen(!isOpen)} className="p-4 flex items-center justify-between cursor-pointer bg-slate-50 hover:bg-slate-100">
-                        <div className="flex items-center gap-4">
-                            <div className="bg-slate-800 text-white w-10 h-10 rounded-xl flex items-center justify-center font-bold text-lg">{dayData.day}</div>
-                            <div><div className="text-xs text-slate-500 font-medium">{dayData.date}</div><div className="text-slate-800 font-bold">{dayData.theme}</div></div>
+                <div className="bg-white rounded-3xl shadow-lg shadow-indigo-50/50 border border-white overflow-hidden transition-all duration-300 hover:shadow-xl">
+                    <div onClick={() => setIsOpen(!isOpen)} className="p-5 flex items-center justify-between cursor-pointer bg-white hover:bg-slate-50 transition">
+                        <div className="flex items-center gap-5">
+                            <div className="bg-gradient-to-br from-indigo-500 to-purple-600 text-white w-12 h-12 rounded-2xl flex items-center justify-center font-black text-xl shadow-lg shadow-indigo-200">{dayData.day}</div>
+                            <div><div className="text-xs text-slate-400 font-bold uppercase tracking-wider mb-0.5">{dayData.date}</div><div className="text-slate-800 font-black text-lg">{dayData.theme}</div></div>
                         </div>
-                        <Icon name={isOpen ? "ChevronUp" : "ChevronDown"} className="text-slate-400" />
+                        <div className={`transition-transform duration-300 ${isOpen ? 'rotate-180' : ''} text-slate-400`}>
+                            <Icon name="ChevronDown" size={20} />
+                        </div>
                     </div>
                     {isOpen && (
-                        <div className="p-4 space-y-4 border-t border-slate-100">
-                            {dayData.tasks.map((task) => (
-                                <div key={task.id} className="flex gap-3">
-                                    <div className="mt-1 min-w-[40px] h-[40px] rounded-full bg-blue-50 text-blue-500 flex items-center justify-center"><Icon name="MapPin" size={18}/></div>
-                                    <div className="flex-1">
-                                        <div className="flex justify-between">
-                                            <div><span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded mr-2">{task.time}</span><span className="font-bold text-slate-800">{task.title}</span></div>
-                                            <button onClick={() => onDeleteTask(dayData.day, task.id)} className="text-slate-300"><Icon name="Trash2" size={16}/></button>
+                        <div className="p-5 pt-0 space-y-6 border-t border-slate-50 mt-2">
+                            <div className="relative pl-4 pt-4 space-y-6 border-l-2 border-slate-100 ml-2">
+                                {dayData.tasks.map((task) => (
+                                    <div key={task.id} className="relative pl-6">
+                                        <div className={`absolute -left-[29px] top-0 w-3.5 h-3.5 rounded-full border-2 border-white shadow-sm z-10 ${
+                                            task.type === 'food' ? 'bg-orange-400' : 
+                                            task.type === 'shopping' ? 'bg-pink-400' : 
+                                            task.type === 'transport' ? 'bg-green-400' : 'bg-blue-400'
+                                        }`}></div>
+                                        
+                                        <div className="flex flex-col gap-1">
+                                            <div className="flex justify-between items-start">
+                                                <div>
+                                                    <span className="inline-block text-[10px] font-black text-slate-400 bg-slate-100 px-2 py-0.5 rounded mb-1">{task.time}</span>
+                                                    <div className="font-bold text-slate-800 text-base leading-tight">{task.title}</div>
+                                                </div>
+                                                <button onClick={() => onDeleteTask(dayData.day, task.id)} className="text-slate-200 hover:text-red-400 transition"><Icon name="Trash2" size={14}/></button>
+                                            </div>
+                                            
+                                            {task.note && <div className="text-xs text-slate-500 bg-slate-50 p-2 rounded-lg border border-slate-100 mt-1">{task.note}</div>}
+                                            
+                                            {task.map && (
+                                                <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(task.map)} Fukuoka`} target="_blank" className="inline-flex items-center gap-1 text-[10px] font-bold text-blue-500 bg-blue-50 px-2 py-1 rounded-lg self-start mt-1 hover:bg-blue-100 transition">
+                                                    <Icon name="Navigation" size={10} /> 導航
+                                                </a>
+                                            )}
                                         </div>
-                                        <div className="text-sm text-slate-500 mt-1 leading-relaxed">{task.note}</div>
-                                        {task.map && <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(task.map + " Fukuoka")}`} target="_blank" className="text-xs text-blue-500 mt-1 block">導航 ></a>}
+                                    </div>
+                                ))}
+                            </div>
+
+                            {!isAdding ? (
+                                <button onClick={() => setIsAdding(true)} className="w-full py-3 bg-slate-50 text-slate-400 rounded-xl text-sm font-bold hover:bg-slate-100 transition dashed border-2 border-slate-100">+ 新增行程</button>
+                            ) : (
+                                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-3 animate-pulse-once">
+                                    <div className="flex gap-2">
+                                        <input placeholder="時間" className="w-1/3 p-2 text-sm border-none bg-white rounded-lg shadow-sm" value={newTask.time} onChange={e => setNewTask({...newTask, time: e.target.value})}/>
+                                        <select className="w-1/3 p-2 text-sm border-none bg-white rounded-lg shadow-sm text-slate-600" value={newTask.type} onChange={e => setNewTask({...newTask, type: e.target.value})}>
+                                            <option value="sightseeing">景點</option><option value="food">美食</option><option value="shopping">購物</option><option value="transport">交通</option>
+                                        </select>
+                                    </div>
+                                    <input placeholder="行程標題" className="w-full p-2 text-sm border-none bg-white rounded-lg shadow-sm" value={newTask.title} onChange={e => setNewTask({...newTask, title: e.target.value})}/>
+                                    <input placeholder="備註 (選填)" className="w-full p-2 text-sm border-none bg-white rounded-lg shadow-sm" value={newTask.note} onChange={e => setNewTask({...newTask, note: e.target.value})}/>
+                                    <div className="flex gap-2 mt-2">
+                                        <button onClick={() => setIsAdding(false)} className="flex-1 py-2 text-slate-500 text-sm font-bold bg-white rounded-lg">取消</button>
+                                        <button onClick={handleSave} className="flex-1 py-2 text-white text-sm font-bold bg-slate-800 rounded-lg shadow-lg">確認</button>
                                     </div>
                                 </div>
-                            ))}
-                            {!isAdding ? <button onClick={() => setIsAdding(true)} className="w-full py-2 bg-slate-50 text-slate-500 rounded text-sm font-bold">+ 新增</button> : 
-                            <div className="bg-slate-50 p-3 rounded space-y-2">
-                                <input placeholder="時間" className="w-full p-2 text-sm border rounded" value={newTask.time} onChange={e => setNewTask({...newTask, time: e.target.value})}/>
-                                <input placeholder="標題" className="w-full p-2 text-sm border rounded" value={newTask.title} onChange={e => setNewTask({...newTask, title: e.target.value})}/>
-                                <div className="flex gap-2"><button onClick={() => setIsAdding(false)} className="flex-1 bg-white p-2 text-sm border rounded">取消</button><button onClick={handleSave} className="flex-1 bg-blue-600 text-white p-2 text-sm rounded">儲存</button></div>
-                            </div>}
+                            )}
                         </div>
                     )}
                 </div>
@@ -860,16 +915,26 @@
 
         const ChecklistTab = ({ items, toggleItem }) => {
             return (
-                <div className="h-full overflow-y-auto p-4 space-y-4">
-                    <div className="bg-slate-800 text-white p-6 rounded-2xl shadow-md">
-                        <h2 className="text-xl font-bold">出擊清單</h2>
-                        <div className="mt-2 text-2xl font-bold">{items.filter(i => i.done).length} / {items.length}</div>
+                <div className="h-full overflow-y-auto p-5 space-y-5 pb-32 bg-[#FFF7ED]">
+                    <div className="bg-gradient-to-r from-emerald-400 to-teal-500 text-white p-6 rounded-3xl shadow-lg shadow-emerald-200 relative overflow-hidden">
+                         <div className="absolute right-0 bottom-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -mr-10 -mb-10"></div>
+                        <h2 className="text-xl font-black tracking-tight">準備確認清單</h2>
+                        <div className="mt-2 flex items-baseline gap-1">
+                             <span className="text-4xl font-black">{items.filter(i => i.done).length}</span>
+                             <span className="text-white/60 text-sm font-bold">/ {items.length} 完成</span>
+                        </div>
+                        <div className="w-full bg-black/10 h-1.5 rounded-full mt-3 overflow-hidden">
+                             <div className="bg-white h-full rounded-full transition-all duration-500" style={{width: `${(items.filter(i => i.done).length / items.length) * 100}%`}}></div>
+                        </div>
                     </div>
-                    <div className="bg-white rounded-xl border border-slate-200 divide-y divide-slate-100">
+                    
+                    <div className="bg-white rounded-3xl border border-white shadow-lg shadow-stone-100/50 overflow-hidden">
                         {items.map(item => (
-                            <div key={item.id} onClick={() => toggleItem(item.id)} className="p-4 flex items-center gap-3 cursor-pointer">
-                                <div className={`w-6 h-6 rounded border-2 flex items-center justify-center ${item.done ? 'bg-blue-600 border-blue-600' : 'border-slate-300'}`}>{item.done && <Icon name="CheckSquare" size={16} className="text-white"/>}</div>
-                                <span className={item.done ? 'text-slate-400 line-through' : 'text-slate-800'}>{item.text}</span>
+                            <div key={item.id} onClick={() => toggleItem(item.id)} className="p-4 flex items-center gap-4 cursor-pointer hover:bg-stone-50 transition border-b border-stone-50 last:border-none group">
+                                <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all duration-300 ${item.done ? 'bg-emerald-500 border-emerald-500 scale-110' : 'border-stone-200 bg-white group-hover:border-emerald-300'}`}>
+                                    {item.done && <Icon name="Check" size={14} className="text-white"/>}
+                                </div>
+                                <span className={`font-bold transition-all ${item.done ? 'text-stone-300 line-through' : 'text-stone-700'}`}>{item.text}</span>
                             </div>
                         ))}
                     </div>
@@ -898,21 +963,38 @@
             const toggleChecklist = (id) => setChecklist(prev => prev.map(i => i.id === id ? { ...i, done: !i.done } : i));
 
             return (
-                <div className="flex flex-col h-full font-sans text-slate-900">
+                <div className="flex flex-col h-full font-sans text-slate-800 bg-[#FFF7ED]">
                     <div className="flex-1 overflow-hidden relative">
                         {activeTab === 'home' && <HomeTab leaderInfo={leaderInfo} setLeaderInfo={setLeaderInfo} setActiveTab={setActiveTab} apiKey={apiKey} setApiKey={setApiKey} />}
-                        {activeTab === 'itinerary' && <div className="h-full overflow-y-auto p-4 space-y-4 pb-32">{itinerary.map(day => <ItineraryDay key={day.day} dayData={day} onDeleteTask={handleDeleteTask} onAddTask={handleAddTask} />)}</div>}
+                        {activeTab === 'itinerary' && <div className="h-full overflow-y-auto p-5 pb-32 space-y-5">{itinerary.map(day => <ItineraryDay key={day.day} dayData={day} onDeleteTask={handleDeleteTask} onAddTask={handleAddTask} />)}</div>}
                         {activeTab === 'map' && <MapTab itinerary={itinerary} />}
                         {activeTab === 'wallet' && <ExpenseTracker apiKey={apiKey} />}
                         {activeTab === 'tools' && <ToolboxTab />}
                         {activeTab === 'checklist' && <ChecklistTab items={checklist} toggleItem={toggleChecklist} />}
                     </div>
-                    <div className="fixed bottom-6 left-4 right-4 bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl shadow-2xl px-4 py-3 flex justify-between items-center z-50">
-                        <button onClick={() => setActiveTab('home')} className={`flex flex-col items-center gap-1 ${activeTab === 'home' ? 'text-blue-600 scale-110' : 'text-slate-400'}`}><Icon name="Home" size={24}/><span className="text-[10px] font-bold">首頁</span></button>
-                        <button onClick={() => setActiveTab('itinerary')} className={`flex flex-col items-center gap-1 ${activeTab === 'itinerary' ? 'text-blue-600 scale-110' : 'text-slate-400'}`}><Icon name="Calendar" size={24}/><span className="text-[10px] font-bold">行程</span></button>
-                        <button onClick={() => setActiveTab('map')} className={`flex flex-col items-center gap-1 ${activeTab === 'map' ? 'text-blue-600 scale-110' : 'text-slate-400'}`}><Icon name="Map" size={24}/><span className="text-[10px] font-bold">地圖</span></button>
-                        <button onClick={() => setActiveTab('wallet')} className={`flex flex-col items-center gap-1 ${activeTab === 'wallet' ? 'text-blue-600 scale-110' : 'text-slate-400'}`}><Icon name="CreditCard" size={24}/><span className="text-[10px] font-bold">錢包</span></button>
-                        <button onClick={() => setActiveTab('tools')} className={`flex flex-col items-center gap-1 ${activeTab === 'tools' ? 'text-blue-600 scale-110' : 'text-slate-400'}`}><Icon name="Briefcase" size={24}/><span className="text-[10px] font-bold">工具</span></button>
+                    
+                    {/* Floating Navigation Island */}
+                    <div className="fixed bottom-8 left-6 right-6 bg-white/90 backdrop-blur-xl border border-white/50 rounded-[2rem] shadow-2xl shadow-indigo-900/10 px-2 py-2 flex justify-between items-center z-50">
+                        {[
+                            { id: 'home', icon: 'Home', label: '首頁' },
+                            { id: 'itinerary', icon: 'Calendar', label: '行程' },
+                            { id: 'map', icon: 'Map', label: '地圖' },
+                            { id: 'wallet', icon: 'CreditCard', label: '錢包' },
+                            { id: 'tools', icon: 'Briefcase', label: '工具' }
+                        ].map(tab => (
+                            <button 
+                                key={tab.id}
+                                onClick={() => setActiveTab(tab.id)} 
+                                className={`flex flex-col items-center gap-1 p-2 px-3 rounded-[1.5rem] transition-all duration-300 ${
+                                    activeTab === tab.id 
+                                        ? 'bg-slate-800 text-white scale-105 shadow-lg' 
+                                        : 'text-slate-400 hover:text-slate-600 hover:bg-slate-50'
+                                }`}
+                            >
+                                <Icon name={tab.icon} size={20} className={activeTab === tab.id ? "stroke-[2.5px]" : "stroke-[2px]"}/>
+                                {activeTab === tab.id && <span className="text-[10px] font-bold">{tab.label}</span>}
+                            </button>
+                        ))}
                     </div>
                 </div>
             );
