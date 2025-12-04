@@ -104,7 +104,9 @@
         const initialTripData = {
           itinerary: [
             {
-              day: 1, date: "12/09 (週二)", theme: "初抵福地",
+              day: 1,
+              date: "12/09 (週二)",
+              theme: "初抵福地",
               tasks: [
                 { id: 't1-1', time: "11:00-13:30", title: "桃園機場 -> 福岡機場 (IT720)", type: "transport", lat: 33.5859, lng: 130.4507, note: "APP自助報到與託運，避開人潮。" },
                 { id: 't1-2', time: "16:55-18:00", title: "入境審查 & 領行李", type: "transport", note: "關鍵：立即開啟 VJW 截圖，保持隊形。" },
@@ -115,7 +117,9 @@
               ]
             },
             {
-              day: 2, date: "12/10 (週三)", theme: "新舊交融",
+              day: 2,
+              date: "12/10 (週三)",
+              theme: "新舊交融",
               tasks: [
                 { id: 't2-1', time: "08:00-09:30", title: "早餐：Dacomecca", type: "food", map: "Dacomecca", lat: 33.5895, lng: 130.4222, note: "排隊王者，建議年輕成員先去排隊。" },
                 { id: 't2-2', time: "09:30-12:00", title: "櫛田神社 & 川端通商店街", type: "sightseeing", map: "Kushida Shrine", lat: 33.5930, lng: 130.4106, note: "感受博多文化源頭。" },
@@ -128,7 +132,9 @@
               ]
             },
             {
-              day: 3, date: "12/11 (週四)", theme: "太宰府禪意",
+              day: 3,
+              date: "12/11 (週四)",
+              theme: "太宰府禪意",
               tasks: [
                 { id: 't3-1', time: "10:00-11:00", title: "移動：博多 -> 太宰府", type: "transport", map: "Hakata Bus Terminal", note: "博多巴士總站 1F 11號月台搭乘「旅人」號。" },
                 { id: 't3-2', time: "11:00-14:30", title: "太宰府精華遊", type: "sightseeing", map: "Dazaifu Tenmangu", lat: 33.5215, lng: 130.5349, note: "表參道梅枝餅、星巴克、天滿宮飛梅館。" },
@@ -139,7 +145,9 @@
               ]
             },
             {
-              day: 4, date: "12/12 (週五)", theme: "港都懷舊",
+              day: 4,
+              date: "12/12 (週五)",
+              theme: "港都懷舊",
               tasks: [
                 { id: 't4-1', time: "09:00-10:20", title: "移動：博多 -> 門司港", type: "transport", map: "Hakata Station", note: "速度戰術：新幹線至小倉，再轉乘 JR 至門司港。" },
                 { id: 't4-2', time: "10:30-12:30", title: "門司港懷舊區散策", type: "sightseeing", map: "Mojiko Retro", lat: 33.9446, lng: 130.9633, note: "舊三井俱樂部、藍翼門司吊橋。" },
@@ -150,7 +158,9 @@
               ]
             },
             {
-              day: 5, date: "12/13 (週六)", theme: "博多美食精髓",
+              day: 5,
+              date: "12/13 (週六)",
+              theme: "博多美食精髓",
               tasks: [
                 { id: 't5-1', time: "08:30-10:00", title: "早餐：食堂 おわん", type: "food", map: "Shokudo Owan", lat: 33.5925, lng: 130.4135, note: "精緻日式傳統朝食。" },
                 { id: 't5-2', time: "10:00-12:00", title: "天神地下街", type: "shopping", map: "Tenjin Underground Shopping Center", note: "購物與伴手禮採買。" },
@@ -160,7 +170,9 @@
               ]
             },
             {
-              day: 6, date: "12/14 (週日)", theme: "福岡生活光譜",
+              day: 6,
+              date: "12/14 (週日)",
+              theme: "福岡生活光譜",
               tasks: [
                 { id: 't6-1', time: "09:00-10:30", title: "六本松麵包：Amam Dacotan", type: "food", map: "Amam Dacotan", lat: 33.5755, lng: 130.3768, note: "全日本話題度最高。備案：Matsu Pan。" },
                 { id: 't6-2', time: "10:30-13:00", title: "大濠公園 & 美術館", type: "sightseeing", map: "Ohori Park", lat: 33.5865, lng: 130.3763, note: "湖畔享用麵包，欣賞草間彌生南瓜。" },
@@ -171,7 +183,9 @@
               ]
             },
             {
-              day: 7, date: "12/15 (週一)", theme: "完美歸途",
+              day: 7,
+              date: "12/15 (週一)",
+              theme: "完美歸途",
               tasks: [
                 { id: 't7-1', time: "09:00-11:00", title: "退房 & 行李寄放", type: "transport", note: "飯店櫃台寄放行李。" },
                 { id: 't7-2', time: "11:00-13:30", title: "博多站最後衝刺", type: "shopping", map: "Hakata Hankyu", lat: 33.5895, lng: 130.4205, note: "阪急B1/AMU。必買：福砂屋、努努雞。" },
@@ -752,17 +766,22 @@
                             <div className="text-slate-500 text-sm mb-1">總支出 (日圓)</div>
                             <div className="text-4xl font-bold text-slate-800">¥ {total.toLocaleString()}</div>
                         </div>
-                        <div className="absolute right-4 top-4 p-3 bg-blue-50 rounded-full text-blue-600" onClick={() => fileInputRef.current.click()}>
-                             {isScanning ? <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div> : <Icon name="Camera" size={24} />}
-                        </div>
-                        <input 
-                            type="file" 
-                            ref={fileInputRef} 
-                            className="hidden" 
-                            accept="image/*" 
-                            capture="environment"
-                            onChange={handleImageUpload} 
-                        />
+                        
+                        <label className="absolute right-4 top-4 p-3 bg-blue-50 rounded-full text-blue-600 cursor-pointer active:scale-95 transition">
+                             {isScanning ? (
+                                 <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                             ) : (
+                                 <Icon name="Camera" size={24} />
+                             )}
+                             <input 
+                                type="file" 
+                                className="hidden" 
+                                accept="image/*" 
+                                capture="environment"
+                                onChange={handleImageUpload}
+                                disabled={isScanning} 
+                            />
+                        </label>
                     </div>
 
                     <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3">
