@@ -46,6 +46,10 @@
             100% { transform: scale(1); }
         }
         .animate-bounce-in { animation: bounceIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        @keyframes blink { 50% { opacity: 0; } }
+        .typing-dot { animation: blink 1.4s infinite both; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
     </style>
 </head>
 <body class="bg-gray-100 flex justify-center h-[100dvh] overflow-hidden">
@@ -87,7 +91,11 @@
                 Sun: <><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></>,
                 Cloud: <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>,
                 Edit: <><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></>,
-                X: <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>
+                X: <><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>,
+                Camera: <><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></>,
+                Wifi: <path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/>,
+                Check: <polyline points="20 6 9 17 4 12"/>,
+                AlertCircle: <><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></>
             };
             return <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{icons[name] || <circle cx="12" cy="12" r="10"/>}</svg>;
         };
@@ -96,9 +104,7 @@
         const initialTripData = {
           itinerary: [
             {
-              day: 1,
-              date: "12/09 (週二)",
-              theme: "初抵福地",
+              day: 1, date: "12/09 (週二)", theme: "初抵福地",
               tasks: [
                 { id: 't1-1', time: "11:00-13:30", title: "桃園機場 -> 福岡機場 (IT720)", type: "transport", lat: 33.5859, lng: 130.4507, note: "APP自助報到與託運，避開人潮。" },
                 { id: 't1-2', time: "16:55-18:00", title: "入境審查 & 領行李", type: "transport", note: "關鍵：立即開啟 VJW 截圖，保持隊形。" },
@@ -109,9 +115,7 @@
               ]
             },
             {
-              day: 2,
-              date: "12/10 (週三)",
-              theme: "新舊交融",
+              day: 2, date: "12/10 (週三)", theme: "新舊交融",
               tasks: [
                 { id: 't2-1', time: "08:00-09:30", title: "早餐：Dacomecca", type: "food", map: "Dacomecca", lat: 33.5895, lng: 130.4222, note: "排隊王者，建議年輕成員先去排隊。" },
                 { id: 't2-2', time: "09:30-12:00", title: "櫛田神社 & 川端通商店街", type: "sightseeing", map: "Kushida Shrine", lat: 33.5930, lng: 130.4106, note: "感受博多文化源頭。" },
@@ -124,9 +128,7 @@
               ]
             },
             {
-              day: 3,
-              date: "12/11 (週四)",
-              theme: "太宰府禪意",
+              day: 3, date: "12/11 (週四)", theme: "太宰府禪意",
               tasks: [
                 { id: 't3-1', time: "10:00-11:00", title: "移動：博多 -> 太宰府", type: "transport", map: "Hakata Bus Terminal", note: "博多巴士總站 1F 11號月台搭乘「旅人」號。" },
                 { id: 't3-2', time: "11:00-14:30", title: "太宰府精華遊", type: "sightseeing", map: "Dazaifu Tenmangu", lat: 33.5215, lng: 130.5349, note: "表參道梅枝餅、星巴克、天滿宮飛梅館。" },
@@ -137,9 +139,7 @@
               ]
             },
             {
-              day: 4,
-              date: "12/12 (週五)",
-              theme: "港都懷舊",
+              day: 4, date: "12/12 (週五)", theme: "港都懷舊",
               tasks: [
                 { id: 't4-1', time: "09:00-10:20", title: "移動：博多 -> 門司港", type: "transport", map: "Hakata Station", note: "速度戰術：新幹線至小倉，再轉乘 JR 至門司港。" },
                 { id: 't4-2', time: "10:30-12:30", title: "門司港懷舊區散策", type: "sightseeing", map: "Mojiko Retro", lat: 33.9446, lng: 130.9633, note: "舊三井俱樂部、藍翼門司吊橋。" },
@@ -150,9 +150,7 @@
               ]
             },
             {
-              day: 5,
-              date: "12/13 (週六)",
-              theme: "博多美食精髓",
+              day: 5, date: "12/13 (週六)", theme: "博多美食精髓",
               tasks: [
                 { id: 't5-1', time: "08:30-10:00", title: "早餐：食堂 おわん", type: "food", map: "Shokudo Owan", lat: 33.5925, lng: 130.4135, note: "精緻日式傳統朝食。" },
                 { id: 't5-2', time: "10:00-12:00", title: "天神地下街", type: "shopping", map: "Tenjin Underground Shopping Center", note: "購物與伴手禮採買。" },
@@ -162,9 +160,7 @@
               ]
             },
             {
-              day: 6,
-              date: "12/14 (週日)",
-              theme: "福岡生活光譜",
+              day: 6, date: "12/14 (週日)", theme: "福岡生活光譜",
               tasks: [
                 { id: 't6-1', time: "09:00-10:30", title: "六本松麵包：Amam Dacotan", type: "food", map: "Amam Dacotan", lat: 33.5755, lng: 130.3768, note: "全日本話題度最高。備案：Matsu Pan。" },
                 { id: 't6-2', time: "10:30-13:00", title: "大濠公園 & 美術館", type: "sightseeing", map: "Ohori Park", lat: 33.5865, lng: 130.3763, note: "湖畔享用麵包，欣賞草間彌生南瓜。" },
@@ -175,9 +171,7 @@
               ]
             },
             {
-              day: 7,
-              date: "12/15 (週一)",
-              theme: "完美歸途",
+              day: 7, date: "12/15 (週一)", theme: "完美歸途",
               tasks: [
                 { id: 't7-1', time: "09:00-11:00", title: "退房 & 行李寄放", type: "transport", note: "飯店櫃台寄放行李。" },
                 { id: 't7-2', time: "11:00-13:30", title: "博多站最後衝刺", type: "shopping", map: "Hakata Hankyu", lat: 33.5895, lng: 130.4205, note: "阪急B1/AMU。必買：福砂屋、努努雞。" },
@@ -282,6 +276,7 @@
                     `;
 
                     if (isUser) {
+                        // Use the global function we defined
                         popupContent += `<div style="margin-top:12px; border-top:1px solid #eee; padding-top:8px;"><button onclick="window.fukuokaDeleteMarker(${id})" style="color:#ef4444; font-size:12px; border:none; background:none; text-decoration:underline; cursor:pointer; font-weight:bold;">刪除此標記</button></div>`;
                     }
                     
@@ -402,11 +397,12 @@
             );
         };
 
-        const HomeTab = ({ leaderInfo, setLeaderInfo, setActiveTab }) => {
+        const HomeTab = ({ leaderInfo, setLeaderInfo, setActiveTab, apiKey, setApiKey }) => {
             const [isEditingTitle, setIsEditingTitle] = useState(false);
             const [appTitle, setAppTitle] = useState(() => localStorage.getItem('fukuoka_app_title') || "林糖糖的奴隸吃吃喝喝福岡行");
             const [isEditingLeader, setIsEditingLeader] = useState(false);
             const [tempLeader, setTempLeader] = useState(leaderInfo);
+            const [tempKey, setTempKey] = useState(apiKey);
             const [weather, setWeather] = useState(null);
             const [loadingWeather, setLoadingWeather] = useState(false);
             const [weatherError, setWeatherError] = useState(null);
@@ -434,7 +430,11 @@
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
             const saveTitle = () => { localStorage.setItem('fukuoka_app_title', appTitle); setIsEditingTitle(false); };
-            const saveLeader = () => { setLeaderInfo(tempLeader); setIsEditingLeader(false); };
+            const saveLeader = () => {
+                setLeaderInfo(tempLeader);
+                setApiKey(tempKey);
+                setIsEditingLeader(false);
+            };
 
             const fetchWeather = () => {
                 setLoadingWeather(true);
@@ -483,7 +483,7 @@
                     <div className="p-5 space-y-4 -mt-6 relative z-20">
                         <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
                             <div className="flex justify-between items-start mb-3">
-                                <h3 className="font-bold text-slate-800 flex items-center gap-2"><Icon name="User" size={16} className="text-blue-600"/> 領隊資訊</h3>
+                                <h3 className="font-bold text-slate-800 flex items-center gap-2"><Icon name="User" size={16} className="text-blue-600"/> 領隊資訊 & API</h3>
                                 <button onClick={() => isEditingLeader ? saveLeader() : setIsEditingLeader(true)} className="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">{isEditingLeader ? '儲存' : '編輯'}</button>
                             </div>
                             {isEditingLeader ? (
@@ -491,14 +491,31 @@
                                     <input placeholder="領隊姓名" value={tempLeader.name} onChange={(e) => setTempLeader({...tempLeader, name: e.target.value})} className="w-full p-2 bg-slate-50 border rounded text-sm"/>
                                     <input placeholder="手機" value={tempLeader.phone} onChange={(e) => setTempLeader({...tempLeader, phone: e.target.value})} className="w-full p-2 bg-slate-50 border rounded text-sm"/>
                                     <input placeholder="Line ID" value={tempLeader.line} onChange={(e) => setTempLeader({...tempLeader, line: e.target.value})} className="w-full p-2 bg-slate-50 border rounded text-sm"/>
+                                    <div className="pt-2 border-t border-slate-100 mt-2">
+                                        <label className="text-xs text-slate-400 block mb-1">Google Gemini API Key (選填):</label>
+                                        <input 
+                                            type="password" 
+                                            placeholder="貼上 API Key 以啟用 AI 記帳" 
+                                            value={tempKey} 
+                                            onChange={(e) => setTempKey(e.target.value)}
+                                            className="w-full p-2 bg-slate-50 border rounded text-sm font-mono"
+                                        />
+                                    </div>
                                 </div>
                             ) : (
-                                <div className="flex items-center gap-3">
-                                    <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 font-bold text-xl">{leaderInfo.name ? leaderInfo.name[0] : <Icon name="User" size={24}/>}</div>
-                                    <div>
-                                        <div className="font-bold text-slate-800 text-lg">{leaderInfo.name || "未設定領隊"}</div>
-                                        <div className="text-xs text-slate-400 flex gap-2"><span>📱 {leaderInfo.phone || "--"}</span><span>ID: {leaderInfo.line || "--"}</span></div>
+                                <div className="flex flex-col gap-3">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 font-bold text-xl">{leaderInfo.name ? leaderInfo.name[0] : <Icon name="User" size={24}/>}</div>
+                                        <div>
+                                            <div className="font-bold text-slate-800 text-lg">{leaderInfo.name || "未設定領隊"}</div>
+                                            <div className="text-xs text-slate-400 flex gap-2"><span>📱 {leaderInfo.phone || "--"}</span><span>ID: {leaderInfo.line || "--"}</span></div>
+                                        </div>
                                     </div>
+                                    {apiKey && (
+                                        <div className="flex items-center gap-2 bg-green-50 p-2 rounded-lg text-xs text-green-700">
+                                            <Icon name="CheckSquare" size={14}/> AI 功能已啟用 (Gemini)
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </div>
@@ -605,7 +622,6 @@
                         </div>
                     </div>
 
-                    {/* Restored Simple Currency Converter */}
                     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
                         <h3 className="font-bold text-slate-800 flex items-center gap-2 mb-4"><Icon name="DollarSign" size={18} className="text-green-600"/> 簡易匯率換算</h3>
                         <div className="flex gap-2 items-center">
@@ -627,7 +643,6 @@
                         </div>
                     </div>
 
-                    {/* Restored Survival Japanese */}
                     <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                         <div className="bg-orange-50 p-3 border-b border-orange-100">
                             <h3 className="font-bold text-orange-800 flex items-center gap-2"><Icon name="Type" size={18}/> 生存日語</h3>
@@ -648,7 +663,7 @@
             );
         };
 
-        const ExpenseTracker = () => {
+        const ExpenseTracker = ({ apiKey }) => {
             const [expenses, setExpenses] = useState(() => {
                 const saved = localStorage.getItem('fukuoka_expenses');
                 return saved ? JSON.parse(saved) : [{ id: 1, item: '計程車', amount: 2500, cat: 'transport' }];
@@ -656,6 +671,8 @@
             const [newItem, setNewItem] = useState('');
             const [newAmount, setNewAmount] = useState('');
             const [newCat, setNewCat] = useState('food');
+            const [isScanning, setIsScanning] = useState(false);
+            const fileInputRef = useRef(null);
 
             useEffect(() => { localStorage.setItem('fukuoka_expenses', JSON.stringify(expenses)); }, [expenses]);
 
@@ -670,14 +687,84 @@
                 if(confirm('確定刪除？')) setExpenses(prev => prev.filter(item => item.id !== id));
             };
 
+            const handleImageUpload = async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                
+                if (!apiKey) {
+                    alert("請先至首頁(編輯領隊資訊)設定 Gemini API Key 才能使用 AI 掃描功能！");
+                    return;
+                }
+
+                setIsScanning(true);
+
+                // Convert to Base64
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onloadend = async () => {
+                    const base64Data = reader.result.split(',')[1];
+                    
+                    try {
+                        // Call Gemini Vision API
+                        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                contents: [{
+                                    parts: [
+                                        { text: "Analyze this receipt. Return ONLY a JSON object with keys: 'item' (merchant name or main item), 'amount' (total number only, no currency symbol), and 'cat' (one of: 'food', 'shopping', 'transport', 'other'). Do not include markdown formatting." },
+                                        { inline_data: { mime_type: file.type, data: base64Data } }
+                                    ]
+                                }]
+                            })
+                        });
+
+                        const data = await response.json();
+                        if (data.error) throw new Error(data.error.message);
+
+                        const text = data.candidates[0].content.parts[0].text;
+                        // Clean markdown if present
+                        const jsonText = text.replace(/```json|```/g, '').trim();
+                        const result = JSON.parse(jsonText);
+
+                        setNewItem(result.item);
+                        setNewAmount(result.amount);
+                        setNewCat(result.cat);
+                        alert(`掃描成功！\n店家：${result.item}\n金額：${result.amount}`);
+
+                    } catch (error) {
+                        console.error(error);
+                        alert("掃描失敗，請手動輸入。\n" + error.message);
+                    } finally {
+                        setIsScanning(false);
+                        // Reset input
+                        if (fileInputRef.current) fileInputRef.current.value = '';
+                    }
+                };
+            };
+
             const total = expenses.reduce((sum, ex) => sum + ex.amount, 0);
 
             return (
                 <div className="p-4 space-y-6 bg-slate-50 h-full overflow-y-auto">
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                        <div className="text-slate-500 text-sm mb-1">總支出 (日圓)</div>
-                        <div className="text-4xl font-bold text-slate-800">¥ {total.toLocaleString()}</div>
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 relative overflow-hidden">
+                        <div className="relative z-10">
+                            <div className="text-slate-500 text-sm mb-1">總支出 (日圓)</div>
+                            <div className="text-4xl font-bold text-slate-800">¥ {total.toLocaleString()}</div>
+                        </div>
+                        <div className="absolute right-4 top-4 p-3 bg-blue-50 rounded-full text-blue-600" onClick={() => fileInputRef.current.click()}>
+                             {isScanning ? <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div> : <Icon name="Camera" size={24} />}
+                        </div>
+                        <input 
+                            type="file" 
+                            ref={fileInputRef} 
+                            className="hidden" 
+                            accept="image/*" 
+                            capture="environment"
+                            onChange={handleImageUpload} 
+                        />
                     </div>
+
                     <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3">
                         <div className="grid grid-cols-2 gap-2">
                             <input placeholder="項目" className="col-span-2 p-2 bg-slate-50 rounded-lg border border-slate-200 text-sm" value={newItem} onChange={e => setNewItem(e.target.value)} />
@@ -776,10 +863,12 @@
             const [itinerary, setItinerary] = useState(() => JSON.parse(localStorage.getItem('fukuoka_itinerary')) || initialTripData.itinerary);
             const [checklist, setChecklist] = useState(() => JSON.parse(localStorage.getItem('fukuoka_checklist')) || initialChecklist);
             const [leaderInfo, setLeaderInfo] = useState(() => JSON.parse(localStorage.getItem('fukuoka_leader')) || { name: '', phone: '', line: '' });
+            const [apiKey, setApiKey] = useState(() => localStorage.getItem('fukuoka_api_key') || '');
 
             useEffect(() => { localStorage.setItem('fukuoka_itinerary', JSON.stringify(itinerary)); }, [itinerary]);
             useEffect(() => { localStorage.setItem('fukuoka_checklist', JSON.stringify(checklist)); }, [checklist]);
             useEffect(() => { localStorage.setItem('fukuoka_leader', JSON.stringify(leaderInfo)); }, [leaderInfo]);
+            useEffect(() => { localStorage.setItem('fukuoka_api_key', apiKey); }, [apiKey]);
 
             const handleDeleteTask = (dayNum, taskId) => {
                 if (window.confirm("刪除？")) setItinerary(prev => prev.map(d => d.day === dayNum ? { ...d, tasks: d.tasks.filter(t => t.id !== taskId) } : d));
@@ -792,10 +881,10 @@
             return (
                 <div className="flex flex-col h-full font-sans text-slate-900">
                     <div className="flex-1 overflow-hidden relative">
-                        {activeTab === 'home' && <HomeTab leaderInfo={leaderInfo} setLeaderInfo={setLeaderInfo} setActiveTab={setActiveTab} />}
+                        {activeTab === 'home' && <HomeTab leaderInfo={leaderInfo} setLeaderInfo={setLeaderInfo} setActiveTab={setActiveTab} apiKey={apiKey} setApiKey={setApiKey} />}
                         {activeTab === 'itinerary' && <div className="h-full overflow-y-auto p-4 space-y-4 pb-32">{itinerary.map(day => <ItineraryDay key={day.day} dayData={day} onDeleteTask={handleDeleteTask} onAddTask={handleAddTask} />)}</div>}
                         {activeTab === 'map' && <MapTab itinerary={itinerary} />}
-                        {activeTab === 'wallet' && <ExpenseTracker />}
+                        {activeTab === 'wallet' && <ExpenseTracker apiKey={apiKey} />}
                         {activeTab === 'tools' && <ToolboxTab />}
                         {activeTab === 'checklist' && <ChecklistTab items={checklist} toggleItem={toggleChecklist} />}
                     </div>
